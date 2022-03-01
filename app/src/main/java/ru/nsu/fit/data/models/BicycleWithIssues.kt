@@ -1,11 +1,9 @@
 package ru.nsu.fit.data.models
 
 import androidx.room.Embedded
-import androidx.room.Entity
 import androidx.room.Junction
 import androidx.room.Relation
 
-@Entity
 data class BicycleWithIssues(
     @Embedded val bicycle: Bicycle,
     @Relation(

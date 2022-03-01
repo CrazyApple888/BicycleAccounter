@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Sales(
     @PrimaryKey(autoGenerate = true) val bicycleId: Long,
     val saleDate: String,
-    val customer: Long
+    val customer: Long,
+    val finalCost: Long
 )
