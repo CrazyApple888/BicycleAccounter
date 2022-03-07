@@ -13,5 +13,11 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
     </style>
-    
+
+    <style name="Widget.MaterialComponents.CardView.ItemCardView">
+        <item name="cardElevation">3dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
 </resources>
