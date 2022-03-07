@@ -1,7 +1,6 @@
-package ru.nsu.fit.data.models
+package ru.nsu.fit.data.model
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 @Entity(primaryKeys = ["bikeIdRef", "issueIdRef"])
 data class BicycleIssueXref(
