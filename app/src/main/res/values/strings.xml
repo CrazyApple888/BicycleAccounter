@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BicycleAccounter</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="price_template">%f Р</string>
 </resources>
