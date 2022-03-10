@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Sales(
+data class Sale(
     @PrimaryKey(autoGenerate = true) val bicycleId: Long,
     val saleDate: String,
     val customer: Long,

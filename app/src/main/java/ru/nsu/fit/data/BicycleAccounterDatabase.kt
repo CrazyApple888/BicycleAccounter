@@ -13,10 +13,10 @@ import ru.nsu.fit.data.model.Bicycle
         BicycleIssueXref::class,
         BicycleState::class,
         BicycleType::class,
-        Colors::class,
+        Color::class,
         Customer::class,
         Issue::class,
-        Sales::class,
+        Sale::class,
         WheelSize::class],
     version = 1
 )

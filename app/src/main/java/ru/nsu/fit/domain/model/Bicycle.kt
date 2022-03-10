@@ -3,6 +3,7 @@ package ru.nsu.fit.domain.model
 import android.graphics.Bitmap
 
 data class Bicycle(
+    val name: String,
     val purchasePrice: Int,
     val sellingPrice: Int?,
     val description: String?,
