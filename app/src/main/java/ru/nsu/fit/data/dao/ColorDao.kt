@@ -10,7 +10,7 @@ import ru.nsu.fit.data.model.Color
 
 @Dao
 interface ColorDao {
-    @Query("select * from colors")
+    @Query("SELECT * FROM colors")
     fun selectAllAvailableColors(): Flow<List<Color>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

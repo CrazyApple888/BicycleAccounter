@@ -9,24 +9,21 @@ import ru.nsu.fit.data.model.BicycleSimplified
 
 @Dao
 interface BicycleDao {
-    @Query("select * from bicycles")
+    @Query("SELECT * FROM bicycles")
     fun selectAllBicycles(): Flow<List<Bicycle>>
 
-    @Query("select * from bicycles")
+    @Query("SELECT * FROM bicycles")
     fun selectAllSimplifiedBicycles(): Flow<List<BicycleSimplified>>
 
-    @Query("select * from bicycles where bikeId = :id")
+    @Query("SELECT * FROM bicycles WHERE bikeId = :id")
     fun selectBicycleById(id: Int): Flow<Bicycle>
 
-    //TODO("Make it optimized")
-
     @Query(
-        "select * from bicycles " +
-                "inner join colors on bicycles.colorId = colors.colorId " +
-                "inner join wheel_sizes on bicycles.wheelSizeId = wheel_sizes.sizeId " +
-                "inner join bicycle_types on bicycles.typeId = bicycle_types.typeId " +
-                "inner join bicycle_states on  bicycles.stateId = bicycle_states.stateId " +
-                "where bikeId = :id "
+        "SELECT * FROM (SELECT * FROM bicycles WHERE bicycles.bikeId = :id ) AS bicycle " +
+                "INNER JOIN colors ON bicycle.colorId = colors.colorId " +
+                "INNER JOIN wheel_sizes ON bicycle.wheelSizeId = wheel_sizes.sizeId " +
+                "INNER JOIN bicycle_types ON bicycle.typeId = bicycle_types.typeId " +
+                "INNER JOIN bicycle_states ON  bicycle.stateId = bicycle_states.stateId "
     )
     fun selectBicycleWithSpecsById(id: Int): Flow<BicycleAllSpecs>
 }
