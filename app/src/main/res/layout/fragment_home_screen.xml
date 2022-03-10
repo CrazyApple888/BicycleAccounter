@@ -8,6 +8,7 @@
     tools:context=".ui.fragment.HomeScreenFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:padding="5dp"
         android:layout_width="match_parent"

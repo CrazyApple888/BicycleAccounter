@@ -1,20 +1,32 @@
 package ru.nsu.fit.ui.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.nsu.fit.databinding.ItemBicycleBinding
+import ru.nsu.fit.domain.model.Bicycle
 import ru.nsu.fit.ui.viewholder.BicycleViewHolder
 
-class BicycleListAdapter: RecyclerView.Adapter<BicycleViewHolder>() {
+class BicycleListAdapter(
+    private val notReadyForSaleMessage: String,
+    private val onCLickListener: (Long) -> Unit
+) : RecyclerView.Adapter<BicycleViewHolder>() {
+
+    var data = emptyList<Bicycle>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BicycleViewHolder {
-        TODO("Not yet implemented")
+        val itemBinding =
+            ItemBicycleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BicycleViewHolder(itemBinding, notReadyForSaleMessage, onCLickListener)
     }
 
     override fun onBindViewHolder(holder: BicycleViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.onBind(data[position])
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = data.size
 }

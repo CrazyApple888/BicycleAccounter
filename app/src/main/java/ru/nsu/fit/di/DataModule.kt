@@ -24,7 +24,6 @@ class DataModule(
     @Provides
     fun provideDatabase(): BicycleAccounterDatabase = database
 
-
     @Singleton
     @Provides
     fun provideBicycleDao(): BicycleDao = database.bicycleDao()

@@ -7,11 +7,12 @@ import androidx.room.PrimaryKey
 @Entity
 data class Bicycle(
     @PrimaryKey(autoGenerate = true) val bikeId: Long,
+    val name: String,
     val purchasePrice: Int,
     val sellingPrice: Int?,
     val description: String?,
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    val picture: ByteArray,
+    val picture: ByteArray?,
 
     //references
     val type: Long,
