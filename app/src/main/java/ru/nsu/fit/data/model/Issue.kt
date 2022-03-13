@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Issue(
-    @PrimaryKey(autoGenerate = true) val issueId: Long,
+    @PrimaryKey(autoGenerate = true) val issueId: Int,
     val cost: Int,
     val Description: String?
 )

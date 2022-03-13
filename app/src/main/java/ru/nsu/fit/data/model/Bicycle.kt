@@ -16,8 +16,8 @@ data class Bicycle(
     val picture: ByteArray,
 
     //references
-    val typeId: Long,
-    val stateId: Long,
-    val wheelSizeId: Long,
-    val colorId: Long,
+    val typeId: Int,
+    val stateId: Int,
+    val wheelSizeId: Int,
+    val colorId: Int,
 )

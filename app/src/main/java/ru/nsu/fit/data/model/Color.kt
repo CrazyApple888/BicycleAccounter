@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "colors")
 data class Color(
-    @PrimaryKey(autoGenerate = true) val colorId: Long,
+    @PrimaryKey(autoGenerate = true) val colorId: Int,
     val colorName: String
 )

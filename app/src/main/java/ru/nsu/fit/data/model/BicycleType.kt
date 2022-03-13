@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "bicycle_types")
 data class BicycleType(
-    @PrimaryKey(autoGenerate = true) val typeId: Long,
+    @PrimaryKey(autoGenerate = true) val typeId: Int,
     val typeName: String = "No type"
 )
