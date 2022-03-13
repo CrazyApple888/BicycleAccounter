@@ -3,10 +3,10 @@ package ru.nsu.fit.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "sales")
 data class Sale(
-    @PrimaryKey(autoGenerate = true) val bicycleId: Int,
+    @PrimaryKey val bicycleId: Int,
     val saleDate: String,
-    val customer: Long,
+    val customerId: Int,
     val finalCost: Long
 )
