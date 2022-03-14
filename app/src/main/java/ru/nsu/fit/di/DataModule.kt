@@ -5,7 +5,8 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import ru.nsu.fit.data.BicycleAccounterDatabase
-import ru.nsu.fit.data.dao.BicycleDao
+import ru.nsu.fit.data.dao.*
+import ru.nsu.fit.data.model.Issue
 import javax.inject.Singleton
 
 @Module
@@ -24,16 +25,39 @@ class DataModule(
     @Provides
     fun provideDatabase(): BicycleAccounterDatabase = database
 
-
     @Singleton
     @Provides
     fun provideBicycleDao(): BicycleDao = database.bicycleDao()
 
     @Singleton
     @Provides
-    fun provideSalesDao() = database.salesDao()
+    fun provideBicycleIssueXrefDao(): BicycleIssueXrefDao = database.bicycleIssueXrefDao()
 
     @Singleton
     @Provides
-    fun provideCustomerDao() = database.customerDao()
+    fun provideBicycleStateDao(): BicycleStateDao = database.bicycleStateDao()
+
+    @Singleton
+    @Provides
+    fun provideBicycleTypeDao(): BicycleTypeDao = database.bicycleTypeDao()
+
+    @Singleton
+    @Provides
+    fun provideColorDao(): ColorDao = database.colorDao()
+
+    @Singleton
+    @Provides
+    fun provideCustomerDao(): CustomerDao = database.customerDao()
+
+    @Singleton
+    @Provides
+    fun provideIssuesDao(): IssuesDao = database.issuesDao()
+
+    @Singleton
+    @Provides
+    fun provideSalesDao(): SalesDao = database.salesDao()
+
+    @Singleton
+    @Provides
+    fun provideWheelSizeDao(): WheelSizeDao = database.wheelSizeDao()
 }

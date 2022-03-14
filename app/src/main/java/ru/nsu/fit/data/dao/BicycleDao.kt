@@ -9,13 +9,20 @@ import ru.nsu.fit.data.model.BicycleSimplified
 @Dao
 interface BicycleDao {
     @Query("SELECT * FROM bicycles")
-    fun selectAllBicycles(): Flow<List<Bicycle>>
+    fun selectBicycleAll(): Flow<List<Bicycle>>
 
     @Query(
         "SELECT name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
                 "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeId"
     )
-    fun selectAllSimplifiedBicycles(): Flow<List<BicycleSimplified>>
+    fun selectSimplifiedBicycleAll(): Flow<List<BicycleSimplified>>
+
+    @Query(
+        "SELECT name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
+                "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeId " +
+                "WHERE bicycles.stateId = :stateId"
+    )
+    fun selectSimplifiedBicycleByState(stateId: Int): Flow<List<BicycleSimplified>>
 
     @Query("SELECT DISTINCT * FROM bicycles WHERE bikeId = :id")
     fun selectBicycleById(id: Int): Flow<Bicycle>

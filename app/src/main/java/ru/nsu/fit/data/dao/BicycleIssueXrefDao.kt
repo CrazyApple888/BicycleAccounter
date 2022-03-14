@@ -1,12 +1,10 @@
 package ru.nsu.fit.data.dao
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import ru.nsu.fit.data.model.BicycleIssueXref
 
+@Dao
 interface BicycleIssueXrefDao {
     @Query("SELECT * FROM bicycle_issue_xref")
     fun selectBicycleIssueXrefAll(): Flow<List<BicycleIssueXref>>

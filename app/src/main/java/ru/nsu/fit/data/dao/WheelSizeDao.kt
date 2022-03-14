@@ -17,7 +17,6 @@ interface WheelSizeDao {
         insertWheelSizeItem(WheelSize(sizeId = 0, sizeInches = size))
     }
 
-
     @Query("SELECT * FROM wheel_sizes")
     fun selectWheelSizeAll(): Flow<List<WheelSize>>
 
