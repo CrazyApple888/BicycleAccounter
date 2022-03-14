@@ -23,14 +23,7 @@ class HomeScreenFragment : Fragment() {
     private val binding: FragmentHomeScreenBinding get() = checkNotNull(_binding) { "Binding is not initialized" }
     private val viewModel: HomeScreenViewModel by lazy { ViewModelProvider(this)[HomeScreenViewModel::class.java] }
     private val adapter: BicycleListAdapter by lazy {
-        BicycleListAdapter(getString(R.string.not_ready_for_sale)) {
-            val args = Bundle()
-            args.putLong("bikeId", it)
-            findNavController().navigate(
-                R.id.action_homeScreenFragment_to_detailedBicycleFragment,
-                args
-            )
-        }
+        BicycleListAdapter(getString(R.string.not_ready_for_sale), ::bicycleOnClickListener)
     }
 
     override fun onCreateView(
@@ -58,6 +51,15 @@ class HomeScreenFragment : Fragment() {
                 27.5,
                 Color("Черный")
             )
+        )
+    }
+
+    private fun bicycleOnClickListener(id: Long) {
+        val args = Bundle()
+        args.putLong("bikeId", id)
+        findNavController().navigate(
+            R.id.action_homeScreenFragment_to_detailedBicycleFragment,
+            args
         )
     }
 
