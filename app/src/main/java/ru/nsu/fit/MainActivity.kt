@@ -19,9 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
         setUpNavigation()
-//        supportFragmentManager.beginTransaction()
-//            .replace(binding.fragmentContainer.id, HomeScreenFragment::class.java, null)
-//            .commit()
     }
 
     private fun setUpNavigation() {

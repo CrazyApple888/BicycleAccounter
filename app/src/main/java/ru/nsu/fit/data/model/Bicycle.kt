@@ -1,5 +1,6 @@
 package ru.nsu.fit.data.model
 
+import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,7 +14,7 @@ data class Bicycle(
     val description: String?,
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    val picture: ByteArray?,
+    val picture: Bitmap?,
 
     //references
     val typeId: Int,
