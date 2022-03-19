@@ -3,15 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.HomeScreenFragment">
+    tools:context=".ui.fragment.CustomerListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:padding="5dp"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_bicycle"/>
+        android:text="customers" />
 
 </FrameLayout>

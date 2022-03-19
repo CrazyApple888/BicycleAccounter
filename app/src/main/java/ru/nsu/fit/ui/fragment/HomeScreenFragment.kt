@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentHomeScreenBinding
-import ru.nsu.fit.domain.model.Bicycle
-import ru.nsu.fit.domain.model.Color
-import ru.nsu.fit.domain.model.State
-import ru.nsu.fit.domain.model.Type
+import ru.nsu.fit.domain.model.*
 import ru.nsu.fit.presentation.HomeScreenViewModel
 import ru.nsu.fit.ui.adapter.BicycleListAdapter
 
@@ -21,7 +18,8 @@ class HomeScreenFragment : Fragment() {
 
     private var _binding: FragmentHomeScreenBinding? = null
     private val binding: FragmentHomeScreenBinding get() = checkNotNull(_binding) { "Binding is not initialized" }
-    private val viewModel: HomeScreenViewModel by lazy { ViewModelProvider(this)[HomeScreenViewModel::class.java] }
+    //todo create viewmodel factory
+    //private val viewModel: HomeScreenViewModel by viewModels()//lazy { ViewModelProvider(this)[HomeScreenViewModel::class.java] }
     private val adapter: BicycleListAdapter by lazy {
         BicycleListAdapter(getString(R.string.not_ready_for_sale), ::bicycleOnClickListener)
     }
@@ -38,29 +36,26 @@ class HomeScreenFragment : Fragment() {
 
     private fun initViews() {
         binding.recycler.adapter = adapter
-        adapter.data = listOf(
-            Bicycle(
-                1,
-                "Очень очень очень длинное название",
-                12345,
-                null,
-                null,
-                null,
-                Type(),
-                State(),
-                27.5,
-                Color("Черный")
-            )
+        val data = SimpleBicycle(
+            1,
+            "Очень очень очень длинное название",
+            12345,
+            null,
+            27.5
         )
+        adapter.data = listOf(
+            data
+        )
+//        viewModel.bicycles.observe(viewLifecycleOwner) { adapter.data = it }
     }
 
-    private fun bicycleOnClickListener(id: Long) {
-        val args = Bundle()
-        args.putLong("bikeId", id)
-        findNavController().navigate(
-            R.id.action_homeScreenFragment_to_detailedBicycleFragment,
-            args
-        )
+    private fun bicycleOnClickListener(id: Int) {
+//        val args = Bundle()
+//        args.putInt("bikeId", id)
+//        findNavController().navigate(
+//            R.id.action_homeScreenFragment_to_detailedBicycleFragment,
+//            args
+//        )
     }
 
     override fun onDestroyView() {

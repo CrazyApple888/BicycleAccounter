@@ -5,14 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.nsu.fit.databinding.ItemBicycleBinding
 import ru.nsu.fit.domain.model.Bicycle
+import ru.nsu.fit.domain.model.SimpleBicycle
 import ru.nsu.fit.ui.viewholder.BicycleViewHolder
 
 class BicycleListAdapter(
     private val notReadyForSaleMessage: String,
-    private val onCLickListener: (Long) -> Unit
+    private val onCLickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<BicycleViewHolder>() {
 
-    var data = emptyList<Bicycle>()
+    var data = emptyList<SimpleBicycle>()
         set(value) {
             field = value
             notifyDataSetChanged()

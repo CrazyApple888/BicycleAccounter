@@ -3,14 +3,15 @@ package ru.nsu.fit.ui.viewholder
 import androidx.recyclerview.widget.RecyclerView
 import ru.nsu.fit.databinding.ItemBicycleBinding
 import ru.nsu.fit.domain.model.Bicycle
+import ru.nsu.fit.domain.model.SimpleBicycle
 
 class BicycleViewHolder(
     private val binding: ItemBicycleBinding,
     private val notReadyForSaleMessage: String,
-    private val onClickListener: (Long) -> Unit
+    private val onClickListener: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(bike: Bicycle) {
+    fun onBind(bike: SimpleBicycle) {
         with(binding) {
             bikeNameText.text = bike.name
             priceText.text = if (bike.sellingPrice != null) String.format(

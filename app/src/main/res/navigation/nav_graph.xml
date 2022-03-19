@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreenFragment">
+
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="ru.nsu.fit.ui.fragment.HomeScreenFragment"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" />
+    <fragment
+        android:id="@+id/customerListFragment"
+        android:name="ru.nsu.fit.ui.fragment.CustomerListFragment"
+        android:label="fragment_customer_list"
+        tools:layout="@layout/fragment_customer_list" />
+    <fragment
+        android:id="@+id/addBicycleFragment"
+        android:name="ru.nsu.fit.ui.fragment.AddBicycleFragment"
+        android:label="fragment_add_bicycle"
+        tools:layout="@layout/fragment_add_bicycle" />
+    <fragment
+        android:id="@+id/salesListFragment"
+        android:name="ru.nsu.fit.ui.fragment.SalesListFragment"
+        android:label="fragment_sales_list"
+        tools:layout="@layout/fragment_sales_list" />
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="ru.nsu.fit.ui.fragment.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" />
+</navigation>
