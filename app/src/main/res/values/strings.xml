@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">BicycleAccounter</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="price_template">%f Р</string>
+    <string name="price_template">%d Р</string>
+    <string name="not_ready_for_sale">Товар не готов к продаже</string>
+    <string name="bicycles_title">Bicycles</string>
+    <string name="customers_title">Customers</string>
+    <string name="add_title">Add</string>
+    <string name="statistics_title">Statistics</string>
+    <string name="sales_title">Sales</string>
 </resources>

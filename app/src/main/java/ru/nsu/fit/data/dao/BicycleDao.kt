@@ -12,13 +12,13 @@ interface BicycleDao {
     fun selectBicycleAll(): Flow<List<Bicycle>>
 
     @Query(
-        "SELECT name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
+        "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
                 "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeId"
     )
     fun selectSimplifiedBicycleAll(): Flow<List<BicycleSimplified>>
 
     @Query(
-        "SELECT name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
+        "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
                 "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeId " +
                 "WHERE bicycles.stateId = :stateId"
     )
@@ -27,6 +27,7 @@ interface BicycleDao {
     @Query("SELECT DISTINCT * FROM bicycles WHERE bikeId = :id")
     fun selectBicycleById(id: Int): Flow<Bicycle>
 
+    @Transaction
     @RewriteQueriesToDropUnusedColumns
     @Query(
         "SELECT * FROM (SELECT * FROM bicycles WHERE bicycles.bikeId = :id ) AS bicycle " +

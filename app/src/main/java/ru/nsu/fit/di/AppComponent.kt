@@ -7,7 +7,7 @@ import ru.nsu.fit.ui.fragment.HomeScreenFragment
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [DataModule::class])
+@Component(modules = [DataModule::class, RepositoryModule::class, MapperModule::class, ViewModelModule::class])
 interface AppComponent {
 
     fun inject(fragment: HomeScreenFragment)

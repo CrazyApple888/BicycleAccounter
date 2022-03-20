@@ -1,4 +1,5 @@
 package ru.nsu.fit.domain.model
 
-class Color {
-}
+data class Color(
+    val colorName: String
+)

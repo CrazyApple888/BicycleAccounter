@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeScreenFragment"
+        android:title="@string/bicycles_title"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"/>
+
+    <item
+        android:id="@+id/customerListFragment"
+        android:title="@string/customers_title"
+        android:enabled="true"
+        android:icon="@drawable/ic_customers"
+        />
+    <item
+        android:id="@+id/addBicycleFragment"
+        android:title="@string/add_title"
+        android:enabled="true"
+        android:icon="@drawable/ic_add"
+        />
+    <item
+        android:id="@+id/salesListFragment"
+        android:title="@string/sales_title"
+        android:enabled="true"
+        android:icon="@drawable/ic_sales_list"
+        />
+    <item
+        android:id="@+id/statisticsFragment"
+        android:title="@string/statistics_title"
+        android:enabled="true"
+        android:icon="@drawable/ic_statistics"
+        />
+</menu>
