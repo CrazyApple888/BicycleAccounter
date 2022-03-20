@@ -2,7 +2,6 @@ package ru.nsu.fit.domain.model
 
 import android.graphics.Bitmap
 
-//todo add fields
 data class Bicycle(
     val id: Int,
     val name: String,
