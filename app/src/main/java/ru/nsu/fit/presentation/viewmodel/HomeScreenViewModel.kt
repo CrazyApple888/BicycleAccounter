@@ -1,4 +1,4 @@
-package ru.nsu.fit.presentation
+package ru.nsu.fit.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
