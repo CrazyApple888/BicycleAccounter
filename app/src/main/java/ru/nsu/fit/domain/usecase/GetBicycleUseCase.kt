@@ -9,5 +9,5 @@ import javax.inject.Inject
 class GetBicycleUseCase @Inject constructor(
     private val repository: BicycleRepository
 ) {
-    suspend operator fun invoke(id: Int): Flow<Bicycle> = TODO()
+    suspend operator fun invoke(id: Int): Flow<Bicycle> = repository.getBicycleById(id)
 }
