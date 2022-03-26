@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "wheel_sizes")
 data class WheelSize(
-    @PrimaryKey(autoGenerate = true) val sizeId: Int,
+    @PrimaryKey(autoGenerate = true) val sizeId: Int = 0,
     val sizeInches: Double
 )

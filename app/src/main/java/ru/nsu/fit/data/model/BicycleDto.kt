@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "bicycles")
 data class BicycleDto(
-    @PrimaryKey(autoGenerate = true) val bikeId: Int,
+    @PrimaryKey(autoGenerate = true) val bikeId: Int = 0,
     val name: String,
     val purchasePrice: Int,
     val sellingPrice: Int?,
@@ -17,8 +17,8 @@ data class BicycleDto(
     val picture: Bitmap?,
 
     //references
-    val typeId: Int,
-    val stateId: Int,
-    val wheelSizeId: Int,
-    val colorId: Int,
+    val typeIdRef: Int,
+    val stateIdRef: Int,
+    val wheelSizeIdRef: Int,
+    val colorIdRef: Int,
 )
