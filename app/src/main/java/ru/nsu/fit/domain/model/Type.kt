@@ -1,4 +1,5 @@
 package ru.nsu.fit.domain.model
 
-class Type {
-}
+data class Type(
+    val typeName: String
+)

@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import ru.nsu.fit.data.BicycleAccounterDatabase
 import ru.nsu.fit.data.dao.*
-import ru.nsu.fit.data.model.Issue
 import javax.inject.Singleton
 
 @Module

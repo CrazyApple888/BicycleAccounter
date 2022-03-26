@@ -6,4 +6,6 @@ import ru.nsu.fit.domain.model.SimpleBicycle
 
 interface BicycleRepository {
     suspend fun getAllBicycles(): Flow<List<SimpleBicycle>>
+
+    suspend fun getBicycleById(id: Int): Flow<Bicycle>
 }

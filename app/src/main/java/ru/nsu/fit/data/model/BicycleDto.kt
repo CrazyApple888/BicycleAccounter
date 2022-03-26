@@ -6,8 +6,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "bicycles")
-data class Bicycle(
-    @PrimaryKey(autoGenerate = true) val bikeId: Long,
+data class BicycleDto(
+    @PrimaryKey(autoGenerate = true) val bikeId: Int,
     val name: String,
     val purchasePrice: Int,
     val sellingPrice: Int?,

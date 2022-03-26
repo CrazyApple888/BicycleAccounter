@@ -5,18 +5,18 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ru.nsu.fit.data.dao.*
 import ru.nsu.fit.data.model.*
-import ru.nsu.fit.data.model.Bicycle
+import ru.nsu.fit.data.model.BicycleDto
 import ru.nsu.fit.data.typeconverter.ImageTypeConverter
 
 @Database(
-    entities = [Bicycle::class,
+    entities = [BicycleDto::class,
         BicycleIssueXref::class,
         BicycleState::class,
         BicycleType::class,
-        Color::class,
+        ColorDto::class,
         Customer::class,
-        Issue::class,
-        Sale::class,
+        IssueDto::class,
+        SaleDto::class,
         WheelSize::class],
     version = 2
 )

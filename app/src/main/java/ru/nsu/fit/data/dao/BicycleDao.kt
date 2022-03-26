@@ -2,14 +2,14 @@ package ru.nsu.fit.data.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import ru.nsu.fit.data.model.Bicycle
+import ru.nsu.fit.data.model.BicycleDto
 import ru.nsu.fit.data.model.BicycleAllSpecs
 import ru.nsu.fit.data.model.BicycleSimplified
 
 @Dao
 interface BicycleDao {
     @Query("SELECT * FROM bicycles")
-    fun selectBicycleAll(): Flow<List<Bicycle>>
+    fun selectBicycleAll(): Flow<List<BicycleDto>>
 
     @Query(
         "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
@@ -25,7 +25,7 @@ interface BicycleDao {
     fun selectSimplifiedBicycleByState(stateId: Int): Flow<List<BicycleSimplified>>
 
     @Query("SELECT DISTINCT * FROM bicycles WHERE bikeId = :id")
-    fun selectBicycleById(id: Int): Flow<Bicycle>
+    fun selectBicycleById(id: Int): Flow<BicycleDto>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
@@ -39,7 +39,7 @@ interface BicycleDao {
     fun selectBicycleWithSpecsById(id: Int): Flow<BicycleAllSpecs>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertBicycleItem(bicycle: Bicycle)
+    suspend fun insertBicycleItem(bicycleDto: BicycleDto)
 
 
     @Query("UPDATE bicycles SET stateId = :stateId WHERE bikeId = :bikeId")

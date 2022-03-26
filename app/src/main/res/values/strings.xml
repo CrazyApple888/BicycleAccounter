@@ -8,6 +8,12 @@
     <string name="add_title">Add</string>
     <string name="statistics_title">Statistics</string>
     <string name="sales_title">Sales</string>
+    <string name="state_header">Состояние</string>
+    <string name="wheel_size_header">Размер колес</string>
+    <string name="color_header">Цвет</string>
+    <string name="price_min_header">Минимальная цена</string>
+    <string name="description_header">Описание</string>
+    <string name="sell_bike_button">Продать</string>
     <string name="bicycle_name_hint">Название велосипеда</string>
     <string name="bicycle_type_hint">Тип велосипеда</string>
     <string name="bicycle_state_hint">Состояние велосипеда</string>

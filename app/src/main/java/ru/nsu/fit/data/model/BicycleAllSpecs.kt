@@ -7,7 +7,7 @@ import androidx.room.Relation
 
 data class BicycleAllSpecs(
     @Embedded
-    val bicycle: Bicycle,
+    val bicycleDto: BicycleDto,
 
     val typeName: String,
     val colorName: String,
@@ -17,7 +17,7 @@ data class BicycleAllSpecs(
 
     @Relation(
         parentColumn = "bikeId",
-        entity = Issue::class,
+        entity = IssueDto::class,
         entityColumn = "issueId",
         associateBy = Junction(
             value = BicycleIssueXref::class,
@@ -25,5 +25,5 @@ data class BicycleAllSpecs(
             entityColumn = "issueIdRef"
         )
     )
-    val issues: List<Issue>
+    val issueDtos: List<IssueDto>
 )
