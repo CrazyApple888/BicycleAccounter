@@ -5,7 +5,7 @@ import ru.nsu.fit.domain.model.SimpleBicycle
 import javax.inject.Inject
 
 class SimpleBicycleMapper @Inject constructor() : Mapper<SimpleBicycle, BicycleSimplified> {
-    override fun toDomain(item: BicycleSimplified): SimpleBicycle =
+    override fun toDomain(item: BicycleSimplified, options: Map<String, Int>): SimpleBicycle =
         SimpleBicycle(
             item.bikeId,
             item.name,
@@ -14,7 +14,7 @@ class SimpleBicycleMapper @Inject constructor() : Mapper<SimpleBicycle, BicycleS
             item.wheelSize
         )
 
-    override fun toData(item: SimpleBicycle): BicycleSimplified =
+    override fun toData(item: SimpleBicycle, options: Map<String, Int>): BicycleSimplified =
         BicycleSimplified(
             item.id,
             item.name,

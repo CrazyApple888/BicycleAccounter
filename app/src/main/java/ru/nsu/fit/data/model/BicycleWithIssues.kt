@@ -5,10 +5,10 @@ import androidx.room.Junction
 import androidx.room.Relation
 
 data class BicycleWithIssues(
-    @Embedded val bicycle: Bicycle,
+    @Embedded val bicycleDto: BicycleDto,
     @Relation(
         parentColumn = "bikeId",
-        entity = Issue::class,
+        entity = IssueDto::class,
         entityColumn = "issueId",
         associateBy = Junction(
             value = BicycleIssueXref::class,
@@ -16,5 +16,5 @@ data class BicycleWithIssues(
             entityColumn = "issueIdRef"
         )
     )
-    val issues: List<Issue>
+    val issueDtos: List<IssueDto>
 )

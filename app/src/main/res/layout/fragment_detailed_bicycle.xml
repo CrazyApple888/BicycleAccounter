@@ -1,14 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context=".ui.fragment.DetailedBicycleFragment">
 
-    <TextView
-        android:id="@+id/text"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
-</FrameLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bike_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.ItemBigText.PageHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Очень длинное название велосипеда" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_pedal_bike_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bike_name_text"
+            tools:src="@drawable/goslya" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/state_header"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/state_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/state_text"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/state_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/state_header"
+            app:layout_constraintTop_toTopOf="@id/state_header"
+            tools:text="Готово к продаже" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/wheel_size_header"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wheel_size_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/state_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/wheel_size_text"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/wheel_size_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/wheel_size_header"
+            app:layout_constraintTop_toTopOf="@id/wheel_size_header"
+            tools:text="26" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/color_header"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wheel_size_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/color_text"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/color_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/color_header"
+            app:layout_constraintTop_toTopOf="@id/color_header"
+            tools:text="Голубой" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price_min_header"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_min_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/color_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price_min_text"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/price_min_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/price_min_header"
+            app:layout_constraintTop_toTopOf="@id/price_min_header"
+            tools:text="10000 Р" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/description_header"
+            style="@style/TextAppearance.AppCompat.BikeParamText.HeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description_header"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_min_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/description_text"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description_header"
+            tools:text="@tools:sample/lorem/random" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.ItemBigText"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description_text"
+            tools:text="15000 P" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sell_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_bike_button"
+            app:layout_constraintWidth="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/price_text"
+            app:layout_constraintStart_toStartOf="@id/price_text"
+            app:layout_constraintTop_toBottomOf="@id/price_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

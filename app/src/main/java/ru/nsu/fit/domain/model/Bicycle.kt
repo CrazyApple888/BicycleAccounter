@@ -13,4 +13,5 @@ data class Bicycle(
     val state: State,
     val wheelSize: Double,
     val color: Color,
+    val issues: List<Issue> = emptyList()
 )

@@ -57,5 +57,9 @@
         <argument
             android:name="bikeId"
             app:argType="integer" />
+        <argument
+            android:name="isSold"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

@@ -5,16 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.nsu.fit.data.model.Sale
+import ru.nsu.fit.data.model.SaleDto
 
 @Dao
 interface SalesDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertSaleItem(sale: Sale)
+    suspend fun insertSaleItem(saleDto: SaleDto)
 
     suspend fun insertSaleItem(bicycleId: Int, saleDate: String, customerId: Int, finalCost: Long) {
         insertSaleItem(
-            Sale(
+            SaleDto(
                 bicycleId = bicycleId,
                 saleDate = saleDate,
                 customerId = customerId,
@@ -24,8 +24,8 @@ interface SalesDao {
     }
 
     @Query("SELECT * FROM sales")
-    fun selectSaleAll(): Flow<List<Sale>>
+    fun selectSaleAll(): Flow<List<SaleDto>>
 
     @Query("SELECT DISTINCT * FROM sales WHERE sales.bicycleId = :bikeId")
-    fun selectSaleByBikeId(bikeId: Int): Flow<Sale>
+    fun selectSaleByBikeId(bikeId: Int): Flow<SaleDto>
 }
