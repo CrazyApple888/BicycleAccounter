@@ -12,10 +12,6 @@ interface WheelSizeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWheelSizeItem(wheelSize: WheelSize)
 
-    suspend fun insertWheelSize(size: Double) {
-        insertWheelSizeItem(WheelSize(sizeId = 0, sizeInches = size))
-    }
-
     @Query("SELECT * FROM wheel_sizes")
     fun selectWheelSizeAll(): Flow<List<WheelSize>>
 

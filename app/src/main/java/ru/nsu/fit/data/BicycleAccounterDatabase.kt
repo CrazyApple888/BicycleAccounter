@@ -31,6 +31,4 @@ abstract class BicycleAccounterDatabase : RoomDatabase() {
     abstract fun issuesDao(): IssuesDao
     abstract fun salesDao(): SalesDao
     abstract fun wheelSizeDao(): WheelSizeDao
-
-
 }

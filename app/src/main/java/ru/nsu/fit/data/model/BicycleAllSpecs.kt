@@ -9,11 +9,14 @@ data class BicycleAllSpecs(
     @Embedded
     val bicycleDto: BicycleDto,
 
-    val typeName: String,
-    val colorName: String,
-    val stateName: String,
+    @Embedded()
+    val type: BicycleType,
+    @Embedded()
+    val color: ColorDto,
+    @Embedded()
+    val state: BicycleState,
     @ColumnInfo(name = "sizeInches")
-    val wheelSizeInches: Double,
+    val wheelSize: Double,
 
     @Relation(
         parentColumn = "bikeId",

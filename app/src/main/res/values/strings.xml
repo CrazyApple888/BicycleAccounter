@@ -14,4 +14,12 @@
     <string name="price_min_header">Минимальная цена</string>
     <string name="description_header">Описание</string>
     <string name="sell_bike_button">Продать</string>
+    <string name="bicycle_name_hint">Название велосипеда</string>
+    <string name="bicycle_type_hint">Тип велосипеда</string>
+    <string name="bicycle_state_hint">Состояние велосипеда</string>
+    <string name="wheel_diameter_hint">Диаметр колес</string>
+    <string name="color_hint">Цвет</string>
+    <string name="additional_info_hint">Дополнительная информация</string>
+    <string name="new_bicycle_label">Новый велосипед</string>
+    <string name="add_bicycle_button_label">Добавить велосипед</string>
 </resources>

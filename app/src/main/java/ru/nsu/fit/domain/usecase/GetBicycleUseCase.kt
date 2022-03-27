@@ -5,7 +5,6 @@ import ru.nsu.fit.domain.model.Bicycle
 import ru.nsu.fit.domain.repository.BicycleRepository
 import javax.inject.Inject
 
-
 class GetBicycleUseCase @Inject constructor(
     private val repository: BicycleRepository
 ) {

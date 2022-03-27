@@ -52,7 +52,7 @@ class DetailedBicycleFragment : Fragment() {
         viewModel.bicycle.observe(viewLifecycleOwner) { bike ->
             with(bike) {
                 binding.bikeNameText.text = name
-                binding.stateText.text = state.description
+                binding.stateText.text = state.state
                 binding.wheelSizeText.text = wheelSize.toString()
                 binding.colorText.text = color.colorName
                 binding.priceMinText.text = purchasePrice.toString()
