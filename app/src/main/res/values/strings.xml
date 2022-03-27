@@ -21,4 +21,5 @@
     <string name="color_hint">Цвет</string>
     <string name="additional_info_hint">Дополнительная информация</string>
     <string name="new_bicycle_label">Новый велосипед</string>
+    <string name="add_bicycle_button_label">Добавить велосипед</string>
 </resources>
