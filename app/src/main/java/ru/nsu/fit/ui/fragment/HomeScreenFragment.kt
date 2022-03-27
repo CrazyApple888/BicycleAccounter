@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentHomeScreenBinding
-import ru.nsu.fit.domain.model.*
+import ru.nsu.fit.domain.model.SimpleBicycle
 import ru.nsu.fit.presentation.viewmodel.HomeScreenViewModel
 import ru.nsu.fit.ui.adapter.BicycleListAdapter
 import javax.inject.Inject
@@ -26,6 +26,7 @@ class HomeScreenFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: HomeScreenViewModel
+
     private val adapter: BicycleListAdapter by lazy {
         BicycleListAdapter(getString(R.string.not_ready_for_sale), ::bicycleOnClickListener)
     }

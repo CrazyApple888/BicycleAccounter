@@ -18,8 +18,4 @@ interface ColorDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertColorItem(newColorDto: ColorDto)
-
-    suspend fun insertColorItem(colorName: String) {
-        insertColorItem(ColorDto(colorId = 0, colorName = colorName))
-    }
 }

@@ -1,27 +1,28 @@
 package ru.nsu.fit.data.mapper
 
-import ru.nsu.fit.data.model.BicycleAllSpecs
-import ru.nsu.fit.data.model.BicycleDto
-import ru.nsu.fit.data.model.IssueDto
+import ru.nsu.fit.data.model.*
 import ru.nsu.fit.domain.model.*
 import javax.inject.Inject
 
 class BicycleMapper @Inject constructor(
-    private val issueMapper: Mapper<Issue, IssueDto>
+    private val issueMapper: Mapper<Issue, IssueDto>,
+    private val colorMapper: Mapper<Color, ColorDto>,
+    private val stateMapper: Mapper<State, BicycleState>,
+    private val typeMapper: Mapper<Type, BicycleType>
 ) : Mapper<Bicycle, BicycleAllSpecs> {
     override fun toDomain(item: BicycleAllSpecs, options: Map<String, Int>): Bicycle {
         return Bicycle(
-            item.bicycleDto.bikeId,
-            item.bicycleDto.name,
-            item.bicycleDto.purchasePrice,
-            item.bicycleDto.sellingPrice,
-            item.bicycleDto.description,
-            item.bicycleDto.picture,
-            Type(item.typeName),
-            State(item.stateName),
-            item.wheelSizeInches,
-            Color(item.colorName),
-            if (item.issueDtos.isEmpty()) emptyList() else item.issueDtos.map(issueMapper::toDomain)
+            id = item.bicycleDto.bikeId,
+            name = item.bicycleDto.name,
+            purchasePrice = item.bicycleDto.purchasePrice,
+            sellingPrice = item.bicycleDto.sellingPrice,
+            description = item.bicycleDto.description,
+            picture = item.bicycleDto.picture,
+            type = typeMapper.toDomain(item.type),
+            state = stateMapper.toDomain(item.state),
+            wheelSize = item.wheelSize,
+            color = colorMapper.toDomain(item.color),
+            issues = item.issueDtos.map(issueMapper::toDomain)
         )
     }
 
@@ -30,6 +31,7 @@ class BicycleMapper @Inject constructor(
         val stateId by options
         val wheelSizeId by options
         val colorId by options
+
         val bicycle = BicycleDto(
             item.id,
             item.name,
@@ -43,9 +45,9 @@ class BicycleMapper @Inject constructor(
         )
         return BicycleAllSpecs(
             bicycle,
-            item.type.typeName,
-            item.color.colorName,
-            item.state.description,
+            typeMapper.toData(item.type, mapOf("typeId" to typeId)),
+            colorMapper.toData(item.color, mapOf("colorId" to colorId)),
+            stateMapper.toData(item.state, mapOf("stateId" to stateId)),
             item.wheelSize,
             item.issues.map(issueMapper::toData)
         )
