@@ -20,5 +20,5 @@ interface BicycleStateDao {
     fun selectBicycleStatesAll(): Flow<List<BicycleState>>
 
     @Query("SELECT * FROM bicycle_states WHERE bicycle_states.stateId = :id")
-    fun selectBicycleStateById(id: Int): Flow<BicycleState>
+    fun selectBicycleStateById(id: Int): Flow<BicycleState?>
 }

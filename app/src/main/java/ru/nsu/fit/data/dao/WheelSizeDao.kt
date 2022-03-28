@@ -16,5 +16,5 @@ interface WheelSizeDao {
     fun selectWheelSizeAll(): Flow<List<WheelSize>>
 
     @Query("SELECT DISTINCT * FROM wheel_sizes WHERE wheel_sizes.sizeId = :id")
-    fun selectWheelSizeById(id: Int): Flow<WheelSize>
+    fun selectWheelSizeById(id: Int): Flow<WheelSize?>
 }
