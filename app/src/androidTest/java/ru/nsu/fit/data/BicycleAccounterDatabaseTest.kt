@@ -54,7 +54,7 @@ class BicycleAccounterDatabaseTest {
         assertEquals("bebra", bicycle.name)
         assertEquals(2000, bicycle.purchasePrice)
         assertEquals(5000, bicycle.sellingPrice)
-        assertEquals("hui", bicycle.description)
+        assertEquals("description", bicycle.description)
         assertEquals(20, bicycle.typeIdRef)
         assertEquals(20, bicycle.stateIdRef)
         assertEquals(20, bicycle.wheelSizeIdRef)
@@ -99,7 +99,7 @@ class BicycleAccounterDatabaseTest {
                 name = "bebra",
                 purchasePrice = 2000,
                 sellingPrice = 5000,
-                description = "hui",
+                description = "description",
                 picture = null,
                 typeIdRef = 20,
                 stateIdRef = 20,

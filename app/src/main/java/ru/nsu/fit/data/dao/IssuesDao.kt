@@ -20,5 +20,5 @@ interface IssuesDao {
     fun selectIssueAll(): Flow<List<IssueDto>>
 
     @Query("SELECT DISTINCT * FROM issues WHERE issues.issueId = :id")
-    fun selectIssueById(id: Int): Flow<IssueDto>
+    fun selectIssueById(id: Int): Flow<IssueDto?>
 }

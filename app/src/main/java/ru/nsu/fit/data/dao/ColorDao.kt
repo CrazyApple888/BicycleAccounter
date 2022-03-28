@@ -14,7 +14,7 @@ interface ColorDao {
     fun selectColorAll(): Flow<List<ColorDto>>
 
     @Query("SELECT DISTINCT * FROM colors WHERE colors.colorId = :id")
-    fun selectColorById(id: Int): Flow<ColorDto>
+    fun selectColorById(id: Int): Flow<ColorDto?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertColorItem(newColorDto: ColorDto)

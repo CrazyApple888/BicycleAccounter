@@ -25,7 +25,7 @@ interface BicycleDao {
     fun selectSimplifiedBicycleByState(stateId: Int): Flow<List<BicycleSimplified>>
 
     @Query("SELECT DISTINCT * FROM bicycles WHERE bikeId = :id")
-    fun selectBicycleById(id: Int): Flow<BicycleDto>
+    fun selectBicycleById(id: Int): Flow<BicycleDto?>
 
     @Transaction
     @RewriteQueriesToDropUnusedColumns
@@ -36,7 +36,7 @@ interface BicycleDao {
                 "INNER JOIN bicycle_types ON bicycle.typeIdRef = bicycle_types.typeId " +
                 "INNER JOIN bicycle_states ON  bicycle.stateIdRef = bicycle_states.stateId "
     )
-    fun selectBicycleWithSpecsById(id: Int): Flow<BicycleAllSpecs>
+    fun selectBicycleWithSpecsById(id: Int): Flow<BicycleAllSpecs?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertBicycleItem(bicycleDto: BicycleDto)

@@ -21,5 +21,5 @@ interface BicycleTypeDao {
     fun selectBicycleTypeAll(): Flow<List<BicycleType>>
 
     @Query("SELECT DISTINCT * FROM bicycle_types WHERE bicycle_types.typeId = :id")
-    fun selectBicycleTypeById(id: Int): Flow<BicycleType>
+    fun selectBicycleTypeById(id: Int): Flow<BicycleType?>
 }

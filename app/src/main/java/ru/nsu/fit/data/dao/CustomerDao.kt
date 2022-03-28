@@ -20,5 +20,5 @@ interface CustomerDao {
     fun selectCustomerAll(): Flow<List<Customer>>
 
     @Query("SELECT DISTINCT * FROM customers WHERE customers.id = :id")
-    fun selectCustomerById(id: Int): Flow<Customer>
+    fun selectCustomerById(id: Int): Flow<Customer?>
 }

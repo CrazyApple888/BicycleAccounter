@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.model.SimpleBicycle
 import ru.nsu.fit.domain.usecase.GetAllBicyclesUseCase
 import javax.inject.Inject
@@ -18,8 +19,12 @@ class HomeScreenViewModel @Inject constructor(
 
     fun loadBicycles() {
         viewModelScope.launch {
-            getAllBicyclesUseCase().collect { list ->
-                _bicycles.value = list
+            getAllBicyclesUseCase().collect { result ->
+                _bicycles.value = when (result) {
+                    is Result.Success -> result.result
+                    //todo сделать вывод сообщений об ошибках
+                    is Result.Failure -> emptyList()
+                }
             }
         }
     }
