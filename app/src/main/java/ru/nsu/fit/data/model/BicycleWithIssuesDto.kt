@@ -1,23 +1,11 @@
 package ru.nsu.fit.data.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 
-data class BicycleAllSpecs(
-    @Embedded
-    val bicycleDto: BicycleDto,
-
-    @Embedded()
-    val type: BicycleType,
-    @Embedded()
-    val color: ColorDto,
-    @Embedded()
-    val state: BicycleState,
-    @ColumnInfo(name = "sizeInches")
-    val wheelSize: Double,
-
+data class BicycleWithIssuesDto(
+    @Embedded val bicycleDto: BicycleDto,
     @Relation(
         parentColumn = "bikeId",
         entity = IssueDto::class,
@@ -29,4 +17,4 @@ data class BicycleAllSpecs(
         )
     )
     val issueDtos: List<IssueDto>
-)
+) : BaseDto()

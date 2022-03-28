@@ -71,27 +71,27 @@ class BicycleAccounterDatabaseTest {
         )
 
         val types = listOf(
-            BicycleType(typeId = 20, typeName = "mountain"),
-            BicycleType(typeName = "hybrid"),
-            BicycleType(typeName = "road"),
-            BicycleType(typeName = "folding"),
-            BicycleType(typeName = "adventure")
+            BicycleTypeDto(typeId = 20, typeName = "mountain"),
+            BicycleTypeDto(typeName = "hybrid"),
+            BicycleTypeDto(typeName = "road"),
+            BicycleTypeDto(typeName = "folding"),
+            BicycleTypeDto(typeName = "adventure")
         )
 
         val sizes = listOf(
-            WheelSize(sizeInches = 20.0),
-            WheelSize(sizeInches = 24.0),
-            WheelSize(sizeInches = 26.0),
-            WheelSize(sizeId = 20, sizeInches = 27.5),
-            WheelSize(sizeInches = 29.0)
+            WheelSizeDto(sizeInches = 20.0),
+            WheelSizeDto(sizeInches = 24.0),
+            WheelSizeDto(sizeInches = 26.0),
+            WheelSizeDto(sizeId = 20, sizeInches = 27.5),
+            WheelSizeDto(sizeInches = 29.0)
         )
 
         val states = listOf(
-            BicycleState(stateId = 20, stateName = "sold"),
-            BicycleState(stateName = "selling"),
-            BicycleState(stateName = "in service"),
-            BicycleState(stateName = "returned"),
-            BicycleState(stateName = "bebra")
+            BicycleStateDto(stateId = 20, stateName = "sold"),
+            BicycleStateDto(stateName = "selling"),
+            BicycleStateDto(stateName = "in service"),
+            BicycleStateDto(stateName = "returned"),
+            BicycleStateDto(stateName = "bebra")
         )
 
         val bicycles = listOf(

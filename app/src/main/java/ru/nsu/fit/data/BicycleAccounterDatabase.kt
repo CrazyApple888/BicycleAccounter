@@ -11,13 +11,13 @@ import ru.nsu.fit.data.typeconverter.ImageTypeConverter
 @Database(
     entities = [BicycleDto::class,
         BicycleIssueXref::class,
-        BicycleState::class,
-        BicycleType::class,
+        BicycleStateDto::class,
+        BicycleTypeDto::class,
         ColorDto::class,
-        Customer::class,
+        CustomerDto::class,
         IssueDto::class,
         SaleDto::class,
-        WheelSize::class],
+        WheelSizeDto::class],
     version = 2
 )
 @TypeConverters(ImageTypeConverter::class)

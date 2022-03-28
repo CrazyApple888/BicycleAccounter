@@ -21,4 +21,4 @@ data class BicycleDto(
     val stateIdRef: Int,
     val wheelSizeIdRef: Int,
     val colorIdRef: Int,
-)
+) : BaseDto()

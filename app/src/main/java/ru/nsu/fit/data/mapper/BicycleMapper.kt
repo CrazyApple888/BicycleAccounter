@@ -7,10 +7,10 @@ import javax.inject.Inject
 class BicycleMapper @Inject constructor(
     private val issueMapper: Mapper<Issue, IssueDto>,
     private val colorMapper: Mapper<Color, ColorDto>,
-    private val stateMapper: Mapper<State, BicycleState>,
-    private val typeMapper: Mapper<Type, BicycleType>
-) : Mapper<Bicycle, BicycleAllSpecs> {
-    override fun toDomain(item: BicycleAllSpecs, options: Map<String, Int>): Bicycle {
+    private val stateDtoMapper: Mapper<State, BicycleStateDto>,
+    private val typeDtoMapper: Mapper<Type, BicycleTypeDto>
+) : Mapper<Bicycle, BicycleAllSpecsDto> {
+    override fun toDomain(item: BicycleAllSpecsDto, options: Map<String, Int>): Bicycle {
         return Bicycle(
             id = item.bicycleDto.bikeId,
             name = item.bicycleDto.name,
@@ -18,15 +18,15 @@ class BicycleMapper @Inject constructor(
             sellingPrice = item.bicycleDto.sellingPrice,
             description = item.bicycleDto.description,
             picture = item.bicycleDto.picture,
-            type = typeMapper.toDomain(item.type),
-            state = stateMapper.toDomain(item.state),
+            type = typeDtoMapper.toDomain(item.typeDto),
+            state = stateDtoMapper.toDomain(item.stateDto),
             wheelSize = item.wheelSize,
             color = colorMapper.toDomain(item.color),
             issues = item.issueDtos.map(issueMapper::toDomain)
         )
     }
 
-    override fun toData(item: Bicycle, options: Map<String, Int>): BicycleAllSpecs {
+    override fun toData(item: Bicycle, options: Map<String, Int>): BicycleAllSpecsDto {
         val typeId by options
         val stateId by options
         val wheelSizeId by options
@@ -43,11 +43,11 @@ class BicycleMapper @Inject constructor(
             stateId,
             wheelSizeId, colorId
         )
-        return BicycleAllSpecs(
+        return BicycleAllSpecsDto(
             bicycle,
-            typeMapper.toData(item.type, mapOf("typeId" to typeId)),
+            typeDtoMapper.toData(item.type, mapOf("typeId" to typeId)),
             colorMapper.toData(item.color, mapOf("colorId" to colorId)),
-            stateMapper.toData(item.state, mapOf("stateId" to stateId)),
+            stateDtoMapper.toData(item.state, mapOf("stateId" to stateId)),
             item.wheelSize,
             item.issues.map(issueMapper::toData)
         )

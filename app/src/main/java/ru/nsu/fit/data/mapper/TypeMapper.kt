@@ -1,17 +1,17 @@
 package ru.nsu.fit.data.mapper
 
-import ru.nsu.fit.data.model.BicycleType
+import ru.nsu.fit.data.model.BicycleTypeDto
 import ru.nsu.fit.domain.model.Type
 import javax.inject.Inject
 
-class TypeMapper @Inject constructor() : Mapper<Type, BicycleType> {
-    override fun toDomain(item: BicycleType, options: Map<String, Int>): Type {
+class TypeMapper @Inject constructor() : Mapper<Type, BicycleTypeDto> {
+    override fun toDomain(item: BicycleTypeDto, options: Map<String, Int>): Type {
         return Type(typeName = item.typeName)
     }
 
-    override fun toData(item: Type, options: Map<String, Int>): BicycleType {
+    override fun toData(item: Type, options: Map<String, Int>): BicycleTypeDto {
         val typeId by options
-        return BicycleType(
+        return BicycleTypeDto(
             typeId = typeId,
             typeName = item.typeName
         )

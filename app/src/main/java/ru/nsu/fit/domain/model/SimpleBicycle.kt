@@ -8,4 +8,4 @@ data class SimpleBicycle(
     val sellingPrice: Int?,
     val picture: Bitmap?,
     val wheelSize: Double
-)
+) : BaseModel()
