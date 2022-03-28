@@ -9,14 +9,10 @@ import ru.nsu.fit.data.model.BicycleTypeDto
 
 @Dao
 interface BicycleTypeDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBicycleTypeItem(bicycleTypeDto: BicycleTypeDto)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertBicycleTypeItem(bicycleTypeDto: BicycleTypeDto): Long
 
-    suspend fun insertBicycleTypeItem(typeName: String) {
-        insertBicycleTypeItem(BicycleTypeDto(typeId = 0, typeName = typeName))
-    }
-
-    @Query("SELECT * FROM bicycle_types")
+    @Query("SELECT * FROM bicycle_types ORDER BY typeName")
     fun selectBicycleTypeAll(): Flow<List<BicycleTypeDto>>
 
     @Query("SELECT DISTINCT * FROM bicycle_types WHERE bicycle_types.typeId = :id")

@@ -3,8 +3,7 @@ package ru.nsu.fit.data
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
+import junit.framework.Assert.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -22,7 +21,6 @@ class BicycleAccounterDatabaseTest {
     private lateinit var wheelSizeDao: WheelSizeDao
     private lateinit var typeDao: BicycleTypeDao
     private lateinit var stateDao: BicycleStateDao
-
 
     @Before
     fun setUp() {
@@ -46,6 +44,13 @@ class BicycleAccounterDatabaseTest {
     }
 
     @Test
+    fun colorDao() = runBlocking {
+        val id1 = colorDao.insertColorItem(ColorDto(colorName = "yellow"))
+        val id2 = colorDao.insertColorItem(ColorDto(colorName = "yellow"))
+        assertEquals(id1, id2)
+    }
+
+    @Test
     fun bicycleDao() = runBlocking(Dispatchers.Main) {
         val list = bicycleDao.selectBicycleAll().take(1).toList().first()
         assertTrue(list.isNotEmpty())
@@ -59,6 +64,17 @@ class BicycleAccounterDatabaseTest {
         assertEquals(20, bicycle.stateIdRef)
         assertEquals(20, bicycle.wheelSizeIdRef)
         assertEquals(20, bicycle.colorIdRef)
+    }
+
+    //todo придумать нормальное название
+    @Test
+    fun stubTest() = runBlocking(Dispatchers.Main) {
+        val id = colorDao.insertColorItem(ColorDto(colorName = "teal")).toInt()
+        val colorItem = colorDao.selectColorById(id).take(1).toList().first()
+        assertNotNull(colorItem)
+
+        assertEquals(id, colorItem?.colorId)
+        assertEquals("teal", colorItem?.colorName)
     }
 
     private fun populate() {

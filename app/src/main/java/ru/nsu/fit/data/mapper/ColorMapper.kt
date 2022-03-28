@@ -10,9 +10,9 @@ class ColorMapper @Inject constructor() : Mapper<Color, ColorDto> {
     }
 
     override fun toData(item: Color, options: Map<String, Int>): ColorDto {
-        val colorId by options
+        val colorId: Int? by options
         return ColorDto(
-            colorId = colorId,
+            colorId = colorId ?: 0,
             colorName = item.colorName
         )
     }

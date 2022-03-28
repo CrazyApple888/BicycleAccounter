@@ -15,8 +15,8 @@ data class BicycleAllSpecsDto(
     val color: ColorDto,
     @Embedded
     val stateDto: BicycleStateDto,
-    @ColumnInfo(name = "sizeInches")
-    val wheelSize: Double,
+    @Embedded
+    val wheelSizeDto: WheelSizeDto,
 
     @Relation(
         parentColumn = "bikeId",

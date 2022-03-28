@@ -17,7 +17,7 @@ import javax.inject.Inject
 class BicycleRepositoryImpl @Inject constructor(
     private val bicycleDao: BicycleDao,
     private val simpleBicycleMapperDto: Mapper<SimpleBicycle, BicycleSimplifiedDto>,
-    private val bicycleAllSpecsDtoMapper: Mapper<Bicycle, BicycleAllSpecsDto>
+    private val bicycleAllSpecsMapperDto: Mapper<Bicycle, BicycleAllSpecsDto>,
 ) : BicycleRepository {
     override suspend fun getAllBicycles(): Flow<Result<List<SimpleBicycle>>> =
         withContext(Dispatchers.IO) {
@@ -37,8 +37,21 @@ class BicycleRepositoryImpl @Inject constructor(
                 if (null == it) {
                     Result.Failure(message = "", result = null)
                 } else {
-                    Result.Success(result = bicycleAllSpecsDtoMapper.toDomain(it))
+                    Result.Success(result = bicycleAllSpecsMapperDto.toDomain(it))
                 }
+            }
+        }
+
+    override suspend fun insertBicycle(bicycle: Bicycle, options: Map<String, Int>): Result<Int> =
+        withContext(Dispatchers.IO) {
+            val id = bicycleDao.insertBicycleItem(
+                bicycleAllSpecsMapperDto.toData(bicycle, options).bicycleDto
+            ).toInt()
+
+            if (0 == id) {
+                Result.Failure(message = "", result = null)
+            } else {
+                Result.Success(result = id)
             }
         }
 }

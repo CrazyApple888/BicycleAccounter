@@ -10,9 +10,9 @@ import ru.nsu.fit.data.model.WheelSizeDto
 @Dao
 interface WheelSizeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWheelSizeItem(wheelSizeDto: WheelSizeDto)
+    suspend fun insertWheelSizeItem(wheelSizeDto: WheelSizeDto): Long
 
-    @Query("SELECT * FROM wheel_sizes")
+    @Query("SELECT * FROM wheel_sizes ORDER BY sizeInches")
     fun selectWheelSizeAll(): Flow<List<WheelSizeDto>>
 
     @Query("SELECT DISTINCT * FROM wheel_sizes WHERE wheel_sizes.sizeId = :id")
