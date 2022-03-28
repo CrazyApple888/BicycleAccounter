@@ -14,4 +14,4 @@ data class Bicycle(
     val wheelSize: Double,
     val color: Color,
     val issues: List<Issue> = emptyList()
-)
+) : BaseModel()

@@ -7,4 +7,4 @@ import androidx.room.PrimaryKey
 data class ColorDto(
     @PrimaryKey(autoGenerate = true) val colorId: Int = 0,
     val colorName: String
-)
+) : BaseDto()

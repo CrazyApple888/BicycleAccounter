@@ -6,4 +6,4 @@ import androidx.room.Entity
 data class BicycleIssueXref(
     val bikeIdRef: Int,
     val issueIdRef: Int
-)
+) : BaseDto()

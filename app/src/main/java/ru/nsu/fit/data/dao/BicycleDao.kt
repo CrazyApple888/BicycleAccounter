@@ -2,9 +2,9 @@ package ru.nsu.fit.data.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import ru.nsu.fit.data.model.BicycleAllSpecs
+import ru.nsu.fit.data.model.BicycleAllSpecsDto
 import ru.nsu.fit.data.model.BicycleDto
-import ru.nsu.fit.data.model.BicycleSimplified
+import ru.nsu.fit.data.model.BicycleSimplifiedDto
 
 @Dao
 interface BicycleDao {
@@ -15,14 +15,14 @@ interface BicycleDao {
         "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
                 "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeIdRef"
     )
-    fun selectSimplifiedBicycleAll(): Flow<List<BicycleSimplified>>
+    fun selectSimplifiedBicycleAll(): Flow<List<BicycleSimplifiedDto>>
 
     @Query(
         "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
                 "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeIdRef " +
                 "WHERE bicycles.stateIdRef = :stateId"
     )
-    fun selectSimplifiedBicycleByState(stateId: Int): Flow<List<BicycleSimplified>>
+    fun selectSimplifiedBicycleByState(stateId: Int): Flow<List<BicycleSimplifiedDto>>
 
     @Query("SELECT DISTINCT * FROM bicycles WHERE bikeId = :id")
     fun selectBicycleById(id: Int): Flow<BicycleDto?>
@@ -36,7 +36,7 @@ interface BicycleDao {
                 "INNER JOIN bicycle_types ON bicycle.typeIdRef = bicycle_types.typeId " +
                 "INNER JOIN bicycle_states ON  bicycle.stateIdRef = bicycle_states.stateId "
     )
-    fun selectBicycleWithSpecsById(id: Int): Flow<BicycleAllSpecs?>
+    fun selectBicycleWithSpecsById(id: Int): Flow<BicycleAllSpecsDto?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertBicycleItem(bicycleDto: BicycleDto)

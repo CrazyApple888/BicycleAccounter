@@ -5,16 +5,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.nsu.fit.data.model.WheelSize
+import ru.nsu.fit.data.model.WheelSizeDto
 
 @Dao
 interface WheelSizeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWheelSizeItem(wheelSize: WheelSize)
+    suspend fun insertWheelSizeItem(wheelSizeDto: WheelSizeDto)
 
     @Query("SELECT * FROM wheel_sizes")
-    fun selectWheelSizeAll(): Flow<List<WheelSize>>
+    fun selectWheelSizeAll(): Flow<List<WheelSizeDto>>
 
     @Query("SELECT DISTINCT * FROM wheel_sizes WHERE wheel_sizes.sizeId = :id")
-    fun selectWheelSizeById(id: Int): Flow<WheelSize?>
+    fun selectWheelSizeById(id: Int): Flow<WheelSizeDto?>
 }

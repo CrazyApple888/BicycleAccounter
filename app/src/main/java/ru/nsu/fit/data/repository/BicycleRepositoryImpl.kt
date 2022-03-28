@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.nsu.fit.data.dao.BicycleDao
 import ru.nsu.fit.data.mapper.Mapper
-import ru.nsu.fit.data.model.BicycleAllSpecs
-import ru.nsu.fit.data.model.BicycleSimplified
+import ru.nsu.fit.data.model.BicycleAllSpecsDto
+import ru.nsu.fit.data.model.BicycleSimplifiedDto
 import ru.nsu.fit.domain.model.Bicycle
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.model.SimpleBicycle
@@ -16,8 +16,8 @@ import javax.inject.Inject
 
 class BicycleRepositoryImpl @Inject constructor(
     private val bicycleDao: BicycleDao,
-    private val simpleBicycleMapper: Mapper<SimpleBicycle, BicycleSimplified>,
-    private val bicycleAllSpecsMapper: Mapper<Bicycle, BicycleAllSpecs>
+    private val simpleBicycleMapperDto: Mapper<SimpleBicycle, BicycleSimplifiedDto>,
+    private val bicycleAllSpecsDtoMapper: Mapper<Bicycle, BicycleAllSpecsDto>
 ) : BicycleRepository {
     override suspend fun getAllBicycles(): Flow<Result<List<SimpleBicycle>>> =
         withContext(Dispatchers.IO) {
@@ -25,7 +25,7 @@ class BicycleRepositoryImpl @Inject constructor(
                 if (it.isEmpty()) {
                     Result.Failure(message = "", result = null)
                 } else {
-                    Result.Success(result = it.map(simpleBicycleMapper::toDomain))
+                    Result.Success(result = it.map(simpleBicycleMapperDto::toDomain))
                 }
             }
 
@@ -37,7 +37,7 @@ class BicycleRepositoryImpl @Inject constructor(
                 if (null == it) {
                     Result.Failure(message = "", result = null)
                 } else {
-                    Result.Success(result = bicycleAllSpecsMapper.toDomain(it))
+                    Result.Success(result = bicycleAllSpecsDtoMapper.toDomain(it))
                 }
             }
         }

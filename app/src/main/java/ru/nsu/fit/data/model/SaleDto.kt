@@ -9,4 +9,4 @@ data class SaleDto(
     val saleDate: String,
     val customerId: Int,
     val finalCost: Long
-)
+) : BaseDto()

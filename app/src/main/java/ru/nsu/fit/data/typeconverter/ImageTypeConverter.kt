@@ -9,21 +9,19 @@ class ImageTypeConverter {
 
     @TypeConverter
     fun toBitmap(array: ByteArray?): Bitmap? {
-        array?.let {
-            return BitmapFactory.decodeByteArray(array, 0, array.size)
+        return array?.let {
+            BitmapFactory.decodeByteArray(array, 0, array.size)
         }
-        return null
     }
 
 
     @TypeConverter
     fun toByteArray(bitmap: Bitmap?): ByteArray? {
-        bitmap?.let {
+        return bitmap?.let {
             val outStream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream)
-            return outStream.toByteArray()
+            outStream.toByteArray()
         }
-        return null
     }
 
 }

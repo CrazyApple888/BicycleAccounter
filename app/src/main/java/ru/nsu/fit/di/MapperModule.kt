@@ -9,19 +9,19 @@ import ru.nsu.fit.domain.model.*
 @Module
 interface MapperModule {
     @Binds
-    fun bindSimpleBicycleMapper(mapper: SimpleBicycleMapper): Mapper<SimpleBicycle, BicycleSimplified>
+    fun bindSimpleBicycleMapper(mapper: SimpleBicycleMapper): Mapper<SimpleBicycle, BicycleSimplifiedDto>
 
     @Binds
-    fun bicycleMapper(mapper: BicycleMapper): Mapper<Bicycle, BicycleAllSpecs>
+    fun bicycleMapper(mapper: BicycleMapper): Mapper<Bicycle, BicycleAllSpecsDto>
 
     @Binds
-    fun bindTypeMapper(mapper: TypeMapper): Mapper<Type, BicycleType>
+    fun bindTypeMapper(mapper: TypeMapper): Mapper<Type, BicycleTypeDto>
 
     @Binds
     fun bindColorMapper(mapper: ColorMapper): Mapper<Color, ColorDto>
 
     @Binds
-    fun bindStateMapper(mapper: StateMapper): Mapper<State, BicycleState>
+    fun bindStateMapper(mapper: StateMapper): Mapper<State, BicycleStateDto>
 
     @Binds
     fun bindIssueMapper(mapper: IssueMapper): Mapper<Issue, IssueDto>
