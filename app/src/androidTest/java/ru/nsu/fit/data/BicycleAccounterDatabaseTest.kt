@@ -44,7 +44,7 @@ class BicycleAccounterDatabaseTest {
     }
 
     @Test
-    fun colorDao() = runBlocking {
+    fun expectSameIdsWhenSameNamesInserted() = runBlocking {
         val id1 = colorDao.insertColorItem(ColorDto(colorName = "yellow"))
         val id2 = colorDao.insertColorItem(ColorDto(colorName = "yellow"))
         assertEquals(id1, id2)
@@ -66,9 +66,9 @@ class BicycleAccounterDatabaseTest {
         assertEquals(20, bicycle.colorIdRef)
     }
 
-    //todo придумать нормальное название
+    //я точно не помню зачем написал этот тест и придумал название от балды
     @Test
-    fun stubTest() = runBlocking(Dispatchers.Main) {
+    fun expectSameIdAndRowid() = runBlocking(Dispatchers.Main) {
         val id = colorDao.insertColorItem(ColorDto(colorName = "teal")).toInt()
         val colorItem = colorDao.selectColorById(id).take(1).toList().first()
         assertNotNull(colorItem)

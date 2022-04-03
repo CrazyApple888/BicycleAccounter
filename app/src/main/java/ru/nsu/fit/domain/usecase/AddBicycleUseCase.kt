@@ -24,21 +24,21 @@ class AddBicycleUseCase @Inject constructor(
         var idsSuccess = true
         val colorId =
             colorRepository.insertColorItem(bicycle.color).successOrNull { message, _ ->
-                Log.e("Repository", "Unable to get wheel size id, error message: $message")
+                Log.e(LoggingTags.USECASE, "Unable to get wheel size id, error message: $message")
                 idsSuccess = false
             } ?: 0
         val typeId = typeRepository.insertTypeItem(bicycle.type).successOrNull { message, _ ->
-            Log.e("Repository", "Unable to get wheel size id, error message: $message")
+            Log.e(LoggingTags.USECASE, "Unable to get wheel size id, error message: $message")
             idsSuccess = false
         } ?: 0
         val stateId =
             stateRepository.insertStateItem(bicycle.state).successOrNull { message, _ ->
-                Log.e("Repository", "Unable to get bicycle state id, error message: $message")
+                Log.e(LoggingTags.USECASE, "Unable to get bicycle state id, error message: $message")
                 idsSuccess = false
             } ?: 0
         val sizeId =
             wheelSizeRepository.insertSizeItem(bicycle.wheelSize).successOrNull { message, _ ->
-                Log.e("Repository", "Unable to get wheel size id, error message: $message")
+                Log.e(LoggingTags.USECASE, "Unable to get wheel size id, error message: $message")
                 idsSuccess = false
             } ?: 0
 

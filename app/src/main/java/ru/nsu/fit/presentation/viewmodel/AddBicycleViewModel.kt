@@ -31,28 +31,28 @@ class AddBicycleViewModel @Inject constructor(
         viewModelScope.launch {
             addBicycleUseCase.getColors().collect { result ->
                 result.successOrNull { message, _ ->
-                    Log.w("ViewModel", message ?: "No error message")
+                    Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
                 }?.let { _colors.value = it }
             }
         }
         viewModelScope.launch {
             addBicycleUseCase.getStates().collect { result ->
                 result.successOrNull { message, _ ->
-                    Log.w("ViewModel", message ?: "No error message")
+                    Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
                 }?.let { _states.value = it }
             }
         }
         viewModelScope.launch {
             addBicycleUseCase.getTypes().collect { result ->
                 result.successOrNull { message, _ ->
-                    Log.w("ViewModel", message ?: "No error message")
+                    Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
                 }?.let { _types.value = it }
             }
         }
         viewModelScope.launch {
             addBicycleUseCase.getWheelSizes().collect { result ->
                 result.successOrNull { message, _ ->
-                    Log.w("ViewModel", message ?: "No error message")
+                    Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
                 }?.let { _wheelSizes.value = it }
             }
         }
@@ -61,7 +61,7 @@ class AddBicycleViewModel @Inject constructor(
     fun addBicycle(bicycle: Bicycle) {
         viewModelScope.launch {
             addBicycleUseCase.addBicycle(bicycle).successOrNull { message, _ ->
-                Log.w("ViewModel", message ?: "No error message")
+                Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
             }
         }
     }

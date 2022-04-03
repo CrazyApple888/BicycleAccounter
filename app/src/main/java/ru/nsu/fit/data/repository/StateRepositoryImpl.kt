@@ -26,13 +26,18 @@ class StateRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun insertStateItem(state: State): Result<Int> = withContext(Dispatchers.IO){
-        val id = stateDao.insertBicycleStateItem(stateMapper.toData(state, mapOf("stateId" to 0)))
-            .toInt()
-        if (0 != id) {
+    override suspend fun insertStateItem(state: State): Result<Int> = withContext(Dispatchers.IO) {
+        val id =
+            stateDao.selectIdByName(state.stateName) ?: stateDao.insertBicycleStateItem(
+                stateMapper.toData(state)
+            ).toInt()
+        if (-1 != id && 0 != id) {
             Result.Success(result = id)
         } else {
-            Result.Failure(message = null)
+            Result.Failure(
+                message = "Unable to insert new state or retrieve id of existing",
+                result = id
+            )
         }
     }
 

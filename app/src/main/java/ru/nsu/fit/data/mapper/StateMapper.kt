@@ -11,7 +11,7 @@ class StateMapper @Inject constructor() : Mapper<State, BicycleStateDto> {
     }
 
     override fun toData(item: State, options: Map<String, Int>): BicycleStateDto {
-        val stateId by options
+        val stateId by options.withDefault { 0 }
         return BicycleStateDto(
             stateId = stateId,
             stateName = item.stateName

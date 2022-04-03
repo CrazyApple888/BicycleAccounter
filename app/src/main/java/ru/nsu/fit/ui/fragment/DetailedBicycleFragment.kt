@@ -2,11 +2,11 @@ package ru.nsu.fit.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.databinding.FragmentDetailedBicycleBinding
@@ -40,10 +40,6 @@ class DetailedBicycleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[DetailedBicycleViewModel::class.java]
-
-        //todo delete placeholder
-        binding.descriptionText.text =
-            (1..100).joinToString { "hehfhwiufhiewhfiuhewiufhewiufhiuewhfiuewhfiuhewfiuhweu" }
         initViews()
         loadDataFromArgs()
     }
@@ -53,7 +49,7 @@ class DetailedBicycleFragment : Fragment() {
             with(bike) {
                 binding.bikeNameText.text = name
                 binding.stateText.text = state.stateName
-                binding.wheelSizeText.text = wheelSize.toString()
+                binding.wheelSizeText.text = wheelSize.diameter.toString()
                 binding.colorText.text = color.colorName
                 binding.priceMinText.text = purchasePrice.toString()
                 binding.descriptionText.text = description ?: ""
@@ -68,7 +64,7 @@ class DetailedBicycleFragment : Fragment() {
     }
 
     private fun loadDataFromArgs() {
-        arguments?.getBoolean("isSold")?.let {
+        arguments?.getBoolean(OPTIONAL_IS_ITEM_SOLD)?.let {
             binding.sellButton.isGone = it
         }
         arguments?.getInt(REQUIRED_BIKE_ID)?.also {

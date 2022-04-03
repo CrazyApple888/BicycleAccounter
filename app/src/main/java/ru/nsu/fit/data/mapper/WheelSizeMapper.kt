@@ -10,7 +10,7 @@ class WheelSizeMapper @Inject constructor() : Mapper<WheelSize, WheelSizeDto> {
     }
 
     override fun toData(item: WheelSize, options: Map<String, Int>): WheelSizeDto {
-        val sizeId by options
+        val sizeId by options.withDefault { 0 }
         return WheelSizeDto(sizeId = sizeId, sizeInches = item.diameter)
     }
 }

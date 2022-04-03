@@ -29,16 +29,17 @@ class WheelSizeRepositoryImpl @Inject constructor(
 
     override suspend fun insertSizeItem(wheelSize: WheelSize): Result<Int> =
         withContext(Dispatchers.IO) {
-            val id = wheelSizeDao.insertWheelSizeItem(
-                wheelSizeMapper.toData(
-                    wheelSize,
-                    mapOf("sizeId" to 0)
-                )
-            ).toInt()
-            if (0 != id) {
+            val id =
+                wheelSizeDao.selectIdBySize(wheelSize.diameter) ?: wheelSizeDao.insertWheelSizeItem(
+                    wheelSizeMapper.toData(wheelSize)
+                ).toInt()
+            if (-1 != id && 0 != id) {
                 Result.Success(result = id)
             } else {
-                Result.Failure(message = null)
+                Result.Failure(
+                    message = "Unable to insert new wheel size or retrieve id of existing",
+                    result = id
+                )
             }
         }
 }

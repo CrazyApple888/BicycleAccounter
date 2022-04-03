@@ -28,11 +28,17 @@ class ColorRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertColorItem(color: Color): Result<Int> = withContext(Dispatchers.IO) {
-        val id = colorDao.insertColorItem(colorMapper.toData(color, mapOf("colorId" to 0))).toInt()
-        if (0 != id) {
+        val id =
+            colorDao.selectIdByName(color.colorName) ?: colorDao.insertColorItem(
+                colorMapper.toData(color)
+            ).toInt()
+        if (-1 != id && 0 != id) {
             Result.Success(result = id)
         } else {
-            Result.Failure(message = null)
+            Result.Failure(
+                message = "Unable to insert new color or retrieve id of existing",
+                result = id
+            )
         }
     }
 }

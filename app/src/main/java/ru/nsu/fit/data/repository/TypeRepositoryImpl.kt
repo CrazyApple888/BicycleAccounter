@@ -28,11 +28,16 @@ class TypeRepositoryImpl @Inject constructor(
 
     override suspend fun insertTypeItem(type: Type): Result<Int> = withContext(Dispatchers.IO) {
         val id =
-            typeDao.insertBicycleTypeItem(typeMapper.toData(type, mapOf("typeId" to 0))).toInt()
-        if (0 != id) {
+            typeDao.selectIdByName(type.typeName) ?: typeDao.insertBicycleTypeItem(
+                typeMapper.toData(type)
+            ).toInt()
+        if (-1 != id && 0 != id) {
             Result.Success(result = id)
         } else {
-            Result.Failure(message = null)
+            Result.Failure(
+                message = "Unable to insert new bicycle type or retrieve id of existing",
+                result = id
+            )
         }
     }
 }

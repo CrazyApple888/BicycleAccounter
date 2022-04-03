@@ -19,8 +19,14 @@
     <string name="bicycle_state_hint">Состояние велосипеда</string>
     <string name="wheel_diameter_hint">Диаметр колес</string>
     <string name="color_hint">Цвет</string>
+    <string name="purchase_price_hint">Цена закупки</string>
     <string name="additional_info_hint">Дополнительная информация</string>
     <string name="new_bicycle_label">Новый велосипед</string>
     <string name="add_bicycle_button_label">Добавить велосипед</string>
     <string name="test_state">Тестовое состояние</string>
+    <string name="wrong_wheel_size_hint">Размер колес должен быть больше 0 и меньше 50 дюймов</string>
+    <string name="wrong_state_name_hint">Введите состояние (например "В продаже")</string>
+    <string name="wrong_color_name_hint">Название цвета не должно содержать пробелов, сложные цвета вводятся через дефис (например "Черно-желтый")</string>
+    <string name="wrong_type_name_hint">Тип велосипеда не должен содержать цифр</string>
+    <string name="wrong_purchase_price_hint">Введите цену</string>
 </resources>
