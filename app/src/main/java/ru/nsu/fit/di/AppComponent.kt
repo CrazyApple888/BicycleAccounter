@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.nsu.fit.ui.fragment.DetailedBicycleFragment
 import ru.nsu.fit.ui.fragment.HomeScreenFragment
+import ru.nsu.fit.ui.fragment.SellBicycleFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -14,6 +15,8 @@ interface AppComponent {
     fun inject(fragment: HomeScreenFragment)
 
     fun inject(fragment: DetailedBicycleFragment)
+
+    fun inject(fragment: SellBicycleFragment)
 
     @Component.Builder
     interface AppComponentBuilder {

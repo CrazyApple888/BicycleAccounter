@@ -22,4 +22,8 @@
     <string name="additional_info_hint">Дополнительная информация</string>
     <string name="new_bicycle_label">Новый велосипед</string>
     <string name="add_bicycle_button_label">Добавить велосипед</string>
+    <string name="customer_phone_number_hint">Номер телефона клиента</string>
+    <string name="client_name_hint">Имя клиента</string>
+    <string name="selling_price_hint">Итоговая цена продажи</string>
+    <string name="sell_button">Продать</string>
 </resources>

@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.nsu.fit.presentation.viewmodel.DetailedBicycleViewModel
 import ru.nsu.fit.presentation.viewmodel.HomeScreenViewModel
+import ru.nsu.fit.presentation.viewmodel.SellBicycleViewModel
 import ru.nsu.fit.presentation.viewmodel.ViewModelFactory
 
 @Module
@@ -21,6 +22,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailedBicycleViewModel::class)
     fun bindDetailedBicycleViewModel(viewModel: DetailedBicycleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SellBicycleViewModel::class)
+    fun bindSellBicycleViewModel(viewModel: SellBicycleViewModel): ViewModel
 
     @Binds
     fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
