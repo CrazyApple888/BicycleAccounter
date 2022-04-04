@@ -7,6 +7,7 @@ import kotlinx.coroutines.withContext
 import ru.nsu.fit.data.dao.BicycleStateDao
 import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.model.BicycleStateDto
+import ru.nsu.fit.data.model.TransactionFailure
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.model.State
 import ru.nsu.fit.domain.repository.StateRepository
@@ -31,12 +32,11 @@ class StateRepositoryImpl @Inject constructor(
             stateDao.selectIdByName(state.stateName) ?: stateDao.insertBicycleStateItem(
                 stateMapper.toData(state)
             ).toInt()
-        if (-1 != id && 0 != id) {
+        if (TransactionFailure.ALREADY_EXISTS.ordinal != id && TransactionFailure.TRANSACTION_REJECTED.ordinal != id) {
             Result.Success(result = id)
         } else {
             Result.Failure(
-                message = "Unable to insert new state or retrieve id of existing",
-                result = id
+                message = "Unable to insert new state or retrieve id of existing"
             )
         }
     }

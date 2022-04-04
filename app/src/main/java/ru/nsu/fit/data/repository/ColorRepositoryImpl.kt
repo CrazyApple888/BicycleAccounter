@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import ru.nsu.fit.data.dao.ColorDao
 import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.model.ColorDto
+import ru.nsu.fit.data.model.TransactionFailure
 import ru.nsu.fit.domain.model.Color
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.repository.ColorRepository
@@ -32,12 +33,11 @@ class ColorRepositoryImpl @Inject constructor(
             colorDao.selectIdByName(color.colorName) ?: colorDao.insertColorItem(
                 colorMapper.toData(color)
             ).toInt()
-        if (-1 != id && 0 != id) {
+        if (TransactionFailure.ALREADY_EXISTS.ordinal != id && TransactionFailure.TRANSACTION_REJECTED.ordinal != id) {
             Result.Success(result = id)
         } else {
             Result.Failure(
-                message = "Unable to insert new color or retrieve id of existing",
-                result = id
+                message = "Unable to insert new color or retrieve id of existing"
             )
         }
     }
