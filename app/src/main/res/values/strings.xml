@@ -29,4 +29,6 @@
     <string name="wrong_color_name_hint">Название цвета не должно содержать пробелов, сложные цвета вводятся через дефис (например "Черно-желтый")</string>
     <string name="wrong_type_name_hint">Тип велосипеда не должен содержать цифр</string>
     <string name="wrong_purchase_price_hint">Введите цену</string>
+    <string name="bicycle_added_successfully">Велосипед успешно добавлен</string>
+    <string name="bicycle_adding_failed">Произошла ошибка, не удалось добавить велосипед</string>
 </resources>

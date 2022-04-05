@@ -49,11 +49,19 @@ class AddBicycleFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[AddBicycleViewModel::class.java]
         loadParams()
         setUpValidators()
+
         binding.submitButton.setOnClickListener { onSubmit() }
+        lifecycleScope.launchWhenCreated {
+            viewModel.messages.collect {
+                when (it) {
+                    is Result.Success -> showToast(getString(R.string.bicycle_added_successfully))
+                    is Result.Failure -> showToast(getString(R.string.bicycle_adding_failed))
+                }
+            }
+        }
     }
 
     private fun setUpValidators() {
-
         binding.wheelSizeInput.doOnTextChanged { text, _, _, _ ->
             text?.let {
                 if (!matchesWheelSize(it.toString().toDoubleOrNull() ?: return@let)) {
@@ -224,7 +232,7 @@ class AddBicycleFragment : Fragment() {
 
     private fun matchesWheelSize(size: Double) = size in 0.0..50.0
 
-    private fun showInputHint(hint: String) {
+    private fun showToast(hint: String) {
         Toast.makeText(
             requireContext(),
             hint,

@@ -3,9 +3,7 @@ package ru.nsu.fit.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.nsu.fit.domain.model.*
 import ru.nsu.fit.domain.usecase.AddBicycleUseCase
@@ -14,6 +12,9 @@ import javax.inject.Inject
 class AddBicycleViewModel @Inject constructor(
     private val addBicycleUseCase: AddBicycleUseCase
 ) : ViewModel() {
+
+    private var _messages: MutableSharedFlow<Result<String>> = MutableSharedFlow()
+    var messages: SharedFlow<Result<String>> = _messages.asSharedFlow()
 
     private var _states: MutableStateFlow<List<State>> = MutableStateFlow(emptyList())
     val states: StateFlow<List<State>> = _states.asStateFlow()
@@ -62,7 +63,11 @@ class AddBicycleViewModel @Inject constructor(
         viewModelScope.launch {
             addBicycleUseCase.addBicycle(bicycle).successOrNull { message, _ ->
                 Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
+            } ?: run {
+                _messages.emit(Result.Failure())
+                return@launch
             }
+            _messages.emit(Result.Success())
         }
     }
 }
