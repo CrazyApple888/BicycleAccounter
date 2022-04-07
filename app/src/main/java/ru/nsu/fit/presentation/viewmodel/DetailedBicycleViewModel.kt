@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.nsu.fit.domain.model.Bicycle
-import ru.nsu.fit.domain.model.LoggingTags
+import ru.nsu.fit.domain.model.Loggable
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.usecase.GetBicycleUseCase
 import javax.inject.Inject
 
 class DetailedBicycleViewModel @Inject constructor(
     private val getBicycleUseCase: GetBicycleUseCase
-) : ViewModel() {
+) : ViewModel(), Loggable {
 
     private val _bicycle = MutableLiveData<Bicycle>()
     val bicycle: LiveData<Bicycle> get() = _bicycle
@@ -25,7 +25,7 @@ class DetailedBicycleViewModel @Inject constructor(
                 when (result) {
                     is Result.Success -> result.result?.let { _bicycle.value = it }
                     is Result.Failure -> Log.w(
-                        LoggingTags.VIEWMODEL,
+                        loggingTag,
                         "Unable to load bicycle with id $id: ${result.message ?: "No error message"}"
                     )
                 }

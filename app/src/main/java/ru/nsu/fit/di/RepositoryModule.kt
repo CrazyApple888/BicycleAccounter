@@ -8,7 +8,7 @@ import ru.nsu.fit.domain.repository.*
 @Module
 interface RepositoryModule {
     @Binds
-    fun bindBicycleRepository(repo: BicycleRepositoryImpl): BicycleRepository
+    fun bindBicycleRepository(repo: BicycleManagerImpl): BicycleRepository
 
     @Binds
     fun bindColorRepository(repo: ColorRepositoryImpl): ColorRepository

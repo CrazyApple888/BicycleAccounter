@@ -6,12 +6,16 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.nsu.fit.domain.model.*
-import ru.nsu.fit.domain.usecase.AddBicycleUseCase
+import ru.nsu.fit.domain.usecase.*
 import javax.inject.Inject
 
 class AddBicycleViewModel @Inject constructor(
-    private val addBicycleUseCase: AddBicycleUseCase
-) : ViewModel() {
+    private val addBicycleUseCase: AddBicycleUseCase,
+    private val getAllColorsUseCase: GetAllColorsUseCase,
+    private val getAllTypesUseCase: GetAllTypesUseCase,
+    private val getAllWheelSizesUseCase: GetAllWheelSizesUseCase,
+    private val getAllStatesUseCase: GetAllStatesUseCase
+) : ViewModel(), Loggable {
 
     private var _messages: MutableSharedFlow<Result<String>> = MutableSharedFlow()
     var messages: SharedFlow<Result<String>> = _messages.asSharedFlow()
@@ -30,30 +34,30 @@ class AddBicycleViewModel @Inject constructor(
 
     fun loadAvailableParams() {
         viewModelScope.launch {
-            addBicycleUseCase.getColors().collect { result ->
+            getAllColorsUseCase().collect { result ->
                 result.successOrNull { message, _ ->
-                    Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
+                    Log.w(loggingTag, message ?: "No error message")
                 }?.let { _colors.value = it }
             }
         }
         viewModelScope.launch {
-            addBicycleUseCase.getStates().collect { result ->
+            getAllStatesUseCase().collect { result ->
                 result.successOrNull { message, _ ->
-                    Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
+                    Log.w(loggingTag, message ?: "No error message")
                 }?.let { _states.value = it }
             }
         }
         viewModelScope.launch {
-            addBicycleUseCase.getTypes().collect { result ->
+            getAllTypesUseCase().collect { result ->
                 result.successOrNull { message, _ ->
-                    Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
+                    Log.w(loggingTag, message ?: "No error message")
                 }?.let { _types.value = it }
             }
         }
         viewModelScope.launch {
-            addBicycleUseCase.getWheelSizes().collect { result ->
+            getAllWheelSizesUseCase().collect { result ->
                 result.successOrNull { message, _ ->
-                    Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
+                    Log.w(loggingTag, message ?: "No error message")
                 }?.let { _wheelSizes.value = it }
             }
         }
@@ -61,8 +65,8 @@ class AddBicycleViewModel @Inject constructor(
 
     fun addBicycle(bicycle: Bicycle) {
         viewModelScope.launch {
-            addBicycleUseCase.addBicycle(bicycle).successOrNull { message, _ ->
-                Log.w(LoggingTags.VIEWMODEL, message ?: "No error message")
+            addBicycleUseCase(bicycle).successOrNull { message, _ ->
+                Log.w(loggingTag, message ?: "No error message")
             } ?: run {
                 _messages.emit(Result.Failure())
                 return@launch

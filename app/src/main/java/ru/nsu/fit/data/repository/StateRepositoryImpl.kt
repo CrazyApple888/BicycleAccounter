@@ -32,7 +32,7 @@ class StateRepositoryImpl @Inject constructor(
             stateDao.selectIdByName(state.stateName) ?: stateDao.insertBicycleStateItem(
                 stateMapper.toData(state)
             ).toInt()
-        if (TransactionFailure.ALREADY_EXISTS.ordinal != id && TransactionFailure.TRANSACTION_REJECTED.ordinal != id) {
+        if (TransactionFailure.ALREADY_EXISTS != id && TransactionFailure.TRANSACTION_REJECTED != id) {
             Result.Success(result = id)
         } else {
             Result.Failure(

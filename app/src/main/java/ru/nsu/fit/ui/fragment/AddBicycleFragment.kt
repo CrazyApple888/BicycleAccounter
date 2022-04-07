@@ -160,9 +160,7 @@ class AddBicycleFragment : Fragment() {
     private fun onSubmit() {
         var validatingSuccessful = true
 
-        val name = binding.nameInput.text?.toString()?.also {
-            validatingSuccessful = matchesBicycleName(it)
-        } ?: run {
+        val name = binding.nameInput.text?.toString() ?: run {
             validatingSuccessful = false
             ""
         }
@@ -219,12 +217,10 @@ class AddBicycleFragment : Fragment() {
         }
     }
 
-    private fun matchesBicycleState(state: String) = state.all { it.isLetter() || ' ' == it }
-
-    private fun matchesBicycleName(name: String) = name.all { true }
+    private fun matchesBicycleState(state: String) = state.all { it.isLetter() || it == ' ' }
 
     private fun matchesColorName(name: String) =
-        name.all { (it.isLetter() || '-' == it) && ' ' != it }
+        name.all { (it.isLetter() || it == '-') && it != ' ' }
 
     private fun matchesTypeName(name: String) = name.all { !it.isDigit() }
 

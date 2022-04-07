@@ -34,7 +34,7 @@ class WheelSizeRepositoryImpl @Inject constructor(
                 wheelSizeDao.selectIdBySize(wheelSize.diameter) ?: wheelSizeDao.insertWheelSizeItem(
                     wheelSizeMapper.toData(wheelSize)
                 ).toInt()
-            if (TransactionFailure.ALREADY_EXISTS.ordinal != id && TransactionFailure.TRANSACTION_REJECTED.ordinal != id) {
+            if (TransactionFailure.ALREADY_EXISTS != id && TransactionFailure.TRANSACTION_REJECTED != id) {
                 Result.Success(result = id)
             } else {
                 Result.Failure(

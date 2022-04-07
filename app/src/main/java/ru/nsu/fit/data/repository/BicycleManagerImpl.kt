@@ -12,13 +12,13 @@ import ru.nsu.fit.data.model.BicycleAllSpecsDto
 import ru.nsu.fit.data.model.BicycleSimplifiedDto
 import ru.nsu.fit.data.model.TransactionFailure
 import ru.nsu.fit.domain.model.Bicycle
-import ru.nsu.fit.domain.model.LoggingTags
+import ru.nsu.fit.domain.model.Loggable
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.model.SimpleBicycle
 import ru.nsu.fit.domain.repository.*
 import javax.inject.Inject
 
-class BicycleRepositoryImpl @Inject constructor(
+class BicycleManagerImpl @Inject constructor(
     private val bicycleDao: BicycleDao,
     private val simpleBicycleMapperDto: Mapper<SimpleBicycle, BicycleSimplifiedDto>,
     private val bicycleAllSpecsMapperDto: Mapper<Bicycle, BicycleAllSpecsDto>,
@@ -26,7 +26,7 @@ class BicycleRepositoryImpl @Inject constructor(
     private val stateRepository: StateRepository,
     private val wheelSizeRepository: WheelSizeRepository,
     private val typeRepository: TypeRepository
-) : BicycleRepository {
+) : BicycleRepository, Loggable {
     override suspend fun getAllBicycles(): Flow<Result<List<SimpleBicycle>>> =
         withContext(Dispatchers.IO) {
             bicycleDao.selectSimplifiedBicycleAll().map {
@@ -42,7 +42,7 @@ class BicycleRepositoryImpl @Inject constructor(
     override suspend fun getBicycleById(id: Int): Flow<Result<Bicycle>> =
         withContext(Dispatchers.IO) {
             bicycleDao.selectBicycleWithSpecsById(id).map {
-                if (null == it) {
+                if (it == null) {
                     Result.Failure(message = "", result = null)
                 } else {
                     Result.Success(result = bicycleAllSpecsMapperDto.toDomain(it))
@@ -55,7 +55,7 @@ class BicycleRepositoryImpl @Inject constructor(
             val colorId = async {
                 colorRepository.insertColorItem(bicycle.color).successOrNull { message, _ ->
                     Log.e(
-                        LoggingTags.USECASE,
+                        loggingTag,
                         "Unable to get wheel size id, error message: $message"
                     )
                 } ?: 0
@@ -63,7 +63,7 @@ class BicycleRepositoryImpl @Inject constructor(
             val typeId = async {
                 typeRepository.insertTypeItem(bicycle.type).successOrNull { message, _ ->
                     Log.e(
-                        LoggingTags.USECASE,
+                        loggingTag,
                         "Unable to get wheel size id, error message: $message"
                     )
                 } ?: 0
@@ -71,7 +71,7 @@ class BicycleRepositoryImpl @Inject constructor(
             val stateId = async {
                 stateRepository.insertStateItem(bicycle.state).successOrNull { message, _ ->
                     Log.e(
-                        LoggingTags.USECASE,
+                        loggingTag,
                         "Unable to get bicycle state id, error message: $message"
                     )
                 } ?: 0
@@ -80,20 +80,20 @@ class BicycleRepositoryImpl @Inject constructor(
                 wheelSizeRepository.insertSizeItem(bicycle.wheelSize)
                     .successOrNull { message, _ ->
                         Log.e(
-                            LoggingTags.USECASE,
+                            loggingTag,
                             "Unable to get wheel size id, error message: $message"
                         )
                     } ?: 0
             }
 
-            if (0 == sizeId.await() || 0 == colorId.await() ||
-                0 == sizeId.await() || 0 == sizeId.await()
+            if (sizeId.await() == 0 || colorId.await() == 0 ||
+                sizeId.await() == 0 || sizeId.await() == 0
             ) {
                 Result.Failure(message = "Failed to get id for wheel size, color, type or state of bicycle, check logs for details")
             } else {
                 val bicycleId = bicycleDao.insertBicycleItem(
                     bicycleAllSpecsMapperDto.toData(
-                        bicycle,
+                        item = bicycle,
                         options = mapOf(
                             "colorId" to colorId.await(),
                             "typeId" to typeId.await(),
@@ -102,7 +102,7 @@ class BicycleRepositoryImpl @Inject constructor(
                         )
                     ).bicycleDto
                 ).toInt()
-                if (TransactionFailure.ALREADY_EXISTS.ordinal != bicycleId && TransactionFailure.TRANSACTION_REJECTED.ordinal != bicycleId) {
+                if (TransactionFailure.ALREADY_EXISTS != bicycleId && TransactionFailure.TRANSACTION_REJECTED != bicycleId) {
                     Result.Success(result = bicycleId)
                 } else {
                     Result.Failure(
