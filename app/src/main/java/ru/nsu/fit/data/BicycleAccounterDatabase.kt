@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ru.nsu.fit.data.dao.*
 import ru.nsu.fit.data.model.*
-import ru.nsu.fit.data.model.BicycleDto
+import ru.nsu.fit.data.typeconverter.DataTypeConverter
 import ru.nsu.fit.data.typeconverter.ImageTypeConverter
 
 @Database(
@@ -20,7 +20,7 @@ import ru.nsu.fit.data.typeconverter.ImageTypeConverter
         WheelSizeDto::class],
     version = 2
 )
-@TypeConverters(ImageTypeConverter::class)
+@TypeConverters(ImageTypeConverter::class, DataTypeConverter::class)
 abstract class BicycleAccounterDatabase : RoomDatabase() {
     abstract fun bicycleDao(): BicycleDao
     abstract fun bicycleIssueXrefDao(): BicycleIssueXrefDao

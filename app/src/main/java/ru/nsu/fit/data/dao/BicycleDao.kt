@@ -39,7 +39,7 @@ interface BicycleDao {
     fun selectBicycleWithSpecsById(id: Int): Flow<BicycleAllSpecsDto?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertBicycleItem(bicycleDto: BicycleDto)
+    suspend fun insertBicycleItem(bicycleDto: BicycleDto): Long
 
     @Query("UPDATE bicycles SET stateIdRef = :stateId WHERE bikeId = :bikeId")
     suspend fun updateBicycleStateById(bikeId: Int, stateId: Int)

@@ -2,13 +2,23 @@ package ru.nsu.fit.di
 
 import dagger.Binds
 import dagger.Module
-import ru.nsu.fit.data.repository.BicycleRepositoryImpl
-import ru.nsu.fit.domain.repository.BicycleRepository
+import ru.nsu.fit.data.repository.*
+import ru.nsu.fit.domain.repository.*
 
 @Module
 interface RepositoryModule {
+    @Binds
+    fun bindBicycleRepository(repo: BicycleManagerImpl): BicycleRepository
 
     @Binds
-    fun bindBicycleRepository(repo: BicycleRepositoryImpl): BicycleRepository
+    fun bindColorRepository(repo: ColorRepositoryImpl): ColorRepository
 
+    @Binds
+    fun bindStateRepository(repo: StateRepositoryImpl): StateRepository
+
+    @Binds
+    fun bindTypeRepository(repo: TypeRepositoryImpl): TypeRepository
+
+    @Binds
+    fun bindWheelSizeRepository(repo: WheelSizeRepositoryImpl): WheelSizeRepository
 }

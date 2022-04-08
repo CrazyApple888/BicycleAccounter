@@ -10,18 +10,7 @@ import ru.nsu.fit.data.model.SaleDto
 @Dao
 interface SalesDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertSaleItem(saleDto: SaleDto)
-
-    suspend fun insertSaleItem(bicycleId: Int, saleDate: String, customerId: Int, finalCost: Long) {
-        insertSaleItem(
-            SaleDto(
-                bicycleId = bicycleId,
-                saleDate = saleDate,
-                customerId = customerId,
-                finalCost = finalCost
-            )
-        )
-    }
+    suspend fun insertSaleItem(saleDto: SaleDto): Long
 
     @Query("SELECT * FROM sales")
     fun selectSaleAll(): Flow<List<SaleDto>>

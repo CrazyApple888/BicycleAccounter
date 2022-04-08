@@ -14,7 +14,6 @@ class ImageTypeConverter {
         }
     }
 
-
     @TypeConverter
     fun toByteArray(bitmap: Bitmap?): ByteArray? {
         return bitmap?.let {

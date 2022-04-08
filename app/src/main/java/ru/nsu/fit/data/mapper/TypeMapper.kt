@@ -10,7 +10,7 @@ class TypeMapper @Inject constructor() : Mapper<Type, BicycleTypeDto> {
     }
 
     override fun toData(item: Type, options: Map<String, Int>): BicycleTypeDto {
-        val typeId by options
+        val typeId by options.withDefault { 0 }
         return BicycleTypeDto(
             typeId = typeId,
             typeName = item.typeName

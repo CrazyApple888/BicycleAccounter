@@ -1,14 +1,16 @@
 package ru.nsu.fit.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentCustomerListBinding
-import ru.nsu.fit.presentation.viewmodel.DetailedBicycleViewModel
+import ru.nsu.fit.presentation.viewmodel.CustomerListViewModel
 import javax.inject.Inject
 
 
@@ -20,6 +22,11 @@ class CustomerListFragment : Fragment() {
 
     private var _binding: FragmentCustomerListBinding? = null
     private val binding: FragmentCustomerListBinding get() = checkNotNull(_binding) { "Binding is not initialized" }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as BicycleAccounterApplication).appComponent.inject(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

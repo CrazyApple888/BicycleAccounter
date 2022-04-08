@@ -12,10 +12,6 @@ interface IssuesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIssueItem(issueDto: IssueDto)
 
-    suspend fun insertIssueItem(cost: Int, description: String?) {
-        insertIssueItem(IssueDto(issueId = 0, cost = cost, description = description))
-    }
-
     @Query("SELECT * FROM issues")
     fun selectIssueAll(): Flow<List<IssueDto>>
 
