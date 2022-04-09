@@ -5,10 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import ru.nsu.fit.BicycleAccounterApplication
+import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentDetailedBicycleBinding
 import ru.nsu.fit.presentation.viewmodel.DetailedBicycleViewModel
 import javax.inject.Inject
@@ -61,6 +65,12 @@ class DetailedBicycleFragment : Fragment() {
                 }
             }
         }
+        lifecycleScope.launchWhenStarted {
+            viewModel.error.collect {
+                showError()
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun loadDataFromArgs() {
@@ -71,6 +81,13 @@ class DetailedBicycleFragment : Fragment() {
             viewModel.loadBicycle(it)
         }
     }
+
+    private fun showError() =
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.bicycle_detailed_screen_error),
+            Toast.LENGTH_SHORT
+        ).show()
 
     override fun onDestroyView() {
         super.onDestroyView()
