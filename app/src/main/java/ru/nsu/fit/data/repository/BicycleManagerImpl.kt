@@ -56,17 +56,17 @@ class BicycleManagerImpl @Inject constructor(
                 colorRepository.insertColorItem(bicycle.color).successOrNull { message, _ ->
                     Log.e(
                         loggingTag,
-                        "Unable to get wheel size id, error message: $message"
+                        "Unable to get color id, error message: $message"
                     )
-                } ?: 0
+                }
             }
             val typeId = async {
                 typeRepository.insertTypeItem(bicycle.type).successOrNull { message, _ ->
                     Log.e(
                         loggingTag,
-                        "Unable to get wheel size id, error message: $message"
+                        "Unable to get bicycle type id, error message: $message"
                     )
-                } ?: 0
+                }
             }
             val stateId = async {
                 stateRepository.insertStateItem(bicycle.state).successOrNull { message, _ ->
@@ -74,7 +74,7 @@ class BicycleManagerImpl @Inject constructor(
                         loggingTag,
                         "Unable to get bicycle state id, error message: $message"
                     )
-                } ?: 0
+                }
             }
             val sizeId = async {
                 wheelSizeRepository.insertSizeItem(bicycle.wheelSize)
@@ -83,11 +83,11 @@ class BicycleManagerImpl @Inject constructor(
                             loggingTag,
                             "Unable to get wheel size id, error message: $message"
                         )
-                    } ?: 0
+                    }
             }
 
-            if (sizeId.await() == 0 || colorId.await() == 0 ||
-                sizeId.await() == 0 || sizeId.await() == 0
+            if (sizeId.await() == null || colorId.await() == null ||
+                sizeId.await() == null || sizeId.await() == null
             ) {
                 Result.Failure(message = "Failed to get id for wheel size, color, type or state of bicycle, check logs for details")
             } else {
@@ -95,14 +95,14 @@ class BicycleManagerImpl @Inject constructor(
                     bicycleAllSpecsMapperDto.toData(
                         item = bicycle,
                         options = mapOf(
-                            "colorId" to colorId.await(),
-                            "typeId" to typeId.await(),
-                            "sizeId" to sizeId.await(),
-                            "stateId" to stateId.await()
+                            "colorId" to colorId.await()!!,
+                            "typeId" to typeId.await()!!,
+                            "sizeId" to sizeId.await()!!,
+                            "stateId" to stateId.await()!!
                         )
                     ).bicycleDto
                 ).toInt()
-                if (TransactionFailure.ALREADY_EXISTS != bicycleId && TransactionFailure.TRANSACTION_REJECTED != bicycleId) {
+                if (TransactionFailure.TRANSACTION_REJECTED != bicycleId) {
                     Result.Success(result = bicycleId)
                 } else {
                     Result.Failure(
