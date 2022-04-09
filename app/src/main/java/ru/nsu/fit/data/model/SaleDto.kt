@@ -7,7 +7,7 @@ import java.util.*
 @Entity(tableName = "sales")
 data class SaleDto(
     @PrimaryKey val bicycleId: Int = 0,
-    val saleDate: Date,
+    val saleDate: Calendar,
     val customerId: Int,
     val finalCost: Long
 ) : BaseDto()

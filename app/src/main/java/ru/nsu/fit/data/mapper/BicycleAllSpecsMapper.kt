@@ -4,7 +4,7 @@ import ru.nsu.fit.data.model.*
 import ru.nsu.fit.domain.model.*
 import javax.inject.Inject
 
-class BicycleMapper @Inject constructor(
+class BicycleAllSpecsMapper @Inject constructor(
     private val issueMapper: Mapper<Issue, IssueDto>,
     private val colorMapper: Mapper<Color, ColorDto>,
     private val stateDtoMapper: Mapper<State, BicycleStateDto>,

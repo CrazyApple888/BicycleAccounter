@@ -33,4 +33,6 @@
     <string name="wrong_purchase_price_hint">Введите цену</string>
     <string name="bicycle_added_successfully">Велосипед успешно добавлен</string>
     <string name="bicycle_adding_failed">Произошла ошибка, не удалось добавить велосипед</string>
+    <string name="month_year_test">май 2022</string>
+    <string name="date_test">22</string>
 </resources>

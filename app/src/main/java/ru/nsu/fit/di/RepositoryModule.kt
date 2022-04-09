@@ -3,6 +3,7 @@ package ru.nsu.fit.di
 import dagger.Binds
 import dagger.Module
 import ru.nsu.fit.data.repository.*
+import ru.nsu.fit.domain.model.Customer
 import ru.nsu.fit.domain.repository.*
 
 @Module
@@ -21,4 +22,7 @@ interface RepositoryModule {
 
     @Binds
     fun bindWheelSizeRepository(repo: WheelSizeRepositoryImpl): WheelSizeRepository
+
+    @Binds
+    fun bindCustomerRepository(repo: CustomerRepositoryImpl): CustomerRepository
 }

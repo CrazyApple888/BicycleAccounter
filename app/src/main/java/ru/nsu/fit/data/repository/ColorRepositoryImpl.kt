@@ -33,7 +33,7 @@ class ColorRepositoryImpl @Inject constructor(
             colorDao.selectIdByName(color.colorName) ?: colorDao.insertColorItem(
                 colorMapper.toData(color)
             ).toInt()
-        if (TransactionFailure.ALREADY_EXISTS != id && TransactionFailure.TRANSACTION_REJECTED != id) {
+        if (TransactionFailure.TRANSACTION_REJECTED != id) {
             Result.Success(result = id)
         } else {
             Result.Failure(

@@ -32,7 +32,7 @@ class TypeRepositoryImpl @Inject constructor(
             typeDao.selectIdByName(type.typeName) ?: typeDao.insertBicycleTypeItem(
                 typeMapper.toData(type)
             ).toInt()
-        if (TransactionFailure.ALREADY_EXISTS != id && TransactionFailure.TRANSACTION_REJECTED != id) {
+        if (TransactionFailure.TRANSACTION_REJECTED != id) {
             Result.Success(result = id)
         } else {
             Result.Failure(

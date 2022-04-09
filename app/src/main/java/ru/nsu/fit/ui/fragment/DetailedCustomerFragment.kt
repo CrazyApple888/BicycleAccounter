@@ -11,6 +11,7 @@ import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentDetailedCustomerBinding
 import ru.nsu.fit.presentation.viewmodel.DetailedBicycleViewModel
+import ru.nsu.fit.presentation.viewmodel.DetailedCustomerViewModel
 import javax.inject.Inject
 
 class DetailedCustomerFragment : Fragment() {

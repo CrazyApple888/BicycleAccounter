@@ -5,10 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.nsu.fit.presentation.viewmodel.AddBicycleViewModel
-import ru.nsu.fit.presentation.viewmodel.DetailedBicycleViewModel
-import ru.nsu.fit.presentation.viewmodel.HomeScreenViewModel
-import ru.nsu.fit.presentation.viewmodel.ViewModelFactory
+import ru.nsu.fit.presentation.viewmodel.*
 
 @Module
 interface ViewModelModule {
@@ -27,6 +24,16 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(AddBicycleViewModel::class)
     fun bindAddBicycleViewModel(viewModel: AddBicycleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CustomerListViewModel::class)
+    fun bindCustomerListViewModel(viewModel: CustomerListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailedCustomerViewModel::class)
+    fun bindDetailedCustomerViewModel(viewModel: DetailedCustomerViewModel): ViewModel
 
     @Binds
     fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
