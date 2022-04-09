@@ -8,7 +8,8 @@ class BicycleMapper @Inject constructor(
     private val issueMapper: Mapper<Issue, IssueDto>,
     private val colorMapper: Mapper<Color, ColorDto>,
     private val stateDtoMapper: Mapper<State, BicycleStateDto>,
-    private val typeDtoMapper: Mapper<Type, BicycleTypeDto>
+    private val typeDtoMapper: Mapper<Type, BicycleTypeDto>,
+    private val wheelSizeDtoMapper: Mapper<WheelSize, WheelSizeDto>
 ) : Mapper<Bicycle, BicycleAllSpecsDto> {
     override fun toDomain(item: BicycleAllSpecsDto, options: Map<String, Int>): Bicycle {
         return Bicycle(
@@ -20,7 +21,7 @@ class BicycleMapper @Inject constructor(
             picture = item.bicycleDto.picture,
             type = typeDtoMapper.toDomain(item.typeDto),
             state = stateDtoMapper.toDomain(item.stateDto),
-            wheelSize = item.wheelSize,
+            wheelSize = wheelSizeDtoMapper.toDomain(item.wheelSizeDto),
             color = colorMapper.toDomain(item.color),
             issues = item.issueDtos.map(issueMapper::toDomain)
         )
@@ -29,7 +30,7 @@ class BicycleMapper @Inject constructor(
     override fun toData(item: Bicycle, options: Map<String, Int>): BicycleAllSpecsDto {
         val typeId by options
         val stateId by options
-        val wheelSizeId by options
+        val sizeId by options
         val colorId by options
 
         val bicycle = BicycleDto(
@@ -41,14 +42,14 @@ class BicycleMapper @Inject constructor(
             item.picture,
             typeId,
             stateId,
-            wheelSizeId, colorId
+            sizeId, colorId
         )
         return BicycleAllSpecsDto(
             bicycle,
             typeDtoMapper.toData(item.type, mapOf("typeId" to typeId)),
             colorMapper.toData(item.color, mapOf("colorId" to colorId)),
             stateDtoMapper.toData(item.state, mapOf("stateId" to stateId)),
-            item.wheelSize,
+            wheelSizeDtoMapper.toData(item.wheelSize, mapOf("sizeId" to sizeId)),
             item.issues.map(issueMapper::toData)
         )
     }

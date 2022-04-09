@@ -53,17 +53,7 @@ class HomeScreenFragment : Fragment() {
 
     private fun initViews() {
         binding.recycler.adapter = adapter
-        //todo delete placeholder
-        val data = SimpleBicycle(
-            1,
-            "Очень очень очень длинное название",
-            12345,
-            null,
-            27.5
-        )
-        adapter.data = listOf(
-            data
-        )
+        viewModel.loadBicycles()
         viewModel.bicycles.observe(viewLifecycleOwner) { adapter.data = it }
     }
 
@@ -79,6 +69,4 @@ class HomeScreenFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
