@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.flow.first
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentDetailedBicycleBinding
@@ -44,24 +46,33 @@ class DetailedBicycleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[DetailedBicycleViewModel::class.java]
+        initListeners()
         initViews()
         loadDataFromArgs()
     }
 
     private fun initViews() {
-        viewModel.bicycle.observe(viewLifecycleOwner) { bike ->
-            with(bike) {
-                binding.bikeNameText.text = name
-                binding.stateText.text = state.stateName
-                binding.wheelSizeText.text = wheelSize.diameter.toString()
-                binding.colorText.text = color.colorName
-                binding.priceMinText.text = purchasePrice.toString()
-                binding.descriptionText.text = description ?: ""
-                if (sellingPrice != null) {
-                    binding.priceText.isGone = false
-                    binding.priceText.text = sellingPrice.toString()
-                } else {
-                    binding.priceText.isGone = true
+        binding.sellButton.setOnClickListener {
+            viewModel.onSellButton()
+        }
+    }
+
+    private fun initListeners() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.bicycle.collect { bike ->
+                with(bike) {
+                    binding.bikeNameText.text = name
+                    binding.stateText.text = state.stateName
+                    binding.wheelSizeText.text = wheelSize.diameter.toString()
+                    binding.colorText.text = color.colorName
+                    binding.priceMinText.text = purchasePrice.toString()
+                    binding.descriptionText.text = description ?: ""
+                    if (sellingPrice != null) {
+                        binding.priceText.isGone = false
+                        binding.priceText.text = sellingPrice.toString()
+                    } else {
+                        binding.priceText.isGone = true
+                    }
                 }
             }
         }
@@ -69,6 +80,11 @@ class DetailedBicycleFragment : Fragment() {
             viewModel.error.collect {
                 showError()
                 findNavController().popBackStack()
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.sellCall.collect {
+                navigateToSellBicycle(it.id, it.sellingPrice?.toDouble() ?: 0.0)
             }
         }
     }
@@ -79,6 +95,18 @@ class DetailedBicycleFragment : Fragment() {
         }
         arguments?.getInt(REQUIRED_BIKE_ID)?.also {
             viewModel.loadBicycle(it)
+        }
+    }
+
+    private fun navigateToSellBicycle(id: Int, price: Double) {
+        bundleOf(
+            SellBicycleFragment.REQUIRED_BIKE_ID to id,
+            SellBicycleFragment.REQUIRED_PRICE to price.toFloat()
+        ).let {
+            findNavController().navigate(
+                R.id.action_detailedBicycleFragment_to_sellBicycleFragment,
+                it
+            )
         }
     }
 

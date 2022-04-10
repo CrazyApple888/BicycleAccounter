@@ -7,6 +7,7 @@ import ru.nsu.fit.data.dao.*
 import ru.nsu.fit.data.model.*
 import ru.nsu.fit.data.model.BicycleDto
 import ru.nsu.fit.data.typeconverter.ImageTypeConverter
+import ru.nsu.fit.data.typeconverter.StateTypeConverter
 
 @Database(
     entities = [BicycleDto::class,
@@ -20,7 +21,7 @@ import ru.nsu.fit.data.typeconverter.ImageTypeConverter
         WheelSizeDto::class],
     version = 2
 )
-@TypeConverters(ImageTypeConverter::class)
+@TypeConverters(ImageTypeConverter::class, StateTypeConverter::class)
 abstract class BicycleAccounterDatabase : RoomDatabase() {
     abstract fun bicycleDao(): BicycleDao
     abstract fun bicycleIssueXrefDao(): BicycleIssueXrefDao

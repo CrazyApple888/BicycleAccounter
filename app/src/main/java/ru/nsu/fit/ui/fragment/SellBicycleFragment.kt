@@ -64,12 +64,12 @@ class SellBicycleFragment : Fragment() {
                 if (it) {
                     Toast.makeText(
                         requireContext(),
-                        "Велосипед успешно продан!",
+                        getString(R.string.sell_bicycle_success),
                         Toast.LENGTH_SHORT
                     )
                         .show()
                 } else {
-                    Toast.makeText(requireContext(), "Произошла ошибка", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.sell_bicycle_failure), Toast.LENGTH_SHORT).show()
                 }
                 navigateToHomeScreen()
             }
@@ -78,7 +78,7 @@ class SellBicycleFragment : Fragment() {
 
     private fun sell() {
         if (!validateFields()) {
-            Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.sell_bicycle_fill_all_fields), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -87,7 +87,7 @@ class SellBicycleFragment : Fragment() {
         if (bikeId == null) {
             Toast.makeText(
                 requireContext(),
-                "Кажется, этот велосипед продан :(",
+                getString(R.string.sell_bicycle_failure),
                 Toast.LENGTH_SHORT
             ).show()
             navigateToHomeScreen()
