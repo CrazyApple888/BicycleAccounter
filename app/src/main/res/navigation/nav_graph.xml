@@ -61,5 +61,23 @@
             android:name="isSold"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_detailedBicycleFragment_to_sellBicycleFragment"
+            app:destination="@id/sellBicycleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellBicycleFragment"
+        android:name="ru.nsu.fit.ui.fragment.SellBicycleFragment"
+        android:label="fragment_sell_bicycle"
+        tools:layout="@layout/fragment_sell_bicycle" >
+        <argument
+            android:name="price"
+            app:argType="float" />
+        <argument
+            android:name="bikeId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_sellBicycleFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
     </fragment>
 </navigation>

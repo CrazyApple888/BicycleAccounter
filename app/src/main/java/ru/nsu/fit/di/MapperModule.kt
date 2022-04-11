@@ -28,4 +28,7 @@ interface MapperModule {
 
     @Binds
     fun bindWheelSizeMapper(mapper: WheelSizeMapper): Mapper<WheelSize, WheelSizeDto>
+
+    @Binds
+    fun bindCustomerMapper(mapper: CustomerMapper): Mapper<Customer, CustomerDto>
 }
