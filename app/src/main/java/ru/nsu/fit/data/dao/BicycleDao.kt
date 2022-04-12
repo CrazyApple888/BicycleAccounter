@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import ru.nsu.fit.data.model.BicycleAllSpecsDto
 import ru.nsu.fit.data.model.BicycleDto
 import ru.nsu.fit.data.model.BicycleSimplifiedDto
+import ru.nsu.fit.data.model.StateDto
 
 @Dao
 interface BicycleDao {
@@ -13,9 +14,11 @@ interface BicycleDao {
 
     @Query(
         "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
-                "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeIdRef"
+                "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeIdRef " +
+                "INNER JOIN bicycle_states ON bicycle_states.stateId = bicycles.stateIdRef " +
+                "WHERE stateName NOT LIKE :rejectedState"
     )
-    fun selectSimplifiedBicycleAll(): Flow<List<BicycleSimplifiedDto>>
+    fun selectSimplifiedBicycleAll(rejectedState: String = StateDto.SOLD.stateName): Flow<List<BicycleSimplifiedDto>>
 
     @Query(
         "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +

@@ -27,6 +27,11 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(SellBicycleViewModel::class)
+    fun bindSellBicycleViewModel(viewModel: SellBicycleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(CustomerListViewModel::class)
     fun bindCustomerListViewModel(viewModel: CustomerListViewModel): ViewModel
 

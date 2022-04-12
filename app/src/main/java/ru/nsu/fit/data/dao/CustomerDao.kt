@@ -11,7 +11,11 @@ import ru.nsu.fit.data.model.CustomerSimplifiedDto
 @Dao
 interface CustomerDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertCustomerItem(customerDto: CustomerDto)
+    suspend fun insertCustomerItem(customerDto: CustomerDto): Long
+
+    suspend fun insertCustomerItem(name: String, phone: String): Long {
+        return insertCustomerItem(CustomerDto(id = 0, name = name, phone = phone))
+    }
 
     @Query("SELECT * FROM customers")
     fun selectCustomerAll(): Flow<List<CustomerDto>>
@@ -27,12 +31,6 @@ interface CustomerDao {
     @Query("SELECT DISTINCT * FROM customers WHERE customers.id = :id")
     fun selectCustomerById(id: Int): Flow<CustomerDto?>
 
-//    @RewriteQueriesToDropUnusedColumns
-//    @Query(
-//        "WITH client AS (SELECT DISTINCT * FROM customers WHERE customers.id = :id) " +
-//                "SELECT DISTINCT * " +
-//                "FROM (SELECT * FROM sales INNER JOIN bicycles ON sales.bicycleId = bicycles.bikeId) as sold_bikes " +
-//                "INNER JOIN client ON client.id = sold_bikes.customerId"
-//    )
-//    fun selectCustomerDetailed(id: Int): Flow<DetailedCustomerDto>
+    @Query("SELECT DISTINCT * FROM customers WHERE customers.name LIKE :name AND customers.phone LIKE :phone LIMIT 1")
+    fun selectFirstCustomerByNameAndPhone(name: String, phone: String): CustomerDto?
 }

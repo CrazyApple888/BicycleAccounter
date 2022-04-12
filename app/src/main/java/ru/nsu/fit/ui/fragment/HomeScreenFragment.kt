@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
@@ -53,7 +55,16 @@ class HomeScreenFragment : Fragment() {
     private fun initViews() {
         binding.recycler.adapter = adapter
         viewModel.loadBicycles()
-        viewModel.bicycles.observe(viewLifecycleOwner) { adapter.data = it }
+        lifecycleScope.launchWhenStarted {
+            viewModel.bicycles.collect {
+                adapter.data = it
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.error.collect {
+                showError()
+            }
+        }
     }
 
     private fun bicycleOnClickListener(id: Int) {
@@ -63,6 +74,13 @@ class HomeScreenFragment : Fragment() {
             args
         )
     }
+
+    private fun showError() =
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.home_screen_loading_error),
+            Toast.LENGTH_SHORT
+        ).show()
 
     override fun onDestroyView() {
         super.onDestroyView()
