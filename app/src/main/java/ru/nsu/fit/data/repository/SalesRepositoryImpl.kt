@@ -33,7 +33,7 @@ class SalesRepositoryImpl @Inject constructor(
         }
         salesDao.insertSaleItem(
             bikeId,
-            Calendar.getInstance().time.toString(),
+            Calendar.getInstance(),
             customerId,
             price.toLong()
         )

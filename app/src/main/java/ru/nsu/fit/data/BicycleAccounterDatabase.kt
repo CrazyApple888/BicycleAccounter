@@ -24,9 +24,9 @@ import ru.nsu.fit.data.typeconverter.StateTypeConverter
     autoMigrations = [
         AutoMigration(from = 2, to = 3)
     ]
-
 )
-@TypeConverters(ImageTypeConverter::class, StateTypeConverter::class)
+
+@TypeConverters(ImageTypeConverter::class, StateTypeConverter::class, CalendarTypeConverter::class)
 abstract class BicycleAccounterDatabase : RoomDatabase() {
     abstract fun bicycleDao(): BicycleDao
     abstract fun bicycleIssueXrefDao(): BicycleIssueXrefDao

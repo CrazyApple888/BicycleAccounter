@@ -33,8 +33,5 @@ interface MapperModule {
     fun bindCustomerMapper(mapper: CustomerMapper): Mapper<Customer, CustomerDto>
 
     @Binds
-    fun bindCustomerMapper(mapper: CustomerMapper): Mapper<Customer, CustomerDto>
-
-    @Binds
     fun bindSimpleCustomerMapper(mapper: SimpleCustomerMapper): Mapper<SimpleCustomer, CustomerSimplifiedDto>
 }

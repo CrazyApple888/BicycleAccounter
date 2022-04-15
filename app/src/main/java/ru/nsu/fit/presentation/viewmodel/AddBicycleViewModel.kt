@@ -17,19 +17,19 @@ class AddBicycleViewModel @Inject constructor(
     private val getAllStatesUseCase: GetAllStatesUseCase
 ) : ViewModel(), Loggable {
 
-    private var _messages: MutableSharedFlow<Result<String>> = MutableSharedFlow()
+    private val _messages: MutableSharedFlow<Result<String>> = MutableSharedFlow()
     var messages: SharedFlow<Result<String>> = _messages.asSharedFlow()
 
-    private var _states: MutableStateFlow<List<State>> = MutableStateFlow(emptyList())
+    private val _states: MutableStateFlow<List<State>> = MutableStateFlow(emptyList())
     val states: StateFlow<List<State>> = _states.asStateFlow()
 
-    private var _types: MutableStateFlow<List<Type>> = MutableStateFlow(emptyList())
+    private val _types: MutableStateFlow<List<Type>> = MutableStateFlow(emptyList())
     val types: StateFlow<List<Type>> = _types.asStateFlow()
 
-    private var _wheelSizes: MutableStateFlow<List<WheelSize>> = MutableStateFlow(emptyList())
+    private val _wheelSizes: MutableStateFlow<List<WheelSize>> = MutableStateFlow(emptyList())
     val wheelSizes: StateFlow<List<WheelSize>> = _wheelSizes.asStateFlow()
 
-    private var _colors: MutableStateFlow<List<Color>> = MutableStateFlow(emptyList())
+    private val _colors: MutableStateFlow<List<Color>> = MutableStateFlow(emptyList())
     val colors: StateFlow<List<Color>> = _colors.asStateFlow()
 
     fun loadAvailableParams() {

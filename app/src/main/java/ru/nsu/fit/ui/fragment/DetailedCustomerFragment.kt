@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentDetailedCustomerBinding
-import ru.nsu.fit.presentation.viewmodel.DetailedBicycleViewModel
 import ru.nsu.fit.presentation.viewmodel.DetailedCustomerViewModel
 import javax.inject.Inject
 
@@ -33,5 +32,16 @@ class DetailedCustomerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_detailed_customer, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        arguments?.getInt(REQUIRED_CUSTOMER_ID)?.let {
+            viewModel.loadCustomer(id)
+        }
+    }
+
+    companion object {
+        const val REQUIRED_CUSTOMER_ID = "customerId"
     }
 }

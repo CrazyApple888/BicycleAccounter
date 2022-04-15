@@ -24,7 +24,8 @@ interface CustomerDao {
         "SELECT id, name, phone, MAX(saleDate) as lastTrade " +
                 "FROM customers " +
                 "LEFT JOIN sales ON sales.customerId = customers.id " +
-                "GROUP BY id"
+                "GROUP BY id " +
+                "ORDER BY lastTrade DESC"
     )
     fun selectCustomerSimplifiedAll(): Flow<List<CustomerSimplifiedDto>>
 

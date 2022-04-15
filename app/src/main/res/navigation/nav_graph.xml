@@ -23,8 +23,8 @@
         android:label="fragment_customer_list"
         tools:layout="@layout/fragment_customer_list" >
         <action
-            android:id="@+id/action_customerListFragment_to_addBicycleFragment"
-            app:destination="@id/addBicycleFragment" />
+            android:id="@+id/action_customerListFragment_to_detailedCustomerFragment"
+            app:destination="@id/detailedCustomerFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBicycleFragment"
@@ -80,4 +80,8 @@
             android:id="@+id/action_sellBicycleFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailedCustomerFragment"
+        android:name="ru.nsu.fit.ui.fragment.DetailedCustomerFragment"
+        android:label="DetailedCustomerFragment" />
 </navigation>

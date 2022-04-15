@@ -2,15 +2,19 @@ package ru.nsu.fit.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.nsu.fit.BicycleAccounterApplication
+import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentCustomerListBinding
 import ru.nsu.fit.presentation.viewmodel.CustomerListViewModel
 import ru.nsu.fit.ui.adapter.CustomerListAdapter
@@ -62,7 +66,11 @@ class CustomerListFragment : Fragment() {
     }
 
     private fun customerOnClickListener(id: Int) {
-
+        val args = bundleOf(DetailedCustomerFragment.REQUIRED_CUSTOMER_ID to id)
+        findNavController().navigate(
+            R.id.action_customerListFragment_to_detailedCustomerFragment,
+            args
+        )
     }
 
     override fun onDestroyView() {

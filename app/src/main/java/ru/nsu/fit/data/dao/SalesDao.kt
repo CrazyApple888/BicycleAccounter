@@ -6,11 +6,23 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import ru.nsu.fit.data.model.SaleDto
+import java.util.*
 
 @Dao
 interface SalesDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertSaleItem(saleDto: SaleDto): Long
+    suspend fun insertSaleItem(saleDto: SaleDto)
+
+    suspend fun insertSaleItem(bicycleId: Int, saleDate: Calendar, customerId: Int, finalCost: Long) {
+        insertSaleItem(
+            SaleDto(
+                bicycleId = bicycleId,
+                saleDate = saleDate,
+                customerId = customerId,
+                finalCost = finalCost
+            )
+        )
+    }
 
     @Query("SELECT * FROM sales")
     fun selectSaleAll(): Flow<List<SaleDto>>
