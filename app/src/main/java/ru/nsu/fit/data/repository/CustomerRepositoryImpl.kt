@@ -8,6 +8,7 @@ import ru.nsu.fit.data.dao.CustomerDao
 import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.model.CustomerDto
 import ru.nsu.fit.data.model.CustomerSimplifiedDto
+import ru.nsu.fit.data.model.TransactionFailure
 import ru.nsu.fit.domain.model.Customer
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.model.SimpleCustomer
@@ -34,9 +35,15 @@ class CustomerRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun insertCustomer(customer: Customer): Result<Int> {
-        return Result.Failure(
-            message = "Unable to insert new state or retrieve id of existing"
-        )
-    }
+    override suspend fun insertCustomer(customer: Customer): Result<Int> =
+        withContext(Dispatchers.IO) {
+            val customerId =
+                customerDao.selectFirstCustomerByNameAndPhone(customer.name, customer.phone)?.id
+                    ?: customerDao.insertCustomerItem(customer.name, customer.phone).toInt()
+
+            if (customerId == TransactionFailure.TRANSACTION_REJECTED) {
+                return@withContext Result.Failure("Unable to insert customer")
+            }
+            Result.Success(customerId)
+        }
 }

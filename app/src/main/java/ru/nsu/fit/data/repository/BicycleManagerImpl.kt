@@ -36,7 +36,6 @@ class BicycleManagerImpl @Inject constructor(
                     Result.Success(result = it.map(simpleBicycleMapperDto::toDomain))
                 }
             }
-
         }
 
     override suspend fun getBicycleById(id: Int): Flow<Result<Bicycle>> =
