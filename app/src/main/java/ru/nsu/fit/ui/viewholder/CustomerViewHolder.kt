@@ -5,9 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import ru.nsu.fit.databinding.ItemCustomerBinding
 import ru.nsu.fit.domain.model.SimpleCustomer
-import ru.nsu.fit.domain.utils.DateFormatUtil
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import ru.nsu.fit.domain.utils.DateFormatterUtil
 import java.util.*
 
 class CustomerViewHolder(
@@ -26,19 +24,7 @@ class CustomerViewHolder(
                 dateLayout.visibility = View.INVISIBLE
             } else {
                 dateDay.text = customer.lastTrade.get(Calendar.DAY_OF_MONTH).toString()
-                val month =
-                    with(customer.lastTrade) {
-                        DateTimeFormatter.ofPattern(DateFormatUtil.CUSTOMER_LIST_DATE_FORMAT)
-                            .withLocale(Locale("ru"))
-                            .format(
-                                LocalDate.of(
-                                    get(Calendar.YEAR),
-                                    get(Calendar.MONTH),
-                                    get(Calendar.DAY_OF_MONTH)
-                                )
-                            )
-                    }
-
+                val month = DateFormatterUtil.formatCalendarToCustomerList(customer.lastTrade)
                 dateMonthYear.text = month
             }
         }

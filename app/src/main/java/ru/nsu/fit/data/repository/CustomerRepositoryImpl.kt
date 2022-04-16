@@ -39,6 +39,4 @@ class CustomerRepositoryImpl @Inject constructor(
             message = "Unable to insert new state or retrieve id of existing"
         )
     }
-
-
 }
