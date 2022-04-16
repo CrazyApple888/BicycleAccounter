@@ -30,13 +30,8 @@ class BicycleManagerImpl @Inject constructor(
     override suspend fun getAllBicycles(): Flow<Result<List<SimpleBicycle>>> =
         withContext(Dispatchers.IO) {
             bicycleDao.selectSimplifiedBicycleAll().map {
-                if (it.isEmpty()) {
-                    Result.Failure(message = "", result = null)
-                } else {
-                    Result.Success(result = it.map(simpleBicycleMapperDto::toDomain))
-                }
+                Result.Success(result = it.map(simpleBicycleMapperDto::toDomain))
             }
-
         }
 
     override suspend fun getBicycleById(id: Int): Flow<Result<Bicycle>> =

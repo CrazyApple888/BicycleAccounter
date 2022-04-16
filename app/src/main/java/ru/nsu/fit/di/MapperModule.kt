@@ -12,7 +12,7 @@ interface MapperModule {
     fun bindSimpleBicycleMapper(mapper: SimpleBicycleMapper): Mapper<SimpleBicycle, BicycleSimplifiedDto>
 
     @Binds
-    fun bicycleMapper(mapper: BicycleMapper): Mapper<Bicycle, BicycleAllSpecsDto>
+    fun bicycleMapper(mapper: BicycleAllSpecsMapper): Mapper<Bicycle, BicycleAllSpecsDto>
 
     @Binds
     fun bindTypeMapper(mapper: TypeMapper): Mapper<Type, BicycleTypeDto>
@@ -31,4 +31,7 @@ interface MapperModule {
 
     @Binds
     fun bindCustomerMapper(mapper: CustomerMapper): Mapper<Customer, CustomerDto>
+
+    @Binds
+    fun bindSimpleCustomerMapper(mapper: SimpleCustomerMapper): Mapper<SimpleCustomer, CustomerSimplifiedDto>
 }

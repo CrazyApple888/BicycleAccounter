@@ -1,11 +1,12 @@
 package ru.nsu.fit.data
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ru.nsu.fit.data.dao.*
 import ru.nsu.fit.data.model.*
-import ru.nsu.fit.data.model.BicycleDto
+import ru.nsu.fit.data.typeconverter.CalendarTypeConverter
 import ru.nsu.fit.data.typeconverter.ImageTypeConverter
 import ru.nsu.fit.data.typeconverter.StateTypeConverter
 
@@ -19,9 +20,13 @@ import ru.nsu.fit.data.typeconverter.StateTypeConverter
         IssueDto::class,
         SaleDto::class,
         WheelSizeDto::class],
-    version = 2
+    version = 3,
+    autoMigrations = [
+        AutoMigration(from = 2, to = 3)
+    ]
 )
-@TypeConverters(ImageTypeConverter::class, StateTypeConverter::class)
+
+@TypeConverters(ImageTypeConverter::class, StateTypeConverter::class, CalendarTypeConverter::class)
 abstract class BicycleAccounterDatabase : RoomDatabase() {
     abstract fun bicycleDao(): BicycleDao
     abstract fun bicycleIssueXrefDao(): BicycleIssueXrefDao

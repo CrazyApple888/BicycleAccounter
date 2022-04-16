@@ -33,6 +33,8 @@
     <string name="wrong_purchase_price_hint">Введите цену</string>
     <string name="bicycle_added_successfully">Велосипед успешно добавлен</string>
     <string name="bicycle_adding_failed">Произошла ошибка, не удалось добавить велосипед</string>
+    <string name="month_year_test">май 2022</string>
+    <string name="date_test">22</string>
     <string name="bicycle_detailed_screen_error">Велосипед не найден!</string>
     <string name="home_screen_loading_error">Не удалось загрузить список велосипедов…</string>
     <string name="sell_button">Продать</string>
@@ -43,5 +45,3 @@
     <string name="sell_bicycle_failure">Произошла ошибка</string>
     <string name="sell_bicycle_fill_all_fields">Заполните все поля</string>
 </resources>
-
-

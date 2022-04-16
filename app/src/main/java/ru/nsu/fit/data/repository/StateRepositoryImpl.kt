@@ -40,6 +40,4 @@ class StateRepositoryImpl @Inject constructor(
             )
         }
     }
-
-
 }

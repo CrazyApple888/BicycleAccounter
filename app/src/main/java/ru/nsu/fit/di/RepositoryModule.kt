@@ -23,5 +23,8 @@ interface RepositoryModule {
     fun bindWheelSizeRepository(repo: WheelSizeRepositoryImpl): WheelSizeRepository
 
     @Binds
-    fun bindSalesRepository(repo: SalesRepositoryImpl): SalesRepository
+    fun bindSalesRepository(repo: SalesManagerImpl): SalesRepository
+
+    @Binds
+    fun bindCustomerRepository(repo: CustomerRepositoryImpl): CustomerRepository
 }

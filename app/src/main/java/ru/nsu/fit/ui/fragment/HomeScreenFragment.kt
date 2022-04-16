@@ -43,7 +43,6 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
