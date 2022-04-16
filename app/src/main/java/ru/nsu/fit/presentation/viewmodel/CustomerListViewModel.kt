@@ -13,6 +13,11 @@ import javax.inject.Inject
 class CustomerListViewModel @Inject constructor(
     private val getSimpleCustomerAllUseCase: GetSimpleCustomerAllUseCase
 ) : ViewModel() {
+
+    init {
+        loadCustomers()
+    }
+
     private val _messages = MutableSharedFlow<Result<String>>()
     val messages = _messages.asSharedFlow()
 

@@ -30,7 +30,15 @@ class CustomerListFragment : Fragment() {
     private var _binding: FragmentCustomerListBinding? = null
     private val binding: FragmentCustomerListBinding get() = checkNotNull(_binding) { "Binding is not initialized" }
 
-    private val adapter: CustomerListAdapter = CustomerListAdapter(::customerOnClickListener)
+    private val onCustomerClickListener = { id: Int ->
+        val args = bundleOf(DetailedCustomerFragment.REQUIRED_CUSTOMER_ID to id)
+        findNavController().navigate(
+            R.id.action_customerListFragment_to_detailedCustomerFragment,
+            args
+        )
+    }
+
+    private val adapter: CustomerListAdapter = CustomerListAdapter(onCustomerClickListener)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,7 +48,7 @@ class CustomerListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCustomerListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,7 +57,6 @@ class CustomerListFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[CustomerListViewModel::class.java]
         binding.recycler.adapter = adapter
         initObservers()
-        viewModel.loadCustomers()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -63,14 +70,6 @@ class CustomerListFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun customerOnClickListener(id: Int) {
-        val args = bundleOf(DetailedCustomerFragment.REQUIRED_CUSTOMER_ID to id)
-        findNavController().navigate(
-            R.id.action_customerListFragment_to_detailedCustomerFragment,
-            args
-        )
     }
 
     override fun onDestroyView() {
