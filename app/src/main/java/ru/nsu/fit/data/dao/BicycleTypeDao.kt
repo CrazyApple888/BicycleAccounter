@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import ru.nsu.fit.data.model.BicycleTypeDto
-import ru.nsu.fit.data.model.ColorDto
 
 @Dao
 interface BicycleTypeDao {

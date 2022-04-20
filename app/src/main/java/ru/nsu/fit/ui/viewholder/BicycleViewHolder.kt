@@ -2,7 +2,6 @@ package ru.nsu.fit.ui.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import ru.nsu.fit.databinding.ItemBicycleBinding
-import ru.nsu.fit.domain.model.Bicycle
 import ru.nsu.fit.domain.model.SimpleBicycle
 
 class BicycleViewHolder(
@@ -18,7 +17,7 @@ class BicycleViewHolder(
                 priceText.text.toString(),
                 bike.sellingPrice
             ) else notReadyForSaleMessage
-            tiresText.text = bike.wheelSize.toString()
+            tiresText.text = bike.wheelSize.diameter.toString()
             bike.picture?.also { photo ->
                 binding.bikeImage.setImageBitmap(photo)
             }

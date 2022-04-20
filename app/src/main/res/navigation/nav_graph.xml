@@ -9,7 +9,7 @@
         android:id="@+id/homeScreenFragment"
         android:name="ru.nsu.fit.ui.fragment.HomeScreenFragment"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" >
+        tools:layout="@layout/fragment_home_screen">
         <action
             android:id="@+id/action_homeScreenFragment_to_detailedBicycleFragment"
             app:destination="@id/detailedBicycleFragment" />
@@ -21,7 +21,7 @@
         android:id="@+id/customerListFragment"
         android:name="ru.nsu.fit.ui.fragment.CustomerListFragment"
         android:label="fragment_customer_list"
-        tools:layout="@layout/fragment_customer_list" >
+        tools:layout="@layout/fragment_customer_list">
         <action
             android:id="@+id/action_customerListFragment_to_detailedCustomerFragment"
             app:destination="@id/detailedCustomerFragment" />
@@ -30,7 +30,7 @@
         android:id="@+id/addBicycleFragment"
         android:name="ru.nsu.fit.ui.fragment.AddBicycleFragment"
         android:label="fragment_add_bicycle"
-        tools:layout="@layout/fragment_add_bicycle" >
+        tools:layout="@layout/fragment_add_bicycle">
         <action
             android:id="@+id/action_addBicycleFragment_to_salesListFragment"
             app:destination="@id/salesListFragment" />
@@ -39,7 +39,7 @@
         android:id="@+id/salesListFragment"
         android:name="ru.nsu.fit.ui.fragment.SalesListFragment"
         android:label="fragment_sales_list"
-        tools:layout="@layout/fragment_sales_list" >
+        tools:layout="@layout/fragment_sales_list">
         <action
             android:id="@+id/action_salesListFragment_to_statisticsFragment"
             app:destination="@id/statisticsFragment" />
@@ -53,14 +53,14 @@
         android:id="@+id/detailedBicycleFragment"
         android:name="ru.nsu.fit.ui.fragment.DetailedBicycleFragment"
         android:label="fragment_detailed_bicycle"
-        tools:layout="@layout/fragment_detailed_bicycle" >
+        tools:layout="@layout/fragment_detailed_bicycle">
         <argument
             android:name="bikeId"
             app:argType="integer" />
         <argument
             android:name="isSold"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_detailedBicycleFragment_to_sellBicycleFragment"
             app:destination="@id/sellBicycleFragment" />
@@ -69,7 +69,7 @@
         android:id="@+id/sellBicycleFragment"
         android:name="ru.nsu.fit.ui.fragment.SellBicycleFragment"
         android:label="fragment_sell_bicycle"
-        tools:layout="@layout/fragment_sell_bicycle" >
+        tools:layout="@layout/fragment_sell_bicycle">
         <argument
             android:name="price"
             app:argType="float" />
@@ -83,5 +83,12 @@
     <fragment
         android:id="@+id/detailedCustomerFragment"
         android:name="ru.nsu.fit.ui.fragment.DetailedCustomerFragment"
-        android:label="DetailedCustomerFragment" />
+        android:label="DetailedCustomerFragment">
+        <argument
+            android:name="customerId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailedCustomerFragment_to_detailedBicycleFragment"
+            app:destination="@id/detailedBicycleFragment" />
+    </fragment>
 </navigation>

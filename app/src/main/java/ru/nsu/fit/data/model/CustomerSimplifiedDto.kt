@@ -7,4 +7,4 @@ data class CustomerSimplifiedDto(
     val name: String,
     val phone: String,
     val lastTrade: Calendar?
-): BaseDto()
+) : BaseDto()

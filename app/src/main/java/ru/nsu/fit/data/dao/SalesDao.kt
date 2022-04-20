@@ -13,7 +13,12 @@ interface SalesDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertSaleItem(saleDto: SaleDto)
 
-    suspend fun insertSaleItem(bicycleId: Int, saleDate: Calendar, customerId: Int, finalCost: Long) {
+    suspend fun insertSaleItem(
+        bicycleId: Int,
+        saleDate: Calendar,
+        customerId: Int,
+        finalCost: Long
+    ) {
         insertSaleItem(
             SaleDto(
                 bicycleId = bicycleId,

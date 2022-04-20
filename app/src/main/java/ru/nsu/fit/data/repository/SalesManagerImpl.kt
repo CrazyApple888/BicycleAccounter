@@ -23,9 +23,9 @@ class SalesManagerImpl @Inject constructor(
         bikeId: Int,
         price: Double,
         customer: Customer
-    ): Result<*>  {
+    ): Result<*> = withContext(Dispatchers.IO) {
         when (val customerId = customerRepository.insertCustomer(customer)) {
-            is Result.Failure -> return Result.Failure<Any>("Unable to insert customer")
+            is Result.Failure -> Result.Failure("Unable to insert customer")
             is Result.Success -> {
                 salesDao.insertSaleItem(
                     bikeId,
@@ -34,9 +34,12 @@ class SalesManagerImpl @Inject constructor(
                     price.toLong()
                 )
                 val stateId = stateDao.selectIdByName(StateDto.SOLD.stateName)
-                    ?: return Result.Failure<Any>("Unable to get state id for state ${StateDto.SOLD}")
-                bicycleDao.updateBicycleStateById(bikeId, stateId)
-                return Result.Success<Any>()
+                if (stateId != null) {
+                    bicycleDao.updateBicycleStateById(bikeId, stateId)
+                    Result.Success()
+                } else {
+                    Result.Failure<Any>("Unable to get state id for state ${StateDto.SOLD}")
+                }
             }
         }
     }

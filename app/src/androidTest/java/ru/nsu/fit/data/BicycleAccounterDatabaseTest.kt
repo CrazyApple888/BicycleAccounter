@@ -12,7 +12,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import ru.nsu.fit.data.dao.*
-import ru.nsu.fit.data.model.*
+import ru.nsu.fit.data.model.ColorDto
 
 class BicycleAccounterDatabaseTest {
     private lateinit var db: BicycleAccounterDatabase
@@ -33,7 +33,6 @@ class BicycleAccounterDatabaseTest {
         stateDao = db.bicycleStateDao()
 
         //populating database
-        populate()
     }
 
 
@@ -77,60 +76,5 @@ class BicycleAccounterDatabaseTest {
         assertEquals("teal", colorItem?.colorName)
     }
 
-    private fun populate() {
-        val colors = listOf(
-            ColorDto(colorId = 20, colorName = "yellow"),
-            ColorDto(colorName = "black"),
-            ColorDto(colorName = "brown"),
-            ColorDto(colorName = "green"),
-            ColorDto(colorName = "red")
-        )
-
-        val types = listOf(
-            BicycleTypeDto(typeId = 20, typeName = "mountain"),
-            BicycleTypeDto(typeName = "hybrid"),
-            BicycleTypeDto(typeName = "road"),
-            BicycleTypeDto(typeName = "folding"),
-            BicycleTypeDto(typeName = "adventure")
-        )
-
-        val sizes = listOf(
-            WheelSizeDto(sizeInches = 20.0),
-            WheelSizeDto(sizeInches = 24.0),
-            WheelSizeDto(sizeInches = 26.0),
-            WheelSizeDto(sizeId = 20, sizeInches = 27.5),
-            WheelSizeDto(sizeInches = 29.0)
-        )
-
-        val states = listOf(
-            BicycleStateDto(stateId = 20, stateName = "sold"),
-            BicycleStateDto(stateName = "selling"),
-            BicycleStateDto(stateName = "in service"),
-            BicycleStateDto(stateName = "returned"),
-            BicycleStateDto(stateName = "bebra")
-        )
-
-        val bicycles = listOf(
-            BicycleDto(
-                name = "bebra",
-                purchasePrice = 2000,
-                sellingPrice = 5000,
-                description = "description",
-                picture = null,
-                typeIdRef = 20,
-                stateIdRef = 20,
-                wheelSizeIdRef = 20,
-                colorIdRef = 20
-            )
-        )
-        runBlocking {
-            colors.map { colorDao.insertColorItem(it) }
-            types.map { typeDao.insertBicycleTypeItem(it) }
-            sizes.map { wheelSizeDao.insertWheelSizeItem(it) }
-            states.map { stateDao.insertBicycleStateItem(it) }
-            bicycles.map { bicycleDao.insertBicycleItem(it) }
-        }
-
-    }
 
 }

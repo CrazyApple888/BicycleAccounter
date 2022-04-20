@@ -2,11 +2,11 @@ package ru.nsu.fit.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,7 +15,10 @@ import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentSellBicycleBinding
 import ru.nsu.fit.presentation.viewmodel.SellBicycleViewModel
-import ru.nsu.fit.presentation.viewmodel.ViewModelFactory
+import ru.tinkoff.decoro.MaskImpl
+import ru.tinkoff.decoro.slots.PredefinedSlots
+import ru.tinkoff.decoro.watchers.FormatWatcher
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 import javax.inject.Inject
 
 
@@ -53,6 +56,12 @@ class SellBicycleFragment : Fragment() {
             binding.priceEt.setText(it.toString())
         }
         binding.sellButton.setOnClickListener { sell() }
+
+        //setting up auto formatter for phone input
+        val mask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER)
+        val watcher: FormatWatcher = MaskFormatWatcher(mask)
+        watcher.installOn(binding.phoneEt)
+
     }
 
     private fun initListeners() {
@@ -69,7 +78,11 @@ class SellBicycleFragment : Fragment() {
                     )
                         .show()
                 } else {
-                    Toast.makeText(requireContext(), getString(R.string.sell_bicycle_failure), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.sell_bicycle_failure),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 navigateToHomeScreen()
             }
@@ -78,7 +91,11 @@ class SellBicycleFragment : Fragment() {
 
     private fun sell() {
         if (!validateFields()) {
-            Toast.makeText(requireContext(), getString(R.string.sell_bicycle_fill_all_fields), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.sell_bicycle_fill_all_fields),
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 

@@ -2,32 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeScreenFragment"
-        android:title="@string/bicycles_title"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_format_list_bulleted_24"/>
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="@string/bicycles_title" />
 
     <item
         android:id="@+id/customerListFragment"
-        android:title="@string/customers_title"
         android:enabled="true"
         android:icon="@drawable/ic_customers"
-        />
+        android:title="@string/customers_title" />
     <item
         android:id="@+id/addBicycleFragment"
-        android:title="@string/add_title"
         android:enabled="true"
         android:icon="@drawable/ic_add"
-        />
+        android:title="@string/add_title" />
     <item
         android:id="@+id/salesListFragment"
-        android:title="@string/sales_title"
         android:enabled="true"
         android:icon="@drawable/ic_sales_list"
-        />
+        android:title="@string/sales_title" />
     <item
         android:id="@+id/statisticsFragment"
-        android:title="@string/statistics_title"
         android:enabled="true"
         android:icon="@drawable/ic_statistics"
-        />
+        android:title="@string/statistics_title" />
 </menu>
