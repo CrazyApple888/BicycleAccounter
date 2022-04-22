@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentHomeScreenBinding
-import ru.nsu.fit.domain.model.SimpleBicycle
 import ru.nsu.fit.presentation.viewmodel.HomeScreenViewModel
 import ru.nsu.fit.ui.adapter.BicycleListAdapter
 import javax.inject.Inject
@@ -29,8 +28,16 @@ class HomeScreenFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: HomeScreenViewModel
 
+    private val bicycleOnClickListener = { id: Int ->
+        val args = bundleOf(DetailedBicycleFragment.REQUIRED_BIKE_ID to id)
+        findNavController().navigate(
+            R.id.action_homeScreenFragment_to_detailedBicycleFragment,
+            args
+        )
+    }
+
     private val adapter: BicycleListAdapter by lazy {
-        BicycleListAdapter(getString(R.string.not_ready_for_sale), ::bicycleOnClickListener)
+        BicycleListAdapter(getString(R.string.not_ready_for_sale), bicycleOnClickListener)
     }
 
     override fun onAttach(context: Context) {
@@ -54,31 +61,26 @@ class HomeScreenFragment : Fragment() {
 
     private fun initViews() {
         binding.recycler.adapter = adapter
-        viewModel.loadBicycles()
         lifecycleScope.launchWhenStarted {
-            viewModel.bicycles.collect {
-                adapter.data = it
+            viewModel.bicycles.collect { list ->
+                if (list.isEmpty()) {
+                    showMessage(getString(R.string.home_screen_empty_db))
+                } else {
+                    adapter.data = list
+                }
             }
         }
         lifecycleScope.launchWhenStarted {
             viewModel.error.collect {
-                showError()
+                showMessage(getString(R.string.home_screen_loading_error))
             }
         }
     }
 
-    private fun bicycleOnClickListener(id: Int) {
-        val args = bundleOf(DetailedBicycleFragment.REQUIRED_BIKE_ID to id)
-        findNavController().navigate(
-            R.id.action_homeScreenFragment_to_detailedBicycleFragment,
-            args
-        )
-    }
-
-    private fun showError() =
+    private fun showMessage(message: String) =
         Toast.makeText(
             requireContext(),
-            getString(R.string.home_screen_loading_error),
+            message,
             Toast.LENGTH_SHORT
         ).show()
 

@@ -10,12 +10,12 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collectLatest
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentSellBicycleBinding
 import ru.nsu.fit.presentation.viewmodel.SellBicycleViewModel
-import ru.nsu.fit.presentation.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 

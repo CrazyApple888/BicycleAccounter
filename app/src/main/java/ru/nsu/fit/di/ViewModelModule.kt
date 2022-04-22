@@ -32,6 +32,11 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(SalesViewModel::class)
+    fun bindSalesViewModel(viewModel: SalesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(CustomerListViewModel::class)
     fun bindCustomerListViewModel(viewModel: CustomerListViewModel): ViewModel
 

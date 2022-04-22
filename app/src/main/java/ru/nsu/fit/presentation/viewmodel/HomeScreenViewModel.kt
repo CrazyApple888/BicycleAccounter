@@ -15,6 +15,10 @@ class HomeScreenViewModel @Inject constructor(
     private val getAllBicyclesUseCase: GetAllBicyclesUseCase
 ) : ViewModel() {
 
+    init {
+        loadBicycles()
+    }
+
     private val _bicycles = MutableSharedFlow<List<SimpleBicycle>>()
     val bicycles: SharedFlow<List<SimpleBicycle>> get() = _bicycles.asSharedFlow()
 
@@ -22,7 +26,7 @@ class HomeScreenViewModel @Inject constructor(
     val error: SharedFlow<Unit> = _error.asSharedFlow()
 
 
-    fun loadBicycles() {
+    private fun loadBicycles() {
         viewModelScope.launch {
             getAllBicyclesUseCase().collect { result ->
                 when (result) {

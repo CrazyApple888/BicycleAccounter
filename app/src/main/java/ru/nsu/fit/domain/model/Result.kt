@@ -15,4 +15,6 @@ sealed interface Result<T> {
             }
         }
     }
+
+    fun isSuccess() = this is Success
 }

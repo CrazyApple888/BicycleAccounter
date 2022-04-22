@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import ru.nsu.fit.data.dao.BicycleStateDao
 import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.model.BicycleStateDto
-import ru.nsu.fit.data.model.TransactionFailure
+import ru.nsu.fit.data.model.TransactionStatus
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.model.State
 import ru.nsu.fit.domain.repository.StateRepository
@@ -32,7 +32,7 @@ class StateRepositoryImpl @Inject constructor(
             stateDao.selectIdByName(state.stateName) ?: stateDao.insertBicycleStateItem(
                 stateMapper.toData(state)
             ).toInt()
-        if (TransactionFailure.TRANSACTION_REJECTED != id) {
+        if (TransactionStatus.TRANSACTION_REJECTED != id) {
             Result.Success(result = id)
         } else {
             Result.Failure(

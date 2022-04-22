@@ -44,4 +44,7 @@
     <string name="sell_bicycle_success">Велосипед успешно продан!</string>
     <string name="sell_bicycle_failure">Произошла ошибка</string>
     <string name="sell_bicycle_fill_all_fields">Заполните все поля</string>
+    <string name="sales_price_template">%s РУБ</string>
+    <string name="sales_warranty_template">Срок истечения гарантии %s</string>
+    <string name="home_screen_empty_db">У Вас нет ни одного велосипеда для продажи</string>
 </resources>

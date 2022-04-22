@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import ru.nsu.fit.databinding.ItemCustomerBinding
 import ru.nsu.fit.domain.model.SimpleCustomer
-import ru.nsu.fit.domain.utils.DateFormatterUtil
+import ru.nsu.fit.domain.util.calendarToStringFormat
 import java.util.*
 
 class CustomerViewHolder(
@@ -21,11 +21,11 @@ class CustomerViewHolder(
             card.setOnClickListener { onClickListener(customer.id) }
 
             if (customer.lastTrade == null) {
-                dateLayout.visibility = View.INVISIBLE
+                layoutDate.dateLayout.visibility = View.INVISIBLE
             } else {
-                dateDay.text = customer.lastTrade.get(Calendar.DAY_OF_MONTH).toString()
-                val month = DateFormatterUtil.formatCalendarToCustomerList(customer.lastTrade)
-                dateMonthYear.text = month
+                layoutDate.dateDay.text = customer.lastTrade.get(Calendar.DAY_OF_MONTH).toString()
+                val month = calendarToStringFormat(customer.lastTrade)
+                layoutDate.dateMonthYear.text = month
             }
         }
     }
