@@ -17,7 +17,7 @@ class DataModule(
             context,
             BicycleAccounterDatabase::class.java,
             "BicycleAccounterDatabase"
-        ).build()
+        ).createFromAsset("database/database_sample.db").build()
     }
 
     @Singleton
