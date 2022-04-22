@@ -3,7 +3,6 @@ package ru.nsu.fit.data.model
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.lang.IllegalArgumentException
 
 @Entity(tableName = "bicycle_states", indices = [Index(value = ["stateName"], unique = true)])
 data class BicycleStateDto(

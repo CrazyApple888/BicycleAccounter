@@ -18,13 +18,19 @@ class CustomerListViewModel @Inject constructor(
         loadCustomers()
     }
 
-    private val _messages = MutableSharedFlow<Result<String>>()
+    private val _messages = MutableSharedFlow<Result<String>>(replay = 1)
     val messages = _messages.asSharedFlow()
 
-    private val _customers = MutableSharedFlow<List<SimpleCustomer>>()
+    private val _customers = MutableSharedFlow<List<SimpleCustomer>>(replay = 1)
     val customers = _customers.asSharedFlow()
 
-    fun loadCustomers() {
+    fun loadBuffer() {
+        viewModelScope.launch {
+            _customers.emit(_customers.replayCache.lastOrNull() ?: emptyList())
+        }
+    }
+
+    private fun loadCustomers() {
         viewModelScope.launch {
             getSimpleCustomerAllUseCase().collect { result ->
                 when (result) {

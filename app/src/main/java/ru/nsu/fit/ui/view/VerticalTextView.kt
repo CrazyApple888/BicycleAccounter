@@ -33,7 +33,12 @@ class VerticalTextView : androidx.appcompat.widget.AppCompatTextView {
         paint.color = textColors.defaultColor
         val text = text()
         paint.getTextBounds(text, 0, text.length, _bounds)
-        canvas.drawText(text, compoundPaddingLeft.toFloat(), (_bounds.height() - _width) / 2.toFloat(), paint)
+        canvas.drawText(
+            text,
+            compoundPaddingLeft.toFloat(),
+            (_bounds.height() - _width) / 2.toFloat(),
+            paint
+        )
         canvas.restore()
     }
 

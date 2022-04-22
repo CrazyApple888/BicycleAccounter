@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2,
-    "identityHash": "7723e51a6c17c6a330107b08023fd8d0",
+    "version": 4,
+    "identityHash": "b384d9dd0f40bad7e1005147bc66f68a",
     "entities": [
       {
         "tableName": "bicycles",
@@ -242,7 +242,17 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_customers_phone",
+            "unique": true,
+            "columnNames": [
+              "phone"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_customers_phone` ON `${TABLE_NAME}` (`phone`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
@@ -279,7 +289,7 @@
       },
       {
         "tableName": "sales",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bicycleId` INTEGER NOT NULL, `saleDate` TEXT NOT NULL, `customerId` INTEGER NOT NULL, `finalCost` INTEGER NOT NULL, PRIMARY KEY(`bicycleId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bicycleId` INTEGER NOT NULL, `saleDate` INTEGER NOT NULL, `customerId` INTEGER NOT NULL, `finalCost` INTEGER NOT NULL, PRIMARY KEY(`bicycleId`))",
         "fields": [
           {
             "fieldPath": "bicycleId",
@@ -290,7 +300,7 @@
           {
             "fieldPath": "saleDate",
             "columnName": "saleDate",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -352,10 +362,15 @@
         "foreignKeys": []
       }
     ],
-    "views": [],
+    "views": [
+      {
+        "viewName": "sold_bicycles",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT * FROM sales INNER JOIN bicycles ON bicycles.bikeId = sales.bicycleId INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeIdRef"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7723e51a6c17c6a330107b08023fd8d0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b384d9dd0f40bad7e1005147bc66f68a')"
     ]
   }
 }

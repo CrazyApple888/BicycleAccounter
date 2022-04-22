@@ -7,7 +7,11 @@ import ru.nsu.fit.domain.model.Sale
 
 interface SalesManager {
 
-    suspend fun addCustomerAndUpdateBicycleState(bikeId: Int, price: Double, customer: Customer): Result<*>
+    suspend fun addCustomerAndUpdateBicycleState(
+        bikeId: Int,
+        price: Double,
+        customer: Customer
+    ): Result<*>
 
     suspend fun getAllSales():  Flow<Result<List<Sale>>>
 

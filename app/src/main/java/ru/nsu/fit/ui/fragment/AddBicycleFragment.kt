@@ -54,8 +54,8 @@ class AddBicycleFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.messages.collect {
                 when (it) {
-                    is Result.Success -> showToast(getString(R.string.bicycle_added_successfully))
-                    is Result.Failure -> showToast(getString(R.string.bicycle_adding_failed))
+                    is Result.Success -> showToastShort(getString(R.string.bicycle_added_successfully))
+                    is Result.Failure -> showToastShort(getString(R.string.bicycle_adding_failed))
                 }
             }
         }
@@ -228,7 +228,7 @@ class AddBicycleFragment : Fragment() {
 
     private fun matchesWheelSize(size: Double) = size in 0.0..50.0
 
-    private fun showToast(hint: String) {
+    private fun showToastShort(hint: String) {
         Toast.makeText(
             requireContext(),
             hint,
