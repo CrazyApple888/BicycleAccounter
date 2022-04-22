@@ -19,6 +19,6 @@ class DetailedCustomerMapper @Inject constructor(
     }
 
     override fun toData(item: DetailedCustomer, options: Map<String, Int>): CustomerDetailedDto {
-        throw IllegalStateException("You are trying to call stub")
+        throw IllegalStateException("Mapping ${DetailedCustomer::javaClass} to ${CustomerDetailedDto::javaClass} is forbidden")
     }
 }

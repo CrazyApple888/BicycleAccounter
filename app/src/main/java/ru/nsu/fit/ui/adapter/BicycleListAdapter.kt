@@ -9,7 +9,7 @@ import ru.nsu.fit.ui.viewholder.BicycleViewHolder
 
 class BicycleListAdapter(
     private val notReadyForSaleMessage: String,
-    private inline val onCLickListener: (Int) -> Unit
+    private val onCLickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<BicycleViewHolder>() {
 
     var data = emptyList<SimpleBicycle>()

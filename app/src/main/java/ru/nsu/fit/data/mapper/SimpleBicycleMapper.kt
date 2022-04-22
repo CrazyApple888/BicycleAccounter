@@ -18,12 +18,14 @@ class SimpleBicycleMapper @Inject constructor(
             wheelSizeMapper.toDomain(item.wheelSize)
         )
 
-    override fun toData(item: SimpleBicycle, options: Map<String, Int>): BicycleSimplifiedDto =
-        BicycleSimplifiedDto(
+    override fun toData(item: SimpleBicycle, options: Map<String, Int>): BicycleSimplifiedDto {
+        val sizeId by options.withDefault { 0 }
+        return BicycleSimplifiedDto(
             item.id,
             item.name,
             item.sellingPrice,
             item.picture,
-            wheelSizeMapper.toData(item.wheelSize)
+            wheelSizeMapper.toData(item.wheelSize, mapOf("sizeId" to sizeId))
         )
+    }
 }

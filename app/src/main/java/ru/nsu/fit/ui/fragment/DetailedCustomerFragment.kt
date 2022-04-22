@@ -78,13 +78,13 @@ class DetailedCustomerFragment : Fragment() {
         }
         lifecycleScope.launchWhenStarted {
             viewModel.messages.collect {
-                showToast(getString(R.string.failed_to_load_detailed_info))
+                showToastShort(getString(R.string.failed_to_load_detailed_info))
                 findNavController().popBackStack()
             }
         }
     }
 
-    private fun showToast(hint: String) {
+    private fun showToastShort(hint: String) {
         Toast.makeText(
             requireContext(),
             hint,

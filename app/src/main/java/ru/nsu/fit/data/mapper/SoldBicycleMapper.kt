@@ -20,6 +20,6 @@ class SoldBicycleMapper @Inject constructor(
     }
 
     override fun toData(item: SimpleBicycle, options: Map<String, Int>): SoldBicycleDto {
-        throw IllegalStateException("You are trying to call stub")
+        throw IllegalStateException("Mapping ${SimpleBicycle::javaClass} to ${SoldBicycleDto::javaClass} is forbidden")
     }
 }

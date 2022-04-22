@@ -71,18 +71,9 @@ class SellBicycleFragment : Fragment() {
                     return@collectLatest
                 }
                 if (it) {
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.sell_bicycle_success),
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    showToastShort(getString(R.string.sell_bicycle_success))
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.sell_bicycle_failure),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showToastShort(getString(R.string.sell_bicycle_failure))
                 }
                 navigateToHomeScreen()
             }
@@ -91,22 +82,14 @@ class SellBicycleFragment : Fragment() {
 
     private fun sell() {
         if (!validateFields()) {
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.sell_bicycle_fill_all_fields),
-                Toast.LENGTH_SHORT
-            ).show()
+            showToastShort(getString(R.string.sell_bicycle_fill_all_fields))
             return
         }
 
 
         val bikeId = arguments?.getInt(REQUIRED_BIKE_ID)
         if (bikeId == null) {
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.sell_bicycle_failure),
-                Toast.LENGTH_SHORT
-            ).show()
+            showToastShort(getString(R.string.sell_bicycle_failure))
             navigateToHomeScreen()
         }
         viewModel.sell(
@@ -130,6 +113,14 @@ class SellBicycleFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showToastShort(hint: String) {
+        Toast.makeText(
+            requireContext(),
+            hint,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     companion object {
