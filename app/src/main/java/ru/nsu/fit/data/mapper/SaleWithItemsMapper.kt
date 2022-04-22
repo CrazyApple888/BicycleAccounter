@@ -1,28 +1,25 @@
 package ru.nsu.fit.data.mapper
 
-import ru.nsu.fit.data.model.BicycleSimplifiedDto
-import ru.nsu.fit.data.model.CustomerDto
-import ru.nsu.fit.data.model.SaleWithItemsDto
+import ru.nsu.fit.data.model.*
 import ru.nsu.fit.domain.model.Customer
 import ru.nsu.fit.domain.model.Sale
 import ru.nsu.fit.domain.model.SimpleBicycle
 import javax.inject.Inject
 
 class SaleWithItemsMapper @Inject constructor(
-    private val bicycleAllSpecsMapper: Mapper<SimpleBicycle, BicycleSimplifiedDto>,
+    private val bicycleMapper: Mapper<SimpleBicycle, SoldBicycleDto>,
     private val customerMapper: Mapper<Customer, CustomerDto>
 ): Mapper<Sale, SaleWithItemsDto> {
     override fun toDomain(item: SaleWithItemsDto, options: Map<String, Int>): Sale {
         return Sale(
-            bicycle = bicycleAllSpecsMapper.toDomain(item.bicycle),
-            date = item.date,
-            warrantyEndDate = item.warrantyEndDate,
+            bicycle = bicycleMapper.toDomain(item.bicycle),
+            saleDate = item.saleDto.saleDate,
             customer = customerMapper.toDomain(item.customer),
-            finalCost = item.finalCost
+            finalCost = item.saleDto.finalCost
         )
     }
 
     override fun toData(item: Sale, options: Map<String, Int>): SaleWithItemsDto {
-        TODO("Unused")
+        throw IllegalStateException("Mapping ${Sale::javaClass} to ${SaleWithItemsDto::javaClass} is forbidden")
     }
 }

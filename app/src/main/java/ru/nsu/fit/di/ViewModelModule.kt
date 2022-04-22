@@ -46,5 +46,10 @@ interface ViewModelModule {
     fun bindDetailedCustomerViewModel(viewModel: DetailedCustomerViewModel): ViewModel
 
     @Binds
+    @IntoMap
+    @ViewModelKey(DetailedSaleViewModel::class)
+    fun bindDetailedSaleViewModel(viewModel: DetailedSaleViewModel): ViewModel
+
+    @Binds
     fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

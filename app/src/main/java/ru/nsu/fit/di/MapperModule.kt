@@ -4,6 +4,7 @@ import dagger.Binds
 import dagger.Module
 import ru.nsu.fit.data.mapper.*
 import ru.nsu.fit.data.model.*
+import ru.nsu.fit.data.model.SoldBicycleDto
 import ru.nsu.fit.domain.model.*
 
 @Module

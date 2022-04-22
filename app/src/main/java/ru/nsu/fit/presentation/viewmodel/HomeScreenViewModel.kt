@@ -19,7 +19,7 @@ class HomeScreenViewModel @Inject constructor(
         loadBicycles()
     }
 
-    private val _bicycles = MutableSharedFlow<List<SimpleBicycle>>()
+    private val _bicycles = MutableSharedFlow<List<SimpleBicycle>>(replay = 1)
     val bicycles: SharedFlow<List<SimpleBicycle>> get() = _bicycles.asSharedFlow()
 
     private val _error = MutableSharedFlow<Unit>()

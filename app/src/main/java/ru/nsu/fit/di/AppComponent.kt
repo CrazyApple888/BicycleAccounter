@@ -1,9 +1,9 @@
 package ru.nsu.fit.di
 
 import android.content.Context
-import androidx.viewbinding.ViewBinding
 import dagger.BindsInstance
 import dagger.Component
+import ru.nsu.fit.ui.fragment.DetailedSaleFragment
 import ru.nsu.fit.ui.fragment.*
 import javax.inject.Singleton
 
@@ -24,7 +24,7 @@ interface AppComponent {
 
     fun inject(fragment: SalesListFragment)
 
-    fun<VM, VB, T: BaseFragment<VM, VB>> inject(fragment: T)
+    fun inject(fragment: DetailedSaleFragment)
 
     @Component.Builder
     interface AppComponentBuilder {

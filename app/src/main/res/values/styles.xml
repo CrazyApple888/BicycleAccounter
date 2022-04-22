@@ -14,6 +14,11 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="TextAppearance.AppCompat.DateText">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/divider_gray</item>
+    </style>
+
     <style name="Widget.MaterialComponents.CardView.ItemCardView">
         <item name="cardElevation">3dp</item>
         <item name="android:layout_margin">5dp</item>

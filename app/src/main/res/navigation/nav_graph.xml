@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_salesListFragment_to_statisticsFragment"
             app:destination="@id/statisticsFragment" />
+        <action
+            android:id="@+id/action_salesListFragment_to_detailedSaleFragment"
+            app:destination="@id/detailedSaleFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
@@ -90,5 +93,15 @@
         <action
             android:id="@+id/action_detailedCustomerFragment_to_detailedBicycleFragment"
             app:destination="@id/detailedBicycleFragment" />
+    </fragment>
+        android:label="DetailedCustomerFragment" />
+    <fragment
+        android:id="@+id/detailedSaleFragment"
+        android:name="ru.nsu.fit.ui.fragment.DetailedSaleFragment"
+        android:label="fragment_detailed_sale"
+        tools:layout="@layout/fragment_detailed_sale" >
+        <argument
+            android:name="bikeId"
+            app:argType="integer" />
     </fragment>
 </navigation>

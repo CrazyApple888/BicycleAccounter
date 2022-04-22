@@ -3,6 +3,7 @@ package ru.nsu.fit.data.dao
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import ru.nsu.fit.data.model.*
+import ru.nsu.fit.data.model.SoldBicycleDto
 
 @Dao
 interface BicycleDao {

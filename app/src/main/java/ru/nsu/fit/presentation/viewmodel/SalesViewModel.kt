@@ -18,11 +18,15 @@ class SalesViewModel @Inject constructor(
     private val getAllSalesUseCase: GetAllSalesUseCase
 ) : ViewModel(), Loggable {
 
-    private val _sales = MutableSharedFlow<List<Sale>>()
+    init {
+        loadSales()
+    }
+
+    private val _sales = MutableSharedFlow<List<Sale>>(replay = 1)
     val sales: SharedFlow<List<Sale>> get() = _sales.asSharedFlow()
 
 
-    fun loadSales() {
+    private fun loadSales() {
         viewModelScope.launch {
             getAllSalesUseCase().apply {
                 collect { result ->
