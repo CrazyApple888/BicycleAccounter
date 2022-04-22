@@ -26,7 +26,7 @@ class SellBicycleViewModel @Inject constructor(
             return
         }
         sellJob = viewModelScope.launch {
-            when(val result = sellBicycleUseCase(bikeId, price, customerName, customerPhone)) {
+            when (val result = sellBicycleUseCase(bikeId, price, customerName, customerPhone)) {
                 is Result.Success<*> -> _isSuccessfullySold.emit(true)
                 is Result.Failure<*> -> {
                     result.message?.let { Log.e(loggingTag, it) }

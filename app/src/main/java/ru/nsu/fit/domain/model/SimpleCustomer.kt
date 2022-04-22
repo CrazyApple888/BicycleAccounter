@@ -7,4 +7,4 @@ data class SimpleCustomer(
     val name: String,
     val phone: String,
     val lastTrade: Calendar?
-): BaseModel()
+) : BaseModel()

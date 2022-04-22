@@ -1,6 +1,5 @@
 package ru.nsu.fit.data
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -20,10 +19,8 @@ import ru.nsu.fit.data.typeconverter.StateTypeConverter
         IssueDto::class,
         SaleDto::class,
         WheelSizeDto::class],
-    version = 3,
-    autoMigrations = [
-        AutoMigration(from = 2, to = 3)
-    ]
+    views = [SoldBicycleDto::class],
+    version = 4
 )
 
 @TypeConverters(ImageTypeConverter::class, StateTypeConverter::class, CalendarTypeConverter::class)

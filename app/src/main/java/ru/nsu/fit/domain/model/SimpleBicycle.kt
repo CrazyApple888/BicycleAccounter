@@ -7,5 +7,5 @@ data class SimpleBicycle(
     val name: String,
     val sellingPrice: Int?,
     val picture: Bitmap?,
-    val wheelSize: Double
+    val wheelSize: WheelSize
 ) : BaseModel()

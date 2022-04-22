@@ -44,4 +44,5 @@
     <string name="sell_bicycle_success">Велосипед успешно продан!</string>
     <string name="sell_bicycle_failure">Произошла ошибка</string>
     <string name="sell_bicycle_fill_all_fields">Заполните все поля</string>
+    <string name="failed_to_load_detailed_info">Произошла ошибка при загрузке детальной информации</string>
 </resources>

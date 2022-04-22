@@ -1,6 +1,7 @@
 package ru.nsu.fit.data.model
 
 import android.graphics.Bitmap
+import androidx.room.Embedded
 
 data class BicycleSimplifiedDto(
     val bikeId: Int,
@@ -8,5 +9,6 @@ data class BicycleSimplifiedDto(
     val sellingPrice: Int?,
     val picture: Bitmap?,
 
-    val wheelSize: Double
+    @Embedded
+    val wheelSize: WheelSizeDto
 ) : BaseDto()

@@ -2,7 +2,6 @@ package ru.nsu.fit.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +56,7 @@ class CustomerListFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[CustomerListViewModel::class.java]
         binding.recycler.adapter = adapter
         initObservers()
+        viewModel.loadBuffer()
         super.onViewCreated(view, savedInstanceState)
     }
 

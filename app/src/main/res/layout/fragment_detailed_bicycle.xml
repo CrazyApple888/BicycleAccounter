@@ -155,10 +155,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/sell_bike_button"
-            app:layout_constraintWidth="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/price_text"
             app:layout_constraintStart_toStartOf="@id/price_text"
-            app:layout_constraintTop_toBottomOf="@id/price_text" />
+            app:layout_constraintTop_toBottomOf="@id/price_text"
+            app:layout_constraintWidth="wrap_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

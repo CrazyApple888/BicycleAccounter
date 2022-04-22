@@ -2,10 +2,7 @@ package ru.nsu.fit.data.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import ru.nsu.fit.data.model.BicycleAllSpecsDto
-import ru.nsu.fit.data.model.BicycleDto
-import ru.nsu.fit.data.model.BicycleSimplifiedDto
-import ru.nsu.fit.data.model.StateDto
+import ru.nsu.fit.data.model.*
 
 @Dao
 interface BicycleDao {
@@ -13,7 +10,7 @@ interface BicycleDao {
     fun selectBicycleAll(): Flow<List<BicycleDto>>
 
     @Query(
-        "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
+        "SELECT * FROM bicycles " +
                 "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeIdRef " +
                 "INNER JOIN bicycle_states ON bicycle_states.stateId = bicycles.stateIdRef " +
                 "WHERE stateName NOT LIKE :rejectedState"
@@ -21,7 +18,7 @@ interface BicycleDao {
     fun selectSimplifiedBicycleAll(rejectedState: String = StateDto.SOLD.stateName): Flow<List<BicycleSimplifiedDto>>
 
     @Query(
-        "SELECT bikeId, name, sellingPrice, picture, sizeInches AS wheelSize FROM bicycles " +
+        "SELECT * FROM bicycles " +
                 "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeIdRef " +
                 "WHERE bicycles.stateIdRef = :stateId"
     )
@@ -49,4 +46,7 @@ interface BicycleDao {
 
     @Query("UPDATE bicycles SET sellingPrice = :sellingPrice WHERE bikeId = :bikeId")
     suspend fun updateBicycleSellingPriceByID(bikeId: Int, sellingPrice: Int)
+
+    @Query("SELECT * FROM sold_bicycles WHERE customerId = :id")
+    suspend fun selectSoldBicyclesByCustomerId(id: Int): List<SoldBicycleDto>
 }

@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentHomeScreenBinding
-import ru.nsu.fit.domain.model.SimpleBicycle
 import ru.nsu.fit.presentation.viewmodel.HomeScreenViewModel
 import ru.nsu.fit.ui.adapter.BicycleListAdapter
 import javax.inject.Inject

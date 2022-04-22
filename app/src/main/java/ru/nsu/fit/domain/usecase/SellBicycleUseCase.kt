@@ -8,7 +8,6 @@ import javax.inject.Inject
 class SellBicycleUseCase @Inject constructor(
     private val repository: SalesRepository
 ) {
-
     suspend operator fun invoke(
         bikeId: Int,
         price: Double,
