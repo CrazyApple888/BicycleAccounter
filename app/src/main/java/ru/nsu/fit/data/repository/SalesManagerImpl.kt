@@ -8,11 +8,13 @@ import ru.nsu.fit.data.dao.BicycleStateDao
 import ru.nsu.fit.data.dao.SalesDao
 import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.mapper.mapModels
+import ru.nsu.fit.data.model.SaleDetailedDto
 import ru.nsu.fit.data.model.SaleWithItemsDto
 import ru.nsu.fit.data.model.StateDto
 import ru.nsu.fit.domain.model.Customer
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.model.Sale
+import ru.nsu.fit.domain.model.SaleDetailed
 import ru.nsu.fit.domain.repository.CustomerRepository
 import ru.nsu.fit.domain.repository.SalesManager
 import java.util.*
@@ -23,7 +25,8 @@ class SalesManagerImpl @Inject constructor(
     private val customerRepository: CustomerRepository,
     private val bicycleDao: BicycleDao,
     private val stateDao: BicycleStateDao,
-    private val saleMapper: Mapper<Sale, SaleWithItemsDto>
+    private val saleMapper: Mapper<Sale, SaleWithItemsDto>,
+    private val detailedSaleMapper: Mapper<SaleDetailed, SaleDetailedDto>
 ) : SalesManager {
 
     override suspend fun addCustomerAndUpdateBicycleState(
@@ -52,6 +55,14 @@ class SalesManagerImpl @Inject constructor(
         salesDao.selectSaleAllWithItems()
             .mapModels(saleMapper::toDomain)
             .map { list -> Result.Success(list) }
+            .flowOn(Dispatchers.IO)
+
+    override suspend fun getSale(id: Int): Flow<Result<SaleDetailed>> =
+        salesDao.selectDetailedSaleById(id)
+            .map { sale ->
+                sale?.let { Result.Success(detailedSaleMapper.toDomain(it)) }
+                    ?: Result.Failure("Информация о продаже не найдена")
+            }
             .flowOn(Dispatchers.IO)
 
 }

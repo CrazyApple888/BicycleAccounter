@@ -44,4 +44,7 @@ interface MapperModule {
 
     @Binds
     fun bindSaleMapper(mapper: SaleWithItemsMapper): Mapper<Sale, SaleWithItemsDto>
+
+    @Binds
+    fun bindSaleDetailedMapper(mapper: SaleDetailedMapper): Mapper<SaleDetailed, SaleDetailedDto>
 }

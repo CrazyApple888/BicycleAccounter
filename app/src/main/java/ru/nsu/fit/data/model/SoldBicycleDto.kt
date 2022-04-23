@@ -15,6 +15,7 @@ data class SoldBicycleDto(
     val bikeId: Int,
     val name: String,
     val finalCost: Long,
+    val purchasePrice: Int = 0,
     val picture: Bitmap?,
 
     @Embedded

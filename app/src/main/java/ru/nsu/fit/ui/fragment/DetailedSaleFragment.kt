@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.StringRes
+import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
@@ -40,6 +41,7 @@ class DetailedSaleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory)[DetailedSaleViewModel::class.java]
         initListeners()
         processArgs()
     }
@@ -48,21 +50,42 @@ class DetailedSaleFragment : Fragment() {
         arguments?.getInt(REQUIRED_BIKE_ID)?.let {
             viewModel.loadSale(it)
         } ?: run {
-            showToast(R.string.detailed_sale_empty_id)
-            navigateBack()
+            onErrorOccurred()
         }
     }
 
     private fun initListeners() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.saleLoadedEvent.collect { sale ->
+                with(binding) {
+                    customerText.text = sale.customerName
+                    bikeText.text = sale.bicycleName
+                    additionalInfoTitle.isGone = sale.additionalInfo.isBlank()
+                    additionalInfoText.isGone = sale.additionalInfo.isBlank()
+                    additionalInfoText.text = sale.additionalInfo
+                    sellPriceText.text = sale.sellPrice.toString()
+                    purchasePriceText.text = sale.buyPrice.toString()
+                    costText.text = sale.cost.toString()
+                    totalCost.text = sale.totalCost.toString()
+                }
 
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.errorEvent.collect {
+                onErrorOccurred()
+            }
+        }
     }
 
-    private fun navigateBack() {
+    private fun onErrorOccurred() {
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.detailed_sale_empty_id),
+            Toast.LENGTH_SHORT
+        ).show()
         findNavController().popBackStack()
     }
-
-    private fun showToast(@StringRes id: Int) =
-        Toast.makeText(requireContext(), getString(id), Toast.LENGTH_SHORT).show()
 
     companion object {
         const val REQUIRED_BIKE_ID = "bikeId"

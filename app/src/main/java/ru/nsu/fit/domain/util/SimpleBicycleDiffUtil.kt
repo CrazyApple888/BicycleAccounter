@@ -1,7 +1,6 @@
 package ru.nsu.fit.domain.util
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.nsu.fit.domain.model.BaseModel
 import ru.nsu.fit.domain.model.SimpleBicycle
 
 class SimpleBicycleDiffUtil (

@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.nsu.fit.databinding.ItemSaleBinding
 import ru.nsu.fit.domain.model.Sale
-import ru.nsu.fit.ui.viewholder.SalesViewHolder
+import ru.nsu.fit.ui.viewholder.SaleViewHolder
 
 class SalesListAdapter(
     private val onClick: (Int) -> Unit
-): RecyclerView.Adapter<SalesViewHolder>() {
+): RecyclerView.Adapter<SaleViewHolder>() {
 
     var data: List<Sale> = emptyList()
     set(value) {
@@ -17,12 +17,12 @@ class SalesListAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SalesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SaleViewHolder {
         val itemSaleBinding = ItemSaleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SalesViewHolder(itemSaleBinding, onClick)
+        return SaleViewHolder(itemSaleBinding, onClick)
     }
 
-    override fun onBindViewHolder(holder: SalesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SaleViewHolder, position: Int) {
         holder.bind(data[position])
     }
 

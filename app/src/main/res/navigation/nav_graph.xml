@@ -94,7 +94,6 @@
             android:id="@+id/action_detailedCustomerFragment_to_detailedBicycleFragment"
             app:destination="@id/detailedBicycleFragment" />
     </fragment>
-        android:label="DetailedCustomerFragment" />
     <fragment
         android:id="@+id/detailedSaleFragment"
         android:name="ru.nsu.fit.ui.fragment.DetailedSaleFragment"

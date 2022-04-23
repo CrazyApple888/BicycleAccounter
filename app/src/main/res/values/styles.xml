@@ -14,6 +14,18 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="SaleBase" parent="TextAppearance.AppCompat.PriceText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SaleTitle" parent="SaleBase">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SaleText" parent="SaleBase">
+        <item name="android:textColor">@color/divider_gray</item>
+    </style>
+
     <style name="TextAppearance.AppCompat.DateText">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/divider_gray</item>
