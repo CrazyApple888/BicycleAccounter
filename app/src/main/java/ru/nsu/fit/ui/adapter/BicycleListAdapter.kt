@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.nsu.fit.databinding.ItemBicycleBinding
 import ru.nsu.fit.domain.model.SimpleBicycle
-import ru.nsu.fit.domain.util.SimpleBicycleDiffUtil
+import ru.nsu.fit.ui.util.SimpleBicycleDiffUtil
 import ru.nsu.fit.ui.viewholder.BicycleViewHolder
 
 class BicycleListAdapter(

@@ -10,7 +10,7 @@
     </style>
 
     <style name="TextAppearance.AppCompat.PriceText">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textSize">20sp</item>
     </style>
 

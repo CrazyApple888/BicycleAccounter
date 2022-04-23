@@ -66,7 +66,7 @@ class DetailedSaleFragment : Fragment() {
                     sellPriceText.text = sale.sellPrice.toString()
                     purchasePriceText.text = sale.buyPrice.toString()
                     costText.text = sale.cost.toString()
-                    totalCost.text = sale.totalCost.toString()
+                    totalCost.text = getString(R.string.total_cost_pattern, sale.totalCost)
                 }
 
             }

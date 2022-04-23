@@ -1,4 +1,4 @@
-package ru.nsu.fit.domain.util
+package ru.nsu.fit.ui.util
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.nsu.fit.domain.model.SimpleBicycle

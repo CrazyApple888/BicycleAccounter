@@ -45,7 +45,6 @@
     <string name="sell_bicycle_failure">Произошла ошибка</string>
     <string name="sell_bicycle_fill_all_fields">Заполните все поля</string>
     <string name="failed_to_load_detailed_info">Произошла ошибка при загрузке детальной информации</string>
-    <string name="sales_price_template">%s РУБ</string>
     <string name="sales_warranty_template">Срок истечения гарантии %s</string>
     <string name="home_screen_empty_db">У Вас нет ни одного велосипеда для продажи</string>
     <string name="detailed_sale_empty_id">Кажется, такого велосипеда нет</string>
@@ -56,5 +55,5 @@
     <string name="sell_price_title">Сумма сделки:</string>
     <string name="purchase_price_title">Цена закупки:</string>
     <string name="cost_title">Сумма издержек:</string>
-    <string name="total_cost_pattern">Итого: %d</string>
+    <string name="total_cost_pattern">Итого: %d Р</string>
 </resources>

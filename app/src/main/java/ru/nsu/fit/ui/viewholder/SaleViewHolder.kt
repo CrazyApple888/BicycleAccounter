@@ -10,7 +10,9 @@ import java.util.*
 class SaleViewHolder(
     private val binding: ItemSaleBinding,
     private val onClick: (Int) -> Unit
-): RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
+
+    private val template: String = binding.price.text.toString()
 
     fun bind(item: Sale) {
         with(binding) {
@@ -18,7 +20,7 @@ class SaleViewHolder(
             //todo add warranty to db
             //warranty.text = String.format(warranty.text.toString(), item.warrantyEndDate.toStringFormat())
             warranty.isGone = true
-            price.text = item.finalCost.toString()
+            price.text = String.format(template, item.finalCost)
             date.dateDay.text = item.saleDate.get(Calendar.DAY_OF_MONTH).toString()
             date.dateMonthYear.text = item.saleDate.toStringFormat()
             card.setOnClickListener { onClick(item.bicycle.id) }
