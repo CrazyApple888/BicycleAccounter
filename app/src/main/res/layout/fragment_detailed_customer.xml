@@ -1,53 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="top"
+    android:orientation="vertical"
     tools:context=".ui.fragment.CustomerListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_customer_detailed"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:showDividers="end">
 
-        <LinearLayout
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@drawable/divider_customer_detailed"
-            android:orientation="vertical"
-            android:padding="15dp"
-            android:showDividers="end">
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAlignment="textEnd"
+            android:textAppearance="@style/TextAppearance.AppCompat.ItemBigText.PageHeader"
+            android:textSize="30sp"
+            tools:text="@string/client_name_test" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAlignment="textEnd"
-                android:textAppearance="@style/TextAppearance.AppCompat.ItemBigText.PageHeader"
-                android:textSize="30sp"
-                tools:text="@string/client_name_test" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textAlignment="textEnd"
-                android:textSize="16sp"
-                tools:text="@string/phone_number_test" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/phone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_bicycle" />
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/phone_number_test" />
     </LinearLayout>
-</FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_bicycle" />
+</LinearLayout>

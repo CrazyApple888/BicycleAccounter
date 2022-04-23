@@ -9,7 +9,7 @@ import ru.nsu.fit.data.dao.CustomerDao
 import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.model.CustomerDetailedDto
 import ru.nsu.fit.data.model.CustomerSimplifiedDto
-import ru.nsu.fit.data.model.TransactionFailure
+import ru.nsu.fit.data.model.TransactionStatus
 import ru.nsu.fit.domain.model.Customer
 import ru.nsu.fit.domain.model.DetailedCustomer
 import ru.nsu.fit.domain.model.Result
@@ -62,7 +62,7 @@ class CustomerRepositoryImpl @Inject constructor(
                 customerDao.selectFirstCustomerByNameAndPhone(customer.name, customer.phone)?.id
                     ?: customerDao.insertCustomerItem(customer.name, customer.phone).toInt()
 
-            if (customerId == TransactionFailure.TRANSACTION_REJECTED) {
+            if (customerId == TransactionStatus.TRANSACTION_REJECTED) {
                 return@withContext Result.Failure("Unable to insert customer")
             }
             Result.Success(customerId)

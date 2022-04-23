@@ -1,15 +1,22 @@
 package ru.nsu.fit.data.repository
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import ru.nsu.fit.data.dao.BicycleDao
 import ru.nsu.fit.data.dao.BicycleStateDao
 import ru.nsu.fit.data.dao.SalesDao
+import ru.nsu.fit.data.mapper.Mapper
+import ru.nsu.fit.data.mapper.mapModels
+import ru.nsu.fit.data.model.SaleDetailedDto
+import ru.nsu.fit.data.model.SaleWithItemsDto
 import ru.nsu.fit.data.model.StateDto
 import ru.nsu.fit.domain.model.Customer
 import ru.nsu.fit.domain.model.Result
+import ru.nsu.fit.domain.model.Sale
+import ru.nsu.fit.domain.model.SaleDetailed
 import ru.nsu.fit.domain.repository.CustomerRepository
-import ru.nsu.fit.domain.repository.SalesRepository
+import ru.nsu.fit.domain.repository.SalesManager
 import java.util.*
 import javax.inject.Inject
 
@@ -17,8 +24,11 @@ class SalesManagerImpl @Inject constructor(
     private val salesDao: SalesDao,
     private val customerRepository: CustomerRepository,
     private val bicycleDao: BicycleDao,
-    private val stateDao: BicycleStateDao
-) : SalesRepository {
+    private val stateDao: BicycleStateDao,
+    private val saleMapper: Mapper<Sale, SaleWithItemsDto>,
+    private val detailedSaleMapper: Mapper<SaleDetailed, SaleDetailedDto>
+) : SalesManager {
+
     override suspend fun addCustomerAndUpdateBicycleState(
         bikeId: Int,
         price: Double,
@@ -34,13 +44,25 @@ class SalesManagerImpl @Inject constructor(
                     price.toLong()
                 )
                 val stateId = stateDao.selectIdByName(StateDto.SOLD.stateName)
-                if (stateId != null) {
-                    bicycleDao.updateBicycleStateById(bikeId, stateId)
-                    Result.Success()
-                } else {
-                    Result.Failure<Any>("Unable to get state id for state ${StateDto.SOLD}")
-                }
+                    ?: return@withContext Result.Failure<Any>("Unable to get state id for state ${StateDto.SOLD}")
+                bicycleDao.updateBicycleStateById(bikeId, stateId)
+                return@withContext Result.Success<Any>()
             }
         }
     }
+
+    override suspend fun getAllSales(): Flow<Result<List<Sale>>> =
+        salesDao.selectSaleAllWithItems()
+            .mapModels(saleMapper::toDomain)
+            .map { list -> Result.Success(list) }
+            .flowOn(Dispatchers.IO)
+
+    override suspend fun getSale(id: Int): Flow<Result<SaleDetailed>> =
+        salesDao.selectDetailedSaleById(id)
+            .map { sale ->
+                sale?.let { Result.Success(detailedSaleMapper.toDomain(it)) }
+                    ?: Result.Failure("Информация о продаже не найдена")
+            }
+            .flowOn(Dispatchers.IO)
+
 }

@@ -3,6 +3,7 @@ package ru.nsu.fit.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ru.nsu.fit.ui.fragment.DetailedSaleFragment
 import ru.nsu.fit.ui.fragment.*
 import javax.inject.Singleton
 
@@ -20,6 +21,10 @@ interface AppComponent {
     fun inject(fragment: DetailedCustomerFragment)
 
     fun inject(fragment: CustomerListFragment)
+
+    fun inject(fragment: SalesListFragment)
+
+    fun inject(fragment: DetailedSaleFragment)
 
     @Component.Builder
     interface AppComponentBuilder {

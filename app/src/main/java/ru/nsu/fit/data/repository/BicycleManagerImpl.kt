@@ -10,7 +10,7 @@ import ru.nsu.fit.data.dao.BicycleDao
 import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.model.BicycleAllSpecsDto
 import ru.nsu.fit.data.model.BicycleSimplifiedDto
-import ru.nsu.fit.data.model.TransactionFailure
+import ru.nsu.fit.data.model.TransactionStatus
 import ru.nsu.fit.domain.model.Bicycle
 import ru.nsu.fit.domain.model.Loggable
 import ru.nsu.fit.domain.model.Result
@@ -97,7 +97,7 @@ class BicycleManagerImpl @Inject constructor(
                         )
                     ).bicycleDto
                 ).toInt()
-                if (TransactionFailure.TRANSACTION_REJECTED != bicycleId) {
+                if (TransactionStatus.TRANSACTION_REJECTED != bicycleId) {
                     Result.Success(result = bicycleId)
                 } else {
                     Result.Failure(

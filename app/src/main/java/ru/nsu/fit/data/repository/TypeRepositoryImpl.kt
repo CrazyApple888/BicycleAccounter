@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import ru.nsu.fit.data.dao.BicycleTypeDao
 import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.model.BicycleTypeDto
-import ru.nsu.fit.data.model.TransactionFailure
+import ru.nsu.fit.data.model.TransactionStatus
 import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.domain.model.Type
 import ru.nsu.fit.domain.repository.TypeRepository
@@ -32,7 +32,7 @@ class TypeRepositoryImpl @Inject constructor(
             typeDao.selectIdByName(type.typeName) ?: typeDao.insertBicycleTypeItem(
                 typeMapper.toData(type)
             ).toInt()
-        if (TransactionFailure.TRANSACTION_REJECTED != id) {
+        if (TransactionStatus.TRANSACTION_REJECTED != id) {
             Result.Success(result = id)
         } else {
             Result.Failure(

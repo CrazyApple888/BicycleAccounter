@@ -4,6 +4,7 @@ import dagger.Binds
 import dagger.Module
 import ru.nsu.fit.data.mapper.*
 import ru.nsu.fit.data.model.*
+import ru.nsu.fit.data.model.SoldBicycleDto
 import ru.nsu.fit.domain.model.*
 
 @Module
@@ -40,4 +41,10 @@ interface MapperModule {
 
     @Binds
     fun bindSimpleCustomerMapper(mapper: SimpleCustomerMapper): Mapper<SimpleCustomer, CustomerSimplifiedDto>
+
+    @Binds
+    fun bindSaleMapper(mapper: SaleWithItemsMapper): Mapper<Sale, SaleWithItemsDto>
+
+    @Binds
+    fun bindSaleDetailedMapper(mapper: SaleDetailedMapper): Mapper<SaleDetailed, SaleDetailedDto>
 }
