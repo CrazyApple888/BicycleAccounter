@@ -1,60 +1,82 @@
 package ru.nsu.fit.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
+import ru.nsu.fit.databinding.FragmentStatisticsBinding
+import ru.nsu.fit.domain.model.Result
+import ru.nsu.fit.presentation.viewmodel.StatisticViewModel
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [StatysticsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StatisticsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: StatisticViewModel
+
+    private var _binding: FragmentStatisticsBinding? = null
+    private val binding: FragmentStatisticsBinding get() = checkNotNull(_binding) { "Binding is not initialized" }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as BicycleAccounterApplication).appComponent.inject(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_statistics, container, false)
+    ): View {
+        _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StatysticsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StatisticsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory)[StatisticViewModel::class.java]
+
+        initObservers()
+    }
+
+    private fun initObservers() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.statistic.collect { stats ->
+                binding.dirtyProfitValue.text =
+                    String.format(binding.dirtyProfitValue.text.toString(), stats.profitDirty)
+                binding.issuesLossesValue.text =
+                    String.format(binding.issuesLossesValue.text.toString(), stats.issuesLosses)
+                binding.moneySpentValue.text =
+                    String.format(binding.moneySpentValue.text.toString(), stats.moneySpent)
+                binding.profitValue.text =
+                    String.format(binding.profitValue.text.toString(), stats.profitClear)
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.messages.collect {
+                if (it is Result.Failure) {
+                    showToastShort(getString(R.string.stats_loading_failed))
                 }
             }
+        }
+    }
+
+    private fun showToastShort(hint: String) {
+        Toast.makeText(
+            requireContext(),
+            hint,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

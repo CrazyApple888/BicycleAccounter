@@ -45,6 +45,19 @@
         <item name="android:layout_marginVertical">5dp</item>
     </style>
 
+    <style name="StatsPriceText" parent="TextAppearance.AppCompat.PriceText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.StatsParamText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginVertical">16dp</item>
+    </style>
+
     <style name="TextAppearance.AppCompat.BikeParamText.HeaderText">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>

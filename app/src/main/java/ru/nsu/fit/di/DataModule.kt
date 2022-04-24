@@ -50,6 +50,10 @@ class DataModule(
 
     @Singleton
     @Provides
+    fun provideStatisticDao(): StatisticDao = database.statisticDao()
+
+    @Singleton
+    @Provides
     fun provideIssuesDao(): IssuesDao = database.issuesDao()
 
     @Singleton

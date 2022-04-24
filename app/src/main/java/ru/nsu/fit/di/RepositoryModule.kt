@@ -20,6 +20,9 @@ interface RepositoryModule {
     fun bindTypeRepository(repo: TypeRepositoryImpl): TypeRepository
 
     @Binds
+    fun bindStatsRepository(repo: StatisticRepositoryImpl): StatisticRepository
+
+    @Binds
     fun bindWheelSizeRepository(repo: WheelSizeRepositoryImpl): WheelSizeRepository
 
     @Binds

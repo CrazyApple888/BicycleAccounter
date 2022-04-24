@@ -13,6 +13,7 @@
     <string name="color_header">Цвет</string>
     <string name="price_min_header">Минимальная цена</string>
     <string name="description_header">Описание</string>
+    <string name="issues_header">Список проблем</string>
     <string name="sell_bike_button">Продать</string>
     <string name="bicycle_name_hint">Название велосипеда</string>
     <string name="bicycle_type_hint">Тип велосипеда</string>
@@ -56,4 +57,10 @@
     <string name="purchase_price_title">Цена закупки:</string>
     <string name="cost_title">Сумма издержек:</string>
     <string name="total_cost_pattern">Итого: %d Р</string>
+    <string name="statistics_fragment_header">Статистика продаж</string>
+    <string name="money_spent_header_text">Потрачено за период (расход)</string>
+    <string name="issues_losses_header_text">Расходы на устранение проблем</string>
+    <string name="dirty_profit_header_text">Суммарный доход за период (приход)</string>
+    <string name="profit_header_text">Доход</string>
+    <string name="stats_loading_failed">Не удалось загрузить статистику за указанный период</string>
 </resources>

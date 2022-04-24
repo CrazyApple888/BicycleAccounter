@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentDetailedBicycleBinding
+import ru.nsu.fit.databinding.ItemIssueBinding
 import ru.nsu.fit.presentation.viewmodel.DetailedBicycleViewModel
 import javax.inject.Inject
 
@@ -37,7 +38,6 @@ class DetailedBicycleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailedBicycleBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -57,6 +57,7 @@ class DetailedBicycleFragment : Fragment() {
     }
 
     private fun initListeners() {
+
         lifecycleScope.launchWhenStarted {
             viewModel.bicycle.collect { bike ->
                 with(bike) {
@@ -65,12 +66,33 @@ class DetailedBicycleFragment : Fragment() {
                     binding.wheelSizeText.text = wheelSize.diameter.toString()
                     binding.colorText.text = color.colorName
                     binding.priceMinText.text = purchasePrice.toString()
-                    binding.descriptionText.text = description ?: ""
+                    if (!description.isNullOrBlank()) {
+                        binding.descriptionHeader.isGone = false
+                        binding.descriptionText.isGone = false
+                        binding.descriptionText.text = description
+
+                    }
                     if (sellingPrice != null) {
                         binding.priceText.isGone = false
                         binding.priceText.text = sellingPrice.toString()
                     } else {
                         binding.priceText.isGone = true
+                    }
+                    if (state.isSelling) {
+                        binding.sellButton.isGone = false
+                    }
+
+                    if (issues.isNotEmpty()) {
+                        binding.issuesHeader.isGone = false
+                        binding.issuesList.isGone = false
+                        issues.forEach { issue ->
+                            val itemView = layoutInflater.inflate(R.layout.item_issue, null)
+                            val itemBinding = ItemIssueBinding.bind(itemView)
+                            itemBinding.description.text = issue.description
+                            itemBinding.price.text =
+                                String.format(itemBinding.price.text.toString(), issue.cost)
+                            binding.issuesList.addView(itemBinding.root)
+                        }
                     }
                 }
             }
@@ -89,9 +111,6 @@ class DetailedBicycleFragment : Fragment() {
     }
 
     private fun loadDataFromArgs() {
-        arguments?.getBoolean(OPTIONAL_IS_ITEM_SOLD)?.let {
-            binding.sellButton.isGone = it
-        }
         arguments?.getInt(REQUIRED_BIKE_ID)?.also {
             viewModel.loadBicycle(it)
         }
@@ -122,7 +141,6 @@ class DetailedBicycleFragment : Fragment() {
     }
 
     companion object {
-        const val OPTIONAL_IS_ITEM_SOLD = "isSold"
         const val REQUIRED_BIKE_ID = "bikeId"
     }
 

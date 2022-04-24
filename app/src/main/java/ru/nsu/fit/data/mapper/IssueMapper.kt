@@ -8,15 +8,15 @@ class IssueMapper @Inject constructor() : Mapper<Issue, IssueDto> {
     override fun toDomain(item: IssueDto, options: Map<String, Int>): Issue {
         return Issue(
             issueId = item.issueId,
-            description = item.description ?: ""
+            description = item.description ?: "",
+            cost = item.cost
         )
     }
 
     override fun toData(item: Issue, options: Map<String, Int>): IssueDto {
-        val cost by options
         return IssueDto(
             issueId = item.issueId,
-            cost = cost,
+            cost = item.cost,
             description = item.description
         )
     }
