@@ -72,6 +72,7 @@ class DetailedBicycleFragment : Fragment() {
                     } else {
                         binding.priceText.isGone = true
                     }
+                    picture?.let { binding.image.setImageBitmap(it) }
                 }
             }
         }

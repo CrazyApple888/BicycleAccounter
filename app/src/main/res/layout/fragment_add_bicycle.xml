@@ -116,6 +116,18 @@
                 android:hint="@string/additional_info_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/bike_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_bicycle_add_photo_button" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submit_button"
             android:layout_width="match_parent"
