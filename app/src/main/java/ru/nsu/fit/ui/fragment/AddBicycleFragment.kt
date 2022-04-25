@@ -1,12 +1,19 @@
 package ru.nsu.fit.ui.fragment
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCaller
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.view.isGone
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +28,7 @@ import ru.nsu.fit.presentation.viewmodel.AddBicycleViewModel
 import javax.inject.Inject
 
 
-class AddBicycleFragment : Fragment() {
+class AddBicycleFragment : Fragment(), ActivityResultCaller {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -30,10 +37,35 @@ class AddBicycleFragment : Fragment() {
     private var _binding: FragmentAddBicycleBinding? = null
     private val binding: FragmentAddBicycleBinding get() = checkNotNull(_binding) { "Binding is not initialized" }
 
+    private val isPermissionGranted: Boolean
+        get() =
+            ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { granted: Boolean ->
+            if (!granted) {
+                showToastShort(getString(R.string.add_bicycle_needs_permission))
+            }
+        }
+
+    private val picker = registerForActivityResult(ActivityResultContracts.GetContent(), ::foo)
+
+    // Callback in registerForActivityResult should be initialized at the moment above
+    // and we must call registerForActivityResult before fragment created so we have to use this shitty hack
+    // because viewModel is not initialized at this moment
+    private fun foo(uri: Uri?) {
+        viewModel.addPicture(uri)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as BicycleAccounterApplication).appComponent.inject(this)
+        requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
     override fun onCreateView(
@@ -49,8 +81,10 @@ class AddBicycleFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[AddBicycleViewModel::class.java]
         loadParams()
         setUpValidators()
+        initListeners()
+    }
 
-        binding.submitButton.setOnClickListener { onSubmit() }
+    private fun initListeners() {
         lifecycleScope.launchWhenCreated {
             viewModel.messages.collect {
                 when (it) {
@@ -59,6 +93,18 @@ class AddBicycleFragment : Fragment() {
                 }
             }
         }
+        lifecycleScope.launchWhenStarted {
+            binding.bikeImage.isGone = false
+            viewModel.image.collect { binding.bikeImage.setImageBitmap(it) }
+        }
+        binding.addPhoto.setOnClickListener {
+            if (isPermissionGranted) {
+                picker.launch(MIME_TYPE_IMAGE)
+            } else {
+                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
+        binding.submitButton.setOnClickListener { onSubmit() }
     }
 
     private fun setUpValidators() {
@@ -204,15 +250,13 @@ class AddBicycleFragment : Fragment() {
 
         if (validatingSuccessful) {
             viewModel.addBicycle(
-                Bicycle(
-                    name = name,
-                    purchasePrice = purchasePrice,
-                    type = Type(type),
-                    state = State(state),
-                    wheelSize = WheelSize(wheelSize),
-                    color = Color(color),
-                    description = additional
-                )
+                name = name,
+                purchasePrice = purchasePrice,
+                type = type,
+                state = state,
+                wheelSize = wheelSize,
+                color = color,
+                description = additional
             )
         }
     }
@@ -234,5 +278,9 @@ class AddBicycleFragment : Fragment() {
             hint,
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private companion object {
+        const val MIME_TYPE_IMAGE = "image/*"
     }
 }
