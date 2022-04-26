@@ -1,5 +1,6 @@
 package ru.nsu.fit.di
 
+import android.content.ContentResolver
 import android.content.Context
 import androidx.room.Room
 import dagger.Module
@@ -63,4 +64,8 @@ class DataModule(
     @Singleton
     @Provides
     fun provideWheelSizeDao(): WheelSizeDao = database.wheelSizeDao()
+
+    @Singleton
+    @Provides
+    fun provideContentResolver(): ContentResolver = context.contentResolver
 }

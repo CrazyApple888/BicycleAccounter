@@ -1,8 +1,12 @@
 package ru.nsu.fit.presentation.viewmodel
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.nsu.fit.domain.model.*
@@ -14,7 +18,8 @@ class AddBicycleViewModel @Inject constructor(
     private val getAllColorsUseCase: GetAllColorsUseCase,
     private val getAllTypesUseCase: GetAllTypesUseCase,
     private val getAllWheelSizesUseCase: GetAllWheelSizesUseCase,
-    private val getAllStatesUseCase: GetAllStatesUseCase
+    private val getAllStatesUseCase: GetAllStatesUseCase,
+    private val getImageUseCase: GetImageUseCase
 ) : ViewModel(), Loggable {
 
     private val _messages: MutableSharedFlow<Result<String>> = MutableSharedFlow()
@@ -31,6 +36,11 @@ class AddBicycleViewModel @Inject constructor(
 
     private val _colors: MutableStateFlow<List<Color>> = MutableStateFlow(emptyList())
     val colors: StateFlow<List<Color>> = _colors.asStateFlow()
+
+    private var imageDeferred: Deferred<Bitmap>? = null
+
+    private val _image = MutableSharedFlow<Bitmap>()
+    val image: SharedFlow<Bitmap> get() = _image.asSharedFlow()
 
     fun loadAvailableParams() {
         viewModelScope.launch {
@@ -63,8 +73,32 @@ class AddBicycleViewModel @Inject constructor(
         }
     }
 
-    fun addBicycle(bicycle: Bicycle) {
+    fun addPicture(uri: Uri?) {
+        if (uri == null) return
+        imageDeferred = viewModelScope.async { getImageUseCase(uri).also { _image.emit(it) } }
+    }
+
+    fun addBicycle(
+        name: String,
+        purchasePrice: Int,
+        type: String,
+        state: String,
+        wheelSize: Double,
+        color: String,
+        description: String?
+    ) {
         viewModelScope.launch {
+            val bicycle =
+                Bicycle(
+                    name = name,
+                    purchasePrice = purchasePrice,
+                    type = Type(type),
+                    state = State(state),
+                    wheelSize = WheelSize(wheelSize),
+                    color = Color(color),
+                    description = description,
+                    picture = imageDeferred?.await()
+                )
             addBicycleUseCase(bicycle).successOrNull { message, _ ->
                 Log.w(loggingTag, message ?: "No error message")
             } ?: run {

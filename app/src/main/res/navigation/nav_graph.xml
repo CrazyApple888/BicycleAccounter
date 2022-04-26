@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_detailedBicycleFragment"
             app:destination="@id/detailedBicycleFragment" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_customerListFragment"
-            app:destination="@id/customerListFragment" />
     </fragment>
     <fragment
         android:id="@+id/customerListFragment"
@@ -30,19 +27,12 @@
         android:id="@+id/addBicycleFragment"
         android:name="ru.nsu.fit.ui.fragment.AddBicycleFragment"
         android:label="fragment_add_bicycle"
-        tools:layout="@layout/fragment_add_bicycle">
-        <action
-            android:id="@+id/action_addBicycleFragment_to_salesListFragment"
-            app:destination="@id/salesListFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add_bicycle"/>
     <fragment
         android:id="@+id/salesListFragment"
         android:name="ru.nsu.fit.ui.fragment.SalesListFragment"
         android:label="fragment_sales_list"
         tools:layout="@layout/fragment_sales_list">
-        <action
-            android:id="@+id/action_salesListFragment_to_statisticsFragment"
-            app:destination="@id/statisticsFragment" />
         <action
             android:id="@+id/action_salesListFragment_to_detailedSaleFragment"
             app:destination="@id/detailedSaleFragment" />

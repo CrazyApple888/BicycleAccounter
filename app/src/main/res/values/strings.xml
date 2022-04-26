@@ -57,6 +57,10 @@
     <string name="purchase_price_title">Цена закупки:</string>
     <string name="cost_title">Сумма издержек:</string>
     <string name="total_cost_pattern">Итого: %d Р</string>
+    <string name="add_bicycle_photo_counter_default">Фото добавлено: 0</string>
+    <string name="add_bicycle_photo_counter_template">Фото добавлено: %d</string>
+    <string name="add_bicycle_add_photo_button">Добавить фото</string>
+    <string name="add_bicycle_needs_permission">Для добавления фото необходимы права на доступ к хранилищу</string>
     <string name="statistics_fragment_header">Статистика продаж</string>
     <string name="money_spent_header_text">Потрачено за период (расход)</string>
     <string name="issues_losses_header_text">Расходы на устранение проблем</string>
