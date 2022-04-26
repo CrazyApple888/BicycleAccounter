@@ -11,10 +11,7 @@ import ru.nsu.fit.data.mapper.Mapper
 import ru.nsu.fit.data.model.BicycleAllSpecsDto
 import ru.nsu.fit.data.model.BicycleSimplifiedDto
 import ru.nsu.fit.data.model.TransactionStatus
-import ru.nsu.fit.domain.model.Bicycle
-import ru.nsu.fit.domain.model.Loggable
-import ru.nsu.fit.domain.model.Result
-import ru.nsu.fit.domain.model.SimpleBicycle
+import ru.nsu.fit.domain.model.*
 import ru.nsu.fit.domain.repository.*
 import javax.inject.Inject
 
@@ -25,7 +22,8 @@ class BicycleManagerImpl @Inject constructor(
     private val colorRepository: ColorRepository,
     private val stateRepository: StateRepository,
     private val wheelSizeRepository: WheelSizeRepository,
-    private val typeRepository: TypeRepository
+    private val typeRepository: TypeRepository,
+    private val issueRepository: IssueRepositoryImpl
 ) : BicycleRepository, Loggable {
     override suspend fun getAllBicycles(): Flow<Result<List<SimpleBicycle>>> =
         withContext(Dispatchers.IO) {
@@ -105,6 +103,41 @@ class BicycleManagerImpl @Inject constructor(
                         result = null
                     )
                 }
+            }
+        }
+
+    override suspend fun updateBicycleState(bicycleId: Int, state: State): Result<*> {
+        val stateId = stateRepository.insertStateItem(state).successOrNull { message, _ ->
+            Log.e(
+                loggingTag,
+                "Unable to get bicycle state id, error message: $message"
+            )
+        } ?: return Result.Failure<Any>()
+
+        return if (bicycleDao.updateBicycleStateById(
+                bicycleId,
+                stateId
+            ) == TransactionStatus.TRANSACTION_REJECTED
+        ) Result.Failure<Any>() else Result.Success<Any>()
+    }
+
+    override suspend fun updateBicycleSellingPrice(bicycleId: Int, newPrice: Int): Result<*> =
+        withContext(Dispatchers.IO) {
+            if (bicycleDao.updateBicycleSellingPriceByID(
+                    bicycleId,
+                    newPrice
+                ) == TransactionStatus.TRANSACTION_REJECTED
+            ) Result.Failure<Any>() else Result.Success<Any>()
+        }
+
+    override suspend fun addIssueToBicycle(bicycleId: Int, issue: Issue): Result<*> =
+        withContext(Dispatchers.IO) {
+            when (val result = issueRepository.addIssue(issue)) {
+                is Result.Failure -> result
+                is Result.Success -> issueRepository.addBicycleIssueRef(
+                    bicycleId,
+                    result.result!!
+                )
             }
         }
 }

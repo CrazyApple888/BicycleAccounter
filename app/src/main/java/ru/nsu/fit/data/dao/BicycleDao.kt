@@ -3,7 +3,6 @@ package ru.nsu.fit.data.dao
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import ru.nsu.fit.data.model.*
-import ru.nsu.fit.data.model.SoldBicycleDto
 
 @Dao
 interface BicycleDao {
@@ -43,11 +42,12 @@ interface BicycleDao {
     suspend fun insertBicycleItem(bicycleDto: BicycleDto): Long
 
     @Query("UPDATE bicycles SET stateIdRef = :stateId WHERE bikeId = :bikeId")
-    suspend fun updateBicycleStateById(bikeId: Int, stateId: Int)
+    suspend fun updateBicycleStateById(bikeId: Int, stateId: Int): Int
 
     @Query("UPDATE bicycles SET sellingPrice = :sellingPrice WHERE bikeId = :bikeId")
-    suspend fun updateBicycleSellingPriceByID(bikeId: Int, sellingPrice: Int)
+    suspend fun updateBicycleSellingPriceByID(bikeId: Int, sellingPrice: Int): Int
 
     @Query("SELECT * FROM sold_bicycles WHERE customerId = :id")
     suspend fun selectSoldBicyclesByCustomerId(id: Int): List<SoldBicycleDto>
+
 }

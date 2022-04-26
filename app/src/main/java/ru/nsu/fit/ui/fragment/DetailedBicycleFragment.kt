@@ -17,6 +17,9 @@ import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentDetailedBicycleBinding
 import ru.nsu.fit.databinding.ItemIssueBinding
 import ru.nsu.fit.presentation.viewmodel.DetailedBicycleViewModel
+import ru.nsu.fit.ui.dialogs.AddIssueDialog
+import ru.nsu.fit.ui.dialogs.ChangePriceDialog
+import ru.nsu.fit.ui.dialogs.ChangeStateDialog
 import javax.inject.Inject
 
 class DetailedBicycleFragment : Fragment() {
@@ -27,6 +30,12 @@ class DetailedBicycleFragment : Fragment() {
 
     private var _binding: FragmentDetailedBicycleBinding? = null
     private val binding: FragmentDetailedBicycleBinding get() = checkNotNull(_binding) { "Binding is not initialized" }
+
+    private var changeStateDialog: ChangeStateDialog? = null
+    private val changePriceDialog: ChangePriceDialog by lazy { ChangePriceDialog(viewModel::updatePrice) }
+    private val addIssueDialog: AddIssueDialog by lazy { AddIssueDialog(viewModel::addIssue) }
+
+    private var editingEnabled = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,15 +66,19 @@ class DetailedBicycleFragment : Fragment() {
     }
 
     private fun initListeners() {
-
         lifecycleScope.launchWhenStarted {
             viewModel.bicycle.collect { bike ->
                 with(bike) {
+                    binding.addIssueButton.isGone = !editingEnabled
+                    binding.editStateButton.isGone = !editingEnabled
+                    binding.editPriceButton.isGone = !editingEnabled
                     binding.bikeNameText.text = name
                     binding.stateText.text = state.stateName
                     binding.wheelSizeText.text = wheelSize.diameter.toString()
                     binding.colorText.text = color.colorName
                     binding.priceMinText.text = purchasePrice.toString()
+                    binding.priceValue.text =
+                        sellingPrice?.toString() ?: getString(R.string.no_selling_price_set)
                     if (!description.isNullOrBlank()) {
                         binding.descriptionHeader.isGone = false
                         binding.descriptionText.isGone = false
@@ -73,18 +86,16 @@ class DetailedBicycleFragment : Fragment() {
 
                     }
                     if (sellingPrice != null) {
-                        binding.priceText.isGone = false
-                        binding.priceText.text = sellingPrice.toString()
+                        binding.sellingPriceText.isGone = false
+                        binding.sellingPriceText.text = sellingPrice.toString()
                     } else {
-                        binding.priceText.isGone = true
+                        binding.sellingPriceText.isGone = true
                     }
-                    if (state.isSelling) {
-                        binding.sellButton.isGone = false
-                    }
-
+                    binding.sellButton.isGone = state.isNotSelling
                     if (issues.isNotEmpty()) {
-                        binding.issuesHeader.isGone = false
+                        binding.issuesList.removeAllViews()
                         binding.issuesList.isGone = false
+
                         issues.forEach { issue ->
                             val itemView = layoutInflater.inflate(R.layout.item_issue, null)
                             val itemBinding = ItemIssueBinding.bind(itemView)
@@ -99,8 +110,10 @@ class DetailedBicycleFragment : Fragment() {
         }
         lifecycleScope.launchWhenStarted {
             viewModel.error.collect {
-                showError()
-                findNavController().popBackStack()
+                toastOnError(it)
+                if (it == DetailedBicycleViewModel.Errors.LOAD_BICYCLE_FAILED) {
+                    findNavController().popBackStack()
+                }
             }
         }
         lifecycleScope.launchWhenStarted {
@@ -108,12 +121,29 @@ class DetailedBicycleFragment : Fragment() {
                 navigateToSellBicycle(it.id, it.sellingPrice?.toDouble() ?: 0.0)
             }
         }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.states.collect { states ->
+                changeStateDialog = ChangeStateDialog(states, viewModel::updateState)
+            }
+        }
+        binding.editPriceButton.setOnClickListener {
+            changePriceDialog.show(parentFragmentManager, ChangePriceDialog.TAG)
+        }
+        binding.editStateButton.setOnClickListener {
+            changeStateDialog?.show(parentFragmentManager, ChangeStateDialog.TAG)
+        }
+        binding.addIssueButton.setOnClickListener {
+            addIssueDialog.show(parentFragmentManager, AddIssueDialog.TAG)
+        }
+
     }
 
     private fun loadDataFromArgs() {
         arguments?.getInt(REQUIRED_BIKE_ID)?.also {
             viewModel.loadBicycle(it)
         }
+        editingEnabled = arguments?.getBoolean(OPTIONAL_EDITING_ENABLED) ?: false
     }
 
     private fun navigateToSellBicycle(id: Int, price: Double) {
@@ -128,12 +158,22 @@ class DetailedBicycleFragment : Fragment() {
         }
     }
 
-    private fun showError() =
+    private fun toastOnError(code: DetailedBicycleViewModel.Errors) =
+        when (code) {
+            DetailedBicycleViewModel.Errors.LOAD_BICYCLE_FAILED -> showToastShort(getString(R.string.bicycle_load_failed_text))
+            DetailedBicycleViewModel.Errors.UPDATE_PRICE_FAILED -> showToastShort(getString(R.string.update_price_failed_text))
+            DetailedBicycleViewModel.Errors.ADD_ISSUE_FAILED -> showToastShort(getString(R.string.update_issue_failed_text))
+            DetailedBicycleViewModel.Errors.UPDATE_STATE_FAILED -> showToastShort(getString(R.string.update_state_failed_text))
+        }
+
+
+    private fun showToastShort(hint: String) {
         Toast.makeText(
             requireContext(),
-            getString(R.string.bicycle_detailed_screen_error),
+            hint,
             Toast.LENGTH_SHORT
         ).show()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -142,6 +182,7 @@ class DetailedBicycleFragment : Fragment() {
 
     companion object {
         const val REQUIRED_BIKE_ID = "bikeId"
+        const val OPTIONAL_EDITING_ENABLED = "editingEnabled"
     }
 
 }

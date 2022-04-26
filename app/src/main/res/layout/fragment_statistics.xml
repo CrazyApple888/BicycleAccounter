@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:barrierDirection="start"
-            app:constraint_referenced_ids="dirty_profit_value, issues_losses_value, money_spent_value, profit_value" />
+            app:constraint_referenced_ids="dirty_profit_value, issues_losses_value, money_spent_value, profit_value, bicycles_count_value" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/header"
@@ -34,13 +34,32 @@
             app:layout_constraintTop_toBottomOf="@id/header" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bicycles_count_header"
+            style="@style/TextAppearance.AppCompat.StatsParamText"
+            android:layout_height="wrap_content"
+            android:text="@string/bicycles_count_header_text"
+            app:layout_constraintEnd_toStartOf="@id/barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bicycles_count_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/StatsPriceText"
+            app:layout_constraintBottom_toBottomOf="@+id/bicycles_count_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bicycles_count_header"
+            tools:text="20" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/money_spent_header"
             style="@style/TextAppearance.AppCompat.StatsParamText"
             android:layout_height="wrap_content"
             android:text="@string/money_spent_header_text"
             app:layout_constraintEnd_toStartOf="@id/barrier"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header" />
+            app:layout_constraintTop_toBottomOf="@id/bicycles_count_header" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/money_spent_value"

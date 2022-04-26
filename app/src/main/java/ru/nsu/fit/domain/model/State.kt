@@ -7,4 +7,6 @@ data class State(
         get() = stateName == "Продан"
     val isSelling: Boolean
         get() = stateName == "Продается"
+    val isNotSelling: Boolean
+        get() = !isSelling
 }

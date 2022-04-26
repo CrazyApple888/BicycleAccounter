@@ -56,6 +56,7 @@ class StatisticsFragment : Fragment() {
                     String.format(binding.moneySpentValue.text.toString(), stats.moneySpent)
                 binding.profitValue.text =
                     String.format(binding.profitValue.text.toString(), stats.profitClear)
+                binding.bicyclesCountValue.text = stats.bicyclesSold.toString()
             }
         }
         lifecycleScope.launchWhenStarted {

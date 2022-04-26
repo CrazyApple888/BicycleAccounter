@@ -43,6 +43,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image" />
 
+        <ImageButton
+            android:id="@+id/edit_state_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_baseline_edit_24"
+            app:layout_constraintBottom_toBottomOf="@+id/state_header"
+            app:layout_constraintStart_toEndOf="@+id/state_header"
+            app:layout_constraintTop_toTopOf="@+id/state_header" />
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/state_text"
             style="@style/TextAppearance.AppCompat.BikeParamText"
@@ -120,6 +130,37 @@
             tools:visibility="visible" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price_header"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_header_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_min_header" />
+
+        <ImageButton
+            android:id="@+id/edit_price_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_baseline_edit_24"
+            app:layout_constraintBottom_toBottomOf="@+id/price_header"
+            app:layout_constraintStart_toEndOf="@+id/price_header"
+            app:layout_constraintTop_toTopOf="@+id/price_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price_value"
+            style="@style/TextAppearance.AppCompat.BikeParamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_template"
+            app:layout_constraintBottom_toBottomOf="@+id/price_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/price_header"
+            tools:text="12000 Р"
+            tools:visibility="visible" />
+
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/description_header"
             style="@style/TextAppearance.AppCompat.BikeParamText.HeaderText"
             android:layout_width="wrap_content"
@@ -129,7 +170,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/price_min_header"
+            app:layout_constraintTop_toBottomOf="@id/price_header"
             tools:visibility="visible" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -150,11 +191,20 @@
             android:layout_height="wrap_content"
             android:text="@string/issues_header"
             android:textStyle="bold"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description_text"
             tools:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/add_issue_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@+id/issues_header"
+            app:layout_constraintStart_toEndOf="@+id/issues_header"
+            app:layout_constraintTop_toTopOf="@+id/issues_header" />
 
         <LinearLayout
             android:id="@+id/issues_list"
@@ -168,10 +218,11 @@
             app:layout_constraintTop_toBottomOf="@id/issues_header" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/price_text"
+            android:id="@+id/selling_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:text="@string/price_template"
             android:textAppearance="@style/TextAppearance.AppCompat.ItemBigText"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -185,9 +236,9 @@
             android:layout_height="wrap_content"
             android:text="@string/sell_bike_button"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/price_text"
-            app:layout_constraintStart_toStartOf="@id/price_text"
-            app:layout_constraintTop_toBottomOf="@id/price_text"
+            app:layout_constraintEnd_toEndOf="@id/selling_price_text"
+            app:layout_constraintStart_toStartOf="@id/selling_price_text"
+            app:layout_constraintTop_toBottomOf="@id/selling_price_text"
             app:layout_constraintWidth="wrap_content"
             tools:visibility="visible" />
 

@@ -27,7 +27,7 @@
         android:id="@+id/addBicycleFragment"
         android:name="ru.nsu.fit.ui.fragment.AddBicycleFragment"
         android:label="fragment_add_bicycle"
-        tools:layout="@layout/fragment_add_bicycle"/>
+        tools:layout="@layout/fragment_add_bicycle" />
     <fragment
         android:id="@+id/salesListFragment"
         android:name="ru.nsu.fit.ui.fragment.SalesListFragment"
@@ -50,6 +50,9 @@
         <argument
             android:name="bikeId"
             app:argType="integer" />
+        <argument
+            android:name="editEnabled"
+            app:argType="boolean" />
         <argument
             android:name="isSold"
             android:defaultValue="false"
@@ -88,7 +91,7 @@
         android:id="@+id/detailedSaleFragment"
         android:name="ru.nsu.fit.ui.fragment.DetailedSaleFragment"
         android:label="fragment_detailed_sale"
-        tools:layout="@layout/fragment_detailed_sale" >
+        tools:layout="@layout/fragment_detailed_sale">
         <argument
             android:name="bikeId"
             app:argType="integer" />
