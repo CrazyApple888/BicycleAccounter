@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import ru.nsu.fit.BicycleAccounterApplication
 import ru.nsu.fit.R
 import ru.nsu.fit.databinding.FragmentStatisticsBinding
-import ru.nsu.fit.domain.model.Result
 import ru.nsu.fit.presentation.viewmodel.StatisticViewModel
 import javax.inject.Inject
 
@@ -61,8 +60,8 @@ class StatisticsFragment : Fragment() {
         }
         lifecycleScope.launchWhenStarted {
             viewModel.messages.collect {
-                if (it is Result.Failure) {
-                    showToastShort(getString(R.string.stats_loading_failed))
+                when (it) {
+                    StatisticViewModel.Errors.LOAD_STATS_FAILED -> showToastShort(getString(R.string.stats_loading_failed))
                 }
             }
         }
