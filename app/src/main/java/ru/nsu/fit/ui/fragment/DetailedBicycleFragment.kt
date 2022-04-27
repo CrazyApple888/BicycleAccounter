@@ -91,6 +91,7 @@ class DetailedBicycleFragment : Fragment() {
                     } else {
                         binding.sellingPriceText.isGone = true
                     }
+                    picture?.let { binding.image.setImageBitmap(it) }
                     binding.sellButton.isGone = state.isNotSelling
                     if (issues.isNotEmpty()) {
                         binding.issuesList.removeAllViews()

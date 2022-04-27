@@ -15,8 +15,8 @@ import javax.inject.Inject
 class StatisticViewModel @Inject constructor(
     private val getStatsUseCase: GetStatisticUseCase
 ) : ViewModel(), Loggable {
-    private val _statistic = MutableSharedFlow<Statistic>(replay = 1)
-    val statistic: SharedFlow<Statistic> get() = _statistic.asSharedFlow()
+    private val _statistics = MutableSharedFlow<Statistic>(replay = 1)
+    val statistics: SharedFlow<Statistic> get() = _statistics.asSharedFlow()
 
     private val _messages = MutableSharedFlow<Result<String>>(replay = 1)
     val messages: SharedFlow<Result<String>> get() = _messages.asSharedFlow()
@@ -28,7 +28,7 @@ class StatisticViewModel @Inject constructor(
     fun loadStats() {
         viewModelScope.launch {
             when (val result = getStatsUseCase()) {
-                is Result.Success -> _statistic.emit(result.result!!)
+                is Result.Success -> _statistics.emit(result.result!!)
                 is Result.Failure -> _messages.emit(Result.Failure(message = "Failed to load stats"))
             }
         }

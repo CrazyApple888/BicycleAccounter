@@ -2,7 +2,7 @@ package ru.nsu.fit.domain.model
 
 import java.util.*
 
-//TODO remove calendar stubs
+
 data class Statistic(
     val startPeriod: Calendar = Calendar.getInstance(),
     val endPeriod: Calendar = Calendar.getInstance(),

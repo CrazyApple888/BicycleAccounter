@@ -47,7 +47,7 @@ class StatisticsFragment : Fragment() {
 
     private fun initObservers() {
         lifecycleScope.launchWhenStarted {
-            viewModel.statistic.collect { stats ->
+            viewModel.statistics.collect { stats ->
                 binding.dirtyProfitValue.text =
                     String.format(binding.dirtyProfitValue.text.toString(), stats.profitDirty)
                 binding.issuesLossesValue.text =

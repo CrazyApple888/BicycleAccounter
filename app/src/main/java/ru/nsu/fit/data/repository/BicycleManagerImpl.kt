@@ -134,7 +134,7 @@ class BicycleManagerImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             when (val result = issueRepository.addIssue(issue)) {
                 is Result.Failure -> result
-                is Result.Success -> issueRepository.addBicycleIssueRef(
+                is Result.Success -> issueRepository.attachIssueToBicycle(
                     bicycleId,
                     result.result!!
                 )

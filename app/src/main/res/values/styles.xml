@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="DayOfMonthText">
+        <item name="android:textColor">#707070</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
     <style name="TextAppearance.AppCompat.ItemBigText">
         <item name="android:textSize">35sp</item>
     </style>

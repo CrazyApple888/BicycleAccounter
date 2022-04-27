@@ -23,7 +23,7 @@ class IssueRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addBicycleIssueRef(bikeId: Int, issueId: Int): Result<*> {
+    override suspend fun attachIssueToBicycle(bikeId: Int, issueId: Int): Result<*> {
         val xref = BicycleIssueXref(bikeId, issueId)
         return if (issuesDao.insertBicycleToIssueRef(xref) == TransactionStatus.TRANSACTION_REJECTED.toLong()) {
             Result.Failure<Any>(message = "Failed to insert issue item $xref")
