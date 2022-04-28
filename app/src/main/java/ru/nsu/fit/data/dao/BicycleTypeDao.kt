@@ -17,7 +17,4 @@ interface BicycleTypeDao {
 
     @Query("SELECT * FROM bicycle_types ORDER BY typeName")
     fun selectBicycleTypeAll(): Flow<List<BicycleTypeDto>>
-
-    @Query("SELECT DISTINCT * FROM bicycle_types WHERE bicycle_types.typeId = :id")
-    fun selectBicycleTypeById(id: Int): Flow<BicycleTypeDto?>
 }

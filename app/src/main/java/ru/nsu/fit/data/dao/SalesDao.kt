@@ -32,12 +32,6 @@ interface SalesDao {
     }
 
     @Query("SELECT * FROM sales")
-    fun selectSaleAll(): Flow<List<SaleDto>>
-
-    @Query("SELECT DISTINCT * FROM sales WHERE sales.bicycleId = :bikeId")
-    fun selectSaleByBikeId(bikeId: Int): Flow<SaleDto?>
-
-    @Query("SELECT * FROM sales")
     fun selectSaleAllWithItems(): Flow<List<SaleWithItemsDto>>
 
     @Query("SELECT * FROM sales WHERE sales.bicycleId = :id")

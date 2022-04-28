@@ -17,16 +17,6 @@ interface BicycleDao {
     )
     fun selectSimplifiedBicycleAll(rejectedState: String = StateDto.SOLD.stateName): Flow<List<BicycleSimplifiedDto>>
 
-    @Query(
-        "SELECT * FROM bicycles " +
-                "INNER JOIN wheel_sizes ON wheel_sizes.sizeId = bicycles.wheelSizeIdRef " +
-                "WHERE bicycles.stateIdRef = :stateId"
-    )
-    fun selectSimplifiedBicycleByState(stateId: Int): Flow<List<BicycleSimplifiedDto>>
-
-    @Query("SELECT DISTINCT * FROM bicycles WHERE bikeId = :id")
-    fun selectBicycleById(id: Int): Flow<BicycleDto?>
-
     @Transaction
     @RewriteQueriesToDropUnusedColumns
     @Query(
