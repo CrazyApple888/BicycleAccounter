@@ -4,6 +4,7 @@ import ru.nsu.fit.domain.model.State
 import ru.nsu.fit.domain.repository.BicycleRepository
 import javax.inject.Inject
 
+
 class EditBicycleStateUseCase @Inject constructor(
     private val repository: BicycleRepository
 ) {
