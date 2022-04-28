@@ -6,15 +6,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.nsu.fit.domain.model.*
-import ru.nsu.fit.domain.usecase.EditBicycleUseCase
-import ru.nsu.fit.domain.usecase.GetAllStatesUseCase
-import ru.nsu.fit.domain.usecase.GetBicycleUseCase
+import ru.nsu.fit.domain.usecase.*
 import javax.inject.Inject
 
 class DetailedBicycleViewModel @Inject constructor(
     private val getBicycle: GetBicycleUseCase,
     private val getStates: GetAllStatesUseCase,
-    private val editBicycle: EditBicycleUseCase
+    private val editPrice: EditBicycleSellingUseCase,
+    private val editState: EditBicycleStateUseCase,
+    private val attachIssue: AttachIssueUseCase
 ) : ViewModel(), Loggable {
 
     private var currentBicycle: Bicycle? = null
@@ -64,7 +64,7 @@ class DetailedBicycleViewModel @Inject constructor(
     fun updatePrice(newPrice: Int) {
         viewModelScope.launch {
             currentBicycle?.id?.let {
-                when (editBicycle.updateSellingPrice(it, newPrice)) {
+                when (editPrice(it, newPrice)) {
                     is Result.Success -> loadBicycle(it)
                     is Result.Failure -> _error.emit(Errors.UPDATE_PRICE_FAILED)
                 }
@@ -75,7 +75,7 @@ class DetailedBicycleViewModel @Inject constructor(
     fun updateState(newState: State) {
         viewModelScope.launch {
             currentBicycle?.id?.let {
-                when (editBicycle.updateBicycleState(it, newState)) {
+                when (editState(it, newState)) {
                     is Result.Success -> loadBicycle(it)
                     is Result.Failure -> _error.emit(Errors.UPDATE_STATE_FAILED)
                 }
@@ -86,7 +86,7 @@ class DetailedBicycleViewModel @Inject constructor(
     fun addIssue(issue: Issue) {
         viewModelScope.launch {
             currentBicycle?.id?.let {
-                when (editBicycle.addIssue(it, issue)) {
+                when (attachIssue(it, issue)) {
                     is Result.Success -> currentBicycle?.let { bicycle ->
                         loadBicycle(bicycle.id)
                     }
