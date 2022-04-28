@@ -4,6 +4,7 @@ import ru.nsu.fit.domain.model.Issue
 import ru.nsu.fit.domain.repository.BicycleRepository
 import javax.inject.Inject
 
+
 class AttachIssueUseCase @Inject constructor(
     private val repository: BicycleRepository
 ) {
