@@ -37,7 +37,7 @@ class BicycleAllSpecsMapper @Inject constructor(
             item.id,
             item.name,
             item.purchasePrice,
-            item.sellingPrice,
+            item.sellingPrice ?: item.purchasePrice,
             item.description,
             item.picture,
             typeId,
