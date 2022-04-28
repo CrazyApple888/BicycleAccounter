@@ -72,10 +72,10 @@ class SellBicycleFragment : Fragment() {
                 }
                 if (it) {
                     showToastShort(getString(R.string.sell_bicycle_success))
+                    navigateToHomeScreen()
                 } else {
                     showToastShort(getString(R.string.sell_bicycle_failure))
                 }
-                navigateToHomeScreen()
             }
         }
     }

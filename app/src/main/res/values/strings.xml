@@ -25,7 +25,7 @@
     <string name="new_bicycle_label">Новый велосипед</string>
     <string name="add_bicycle_button_label">Добавить велосипед</string>
     <string name="client_name_test">Пожилая Абоба</string>
-    <string name="phone_number_test">+7(964)896-65-32</string>
+    <string name="phone_number_test">+7(964)896–65–32</string>
     <string name="test_state">Тестовое состояние</string>
     <string name="wrong_wheel_size_hint">Размер колес должен быть больше 0 и меньше 50 дюймов</string>
     <string name="wrong_state_name_hint">Введите состояние (например "В продаже")</string>
@@ -43,7 +43,7 @@
     <string name="client_name_hint">Имя клиента</string>
     <string name="customer_phone_number_hint">Номер телефона клиента</string>
     <string name="sell_bicycle_success">Велосипед успешно продан!</string>
-    <string name="sell_bicycle_failure">Произошла ошибка</string>
+    <string name="sell_bicycle_failure">Имя клиента не совпадает с его номером телефона</string>
     <string name="sell_bicycle_fill_all_fields">Заполните все поля</string>
     <string name="failed_to_load_detailed_info">Произошла ошибка при загрузке детальной информации</string>
     <string name="sales_warranty_template">Срок истечения гарантии %s</string>

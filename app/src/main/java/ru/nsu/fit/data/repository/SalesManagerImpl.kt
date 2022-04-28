@@ -1,5 +1,6 @@
 package ru.nsu.fit.data.repository
 
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -35,24 +36,28 @@ class SalesManagerImpl @Inject constructor(
         bikeId: Int,
         price: Double,
         customer: Customer
-    ): Result<*> = withContext(Dispatchers.IO) {
-        when (val customerId = customerRepository.insertCustomer(customer)) {
-            is Result.Failure -> Result.Failure("Unable to insert customer")
-            is Result.Success -> {
-                salesDao.insertSaleItem(
-                    bikeId,
-                    Calendar.getInstance(),
-                    customerId.result!!,
-                    price.toLong()
-                )
-                val stateId = stateDao.selectIdByName(StateDto.SOLD.stateName)
-                    ?: return@withContext Result.Failure<Any>("Unable to get state id for state ${StateDto.SOLD}")
-                bicycleDao.updateBicycleStateById(bikeId, stateId)
-                bicycleDao.updateBicycleSellingPriceByID(bikeId, price.toInt())
-                return@withContext Result.Success<Any>()
+    ): Result<*> =
+        withContext(Dispatchers.IO) {
+            val result: kotlin.Result<Result<Any>> = runCatching {
+                when (val customerId = customerRepository.insertCustomer(customer)) {
+                    is Result.Failure -> Result.Failure("Unable to insert customer")
+                    is Result.Success -> {
+                        salesDao.insertSaleItem(
+                            bikeId,
+                            Calendar.getInstance(),
+                            customerId.result!!,
+                            price.toLong()
+                        )
+                        val stateId = stateDao.selectIdByName(StateDto.SOLD.stateName)
+                            ?: return@runCatching Result.Failure<Any>("Unable to get state id for state ${StateDto.SOLD}")
+                        bicycleDao.updateBicycleStateById(bikeId, stateId)
+                        bicycleDao.updateBicycleSellingPriceByID(bikeId, price.toInt())
+                        Result.Success()
+                    }
+                }
             }
+            result.getOrNull() ?: Result.Failure(result.exceptionOrNull()?.message)
         }
-    }
 
     override suspend fun getAllSales(): Flow<Result<List<Sale>>> =
         salesDao.selectSaleAllWithItems()
