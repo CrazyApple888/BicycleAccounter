@@ -31,10 +31,6 @@ class DataModule(
 
     @Singleton
     @Provides
-    fun provideBicycleIssueXrefDao(): BicycleIssueXrefDao = database.bicycleIssueXrefDao()
-
-    @Singleton
-    @Provides
     fun provideBicycleStateDao(): BicycleStateDao = database.bicycleStateDao()
 
     @Singleton

@@ -26,7 +26,6 @@ import ru.nsu.fit.data.typeconverter.StateTypeConverter
 @TypeConverters(ImageTypeConverter::class, StateTypeConverter::class, CalendarTypeConverter::class)
 abstract class BicycleAccounterDatabase : RoomDatabase() {
     abstract fun bicycleDao(): BicycleDao
-    abstract fun bicycleIssueXrefDao(): BicycleIssueXrefDao
     abstract fun bicycleStateDao(): BicycleStateDao
     abstract fun bicycleTypeDao(): BicycleTypeDao
     abstract fun colorDao(): ColorDao
