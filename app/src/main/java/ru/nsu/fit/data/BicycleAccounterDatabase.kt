@@ -8,7 +8,6 @@ import ru.nsu.fit.data.model.*
 import ru.nsu.fit.data.typeconverter.CalendarTypeConverter
 import ru.nsu.fit.data.typeconverter.ImageTypeConverter
 import ru.nsu.fit.data.typeconverter.StateTypeConverter
-import ru.nsu.fit.data.model.SoldBicycleDto
 
 @Database(
     entities = [BicycleDto::class,
@@ -35,4 +34,5 @@ abstract class BicycleAccounterDatabase : RoomDatabase() {
     abstract fun issuesDao(): IssuesDao
     abstract fun salesDao(): SalesDao
     abstract fun wheelSizeDao(): WheelSizeDao
+    abstract fun statisticDao(): StatisticDao
 }

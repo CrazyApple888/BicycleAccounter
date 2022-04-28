@@ -29,7 +29,10 @@ class HomeScreenFragment : Fragment() {
     private lateinit var viewModel: HomeScreenViewModel
 
     private val bicycleOnClickListener = { id: Int ->
-        val args = bundleOf(DetailedBicycleFragment.REQUIRED_BIKE_ID to id)
+        val args = bundleOf(
+            DetailedBicycleFragment.REQUIRED_BIKE_ID to id,
+            DetailedBicycleFragment.OPTIONAL_EDITING_ENABLED to true
+        )
         findNavController().navigate(
             R.id.action_homeScreenFragment_to_detailedBicycleFragment,
             args

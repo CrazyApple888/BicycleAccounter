@@ -13,6 +13,7 @@
     <string name="color_header">Цвет</string>
     <string name="price_min_header">Минимальная цена</string>
     <string name="description_header">Описание</string>
+    <string name="issues_header">Список проблем</string>
     <string name="sell_bike_button">Продать</string>
     <string name="bicycle_name_hint">Название велосипеда</string>
     <string name="bicycle_type_hint">Тип велосипеда</string>
@@ -35,7 +36,7 @@
     <string name="bicycle_adding_failed">Произошла ошибка, не удалось добавить велосипед</string>
     <string name="month_year_test">май 2022</string>
     <string name="date_test">22</string>
-    <string name="bicycle_detailed_screen_error">Велосипед не найден!</string>
+    <string name="bicycle_load_failed_text">Велосипед не найден!</string>
     <string name="home_screen_loading_error">Не удалось загрузить список велосипедов…</string>
     <string name="sell_button">Продать</string>
     <string name="selling_price_hint">Цена продажи</string>
@@ -60,4 +61,23 @@
     <string name="add_bicycle_photo_counter_template">Фото добавлено: %d</string>
     <string name="add_bicycle_add_photo_button">Добавить фото</string>
     <string name="add_bicycle_needs_permission">Для добавления фото необходимы права на доступ к хранилищу</string>
+    <string name="statistics_fragment_header">Статистика продаж</string>
+    <string name="money_spent_header_text">Потрачено за период (расход)</string>
+    <string name="issues_losses_header_text">Расходы на устранение проблем</string>
+    <string name="dirty_profit_header_text">Суммарный доход за период (приход)</string>
+    <string name="profit_header_text">Доход</string>
+    <string name="stats_loading_failed">Не удалось загрузить статистику за указанный период</string>
+    <string name="bicycles_count_header_text">Продано велосипедов</string>
+    <string name="price_header_text">Рекомендованная цена</string>
+    <string name="no_selling_price_set">\???</string>
+    <string name="change_state_dialog_tag">Выберите новое состояние</string>
+    <string name="cancel">Отмена</string>
+    <string name="change_price_dialog_title">Установка цены велосипеда</string>
+    <string name="change">Изменить</string>
+    <string name="add">Добавить</string>
+    <string name="add_issue_price_hint">Сумма издержек (цена исправления)</string>
+    <string name="add_issue_description">Описание проблемы</string>
+    <string name="update_issue_failed_text">Произошла ошибка при добавлении проблемы</string>
+    <string name="update_price_failed_text">Произошла ошибка при обнеовлении цены</string>
+    <string name="update_state_failed_text">Произошла ошибка при обновлении состояния</string>
 </resources>

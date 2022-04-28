@@ -22,10 +22,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/date_day"
+            style="@style/DayOfMonthText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date_test"
-            android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="DayOfMonthText">
+        <item name="android:textColor">#707070</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
     <style name="TextAppearance.AppCompat.ItemBigText">
         <item name="android:textSize">35sp</item>
     </style>
@@ -42,12 +47,26 @@
     </style>
 
     <style name="TextAppearance.AppCompat.BikeParamText">
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_marginVertical">5dp</item>
+    </style>
+
+    <style name="StatsPriceText" parent="TextAppearance.AppCompat.PriceText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.StatsParamText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginVertical">16dp</item>
     </style>
 
     <style name="TextAppearance.AppCompat.BikeParamText.HeaderText">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
 </resources>

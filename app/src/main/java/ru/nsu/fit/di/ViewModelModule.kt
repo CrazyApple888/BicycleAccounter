@@ -51,5 +51,10 @@ interface ViewModelModule {
     fun bindDetailedSaleViewModel(viewModel: DetailedSaleViewModel): ViewModel
 
     @Binds
+    @IntoMap
+    @ViewModelKey(StatisticViewModel::class)
+    fun bindStatisticViewModel(viewModel: StatisticViewModel): ViewModel
+
+    @Binds
     fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

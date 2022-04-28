@@ -1,7 +1,9 @@
 package ru.nsu.fit.data.repository
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import ru.nsu.fit.data.dao.BicycleDao
 import ru.nsu.fit.data.dao.BicycleStateDao
@@ -46,6 +48,7 @@ class SalesManagerImpl @Inject constructor(
                 val stateId = stateDao.selectIdByName(StateDto.SOLD.stateName)
                     ?: return@withContext Result.Failure<Any>("Unable to get state id for state ${StateDto.SOLD}")
                 bicycleDao.updateBicycleStateById(bikeId, stateId)
+                bicycleDao.updateBicycleSellingPriceByID(bikeId, price.toInt())
                 return@withContext Result.Success<Any>()
             }
         }

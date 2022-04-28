@@ -13,8 +13,8 @@ class BicycleViewHolder(
     fun onBind(bike: SimpleBicycle) {
         with(binding) {
             bikeNameText.text = bike.name
-            priceText.text = if (bike.sellingPrice != null) String.format(
-                priceText.text.toString(),
+            sellingPriceText.text = if (bike.sellingPrice != null) String.format(
+                sellingPriceText.text.toString(),
                 bike.sellingPrice
             ) else notReadyForSaleMessage
             tiresText.text = bike.wheelSize.diameter.toString()

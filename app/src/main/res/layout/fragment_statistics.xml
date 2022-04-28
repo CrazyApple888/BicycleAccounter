@@ -1,14 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.StatisticsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Stats" />
+        android:layout_height="wrap_content"
+        android:padding="20dp">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="dirty_profit_value, issues_losses_value, money_spent_value, profit_value, bicycles_count_value" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/statistics_fragment_header"
+            android:textAppearance="@style/TextAppearance.AppCompat.ItemBigText.PageHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bicycles_count_header"
+            style="@style/TextAppearance.AppCompat.StatsParamText"
+            android:layout_height="wrap_content"
+            android:text="@string/bicycles_count_header_text"
+            app:layout_constraintEnd_toStartOf="@id/barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bicycles_count_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/StatsPriceText"
+            app:layout_constraintBottom_toBottomOf="@+id/bicycles_count_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bicycles_count_header"
+            tools:text="20" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/money_spent_header"
+            style="@style/TextAppearance.AppCompat.StatsParamText"
+            android:layout_height="wrap_content"
+            android:text="@string/money_spent_header_text"
+            app:layout_constraintEnd_toStartOf="@id/barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bicycles_count_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/money_spent_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_template"
+            android:textAppearance="@style/StatsPriceText"
+            app:layout_constraintBottom_toBottomOf="@+id/money_spent_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/money_spent_header"
+            tools:text="24000 Р " />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/issues_losses_header"
+            style="@style/TextAppearance.AppCompat.StatsParamText"
+            android:layout_height="wrap_content"
+            android:text="@string/issues_losses_header_text"
+            app:layout_constraintEnd_toStartOf="@id/barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/money_spent_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/issues_losses_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_template"
+            android:textAppearance="@style/StatsPriceText"
+            app:layout_constraintBottom_toBottomOf="@+id/issues_losses_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/issues_losses_header"
+            tools:text="5004 Р" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dirty_profit_header"
+            style="@style/TextAppearance.AppCompat.StatsParamText"
+            android:layout_height="wrap_content"
+            android:text="@string/dirty_profit_header_text"
+            app:layout_constraintEnd_toStartOf="@id/barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/issues_losses_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dirty_profit_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_template"
+            android:textAppearance="@style/StatsPriceText"
+            app:layout_constraintBottom_toBottomOf="@+id/dirty_profit_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dirty_profit_header"
+            tools:text="500000 Р" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dotted_divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/line_dotted"
+            app:layout_constraintTop_toBottomOf="@id/dirty_profit_header" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/profit_header"
+            style="@style/TextAppearance.AppCompat.StatsParamText"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:text="@string/profit_header_text"
+            app:layout_constraintEnd_toStartOf="@id/barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dotted_divider" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/profit_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_template"
+            android:textAppearance="@style/StatsPriceText"
+            app:layout_constraintBottom_toBottomOf="@+id/profit_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profit_header"
+            tools:text="200 Р" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
