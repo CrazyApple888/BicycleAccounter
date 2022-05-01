@@ -1,4 +1,4 @@
-Bicycle Accounter --- manage your bike shop easily
+Bicycle Accounter - manage your bike shop easily
 ======
 Simple project to manage bike shop. Add, edit, sell bicycles, manage statistics and clients in one app!   
 Add purchase price. Found issue and fixed it? Add it to bicycle, write cost price and you can always see issue on screen with your bicycle!   
